@@ -1,5 +1,7 @@
 #!/usr/bin/node
 
+var fs = require('fs');
+
 exports.getSalesList = function(filepath) {
 
   var fs = require('fs');
@@ -8,21 +10,21 @@ exports.getSalesList = function(filepath) {
   inputSales = inputSales.replace("Day,Date,stock item,No sold,Sales Price\n", "")
 
   var interimArray = inputSales.split('\n');
-  var processedArray = [];
+  var salesArray = [];
 
-  for (i = 0; i < interimArray.length; i++) {
-    processedArray.push(interimArray[i].split(","));
+  for (i = 0; i < interimArray.length - 1; i++) {
+    salesArray.push(interimArray[i].split(","));
   }
 
-  for (var i = processedArray.length - 1; i >= 0; i--) {
-    if (processedArray[i][1] === "1-Mar") {
-      processedArray.splice(i, 1);
+  for (var i = salesArray.length - 1; i >= 0; i--) {
+    if (salesArray[i][1] === "1-Mar") {
+      salesArray.splice(i, 1);
     }
   }
 
   var salesList = [];
 
-  processedArray.forEach(function(array) {
+  salesArray.forEach(function(array) {
     salesList.push([array[2], Number(array[3])]);
   })
 
@@ -54,13 +56,11 @@ exports.getPopularProduct = function(weeklySales) {
     }
   };
 
-  var popularProduct = {};
-
   for (var product in weeklySales) {
     if (weeklySales[product] === mostSold) {
-      popularProduct = {
-        "The most popular product is": product,
-        "Quantities sold": mostSold
+      var popularProduct = {
+        "Most popular product is": product,
+        "Sold": mostSold
       }
     };
   }
@@ -78,13 +78,11 @@ exports.getLeastPopularProduct = function(weeklySales) {
 
   var leastSold = Math.min.apply(null, sold);
 
-  var leastPopularProduct = {};
-
   for (var product in weeklySales) {
     if (weeklySales[product] === leastSold) {
-      leastPopularProduct = {
-        "The least popular product is": product,
-        "Quantities sold": leastSold
+      var leastPopularProduct = {
+        "Least popular product is": product,
+        "Sold": leastSold
       }
     }
   };
@@ -92,4 +90,39 @@ exports.getLeastPopularProduct = function(weeklySales) {
   return leastPopularProduct;
 }
 
-// console.log(process.argv.slice(2));
+// exports.getWeeklyPurchases = function(filepath){
+
+var inputPurchases = fs.readFileSync('./input/purchases.csv', "utf8");
+inputPurchases = inputPurchases.replace("Shop;Date;Item;Quantity;Cost;Total Cost\n", "");
+
+var tempArray = inputPurchases.split('\n');
+var purchasesArray = [];
+
+for (i = 0; i < tempArray.length - 1; i++) {
+
+  purchasesArray.push(tempArray[i].split(";"));
+}
+
+
+var week1Purchases = [];
+var week2Purchases = [];
+var week3Purchases = [];
+var week4Purchases = [];
+
+// for (i = 0; i < purchasesArray.length; i++) {
+//   if (purchasesArray[i][1] < "8-Feb") {
+//     week1Purchases.push(purchasesArray[i]);
+//   }
+// }
+//
+// console.log(week1Purchases)
+
+// var purchasesList = [];
+//
+// purchasesArray.forEach(function(array) {
+//   purchasesList.push([array[2], Number(array[3])]);
+// })
+//
+// return purchasesList;
+
+// }
