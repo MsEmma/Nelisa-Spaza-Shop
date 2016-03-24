@@ -1,7 +1,10 @@
 // console.log(process.argv.slice(2));
 
 // get the modules to use
-var process_weekly = require("./process_weekly")
+var process_weekly_sales = require("./process_weekly_sales");
+var process_weekly_purchases = require("./process_weekly_purchases");
+var results = require("./results");
+
 
 //read params from the command line & use the modules
 

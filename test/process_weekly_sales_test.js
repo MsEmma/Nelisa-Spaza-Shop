@@ -25,7 +25,7 @@ describe("process_weekly_sales", function() {
   it('should return selling price map', function() {
     assert.deepEqual(process_weekly_sales.getSPMap(sales), {
       'Milk 1l': 10,
-      Imasi: 25,
+      Amasi: 25,
       Bread: 12,
       'Chakalaka Can': 10,
       'Gold Dish Vegetable Curry Can': 9,
@@ -45,7 +45,7 @@ describe("process_weekly_sales", function() {
   it('should return weeklySales list', function() {
     assert.deepEqual(process_weekly_sales.getWeeklySales(sales), {
       'Milk 1l': 41,
-      Imasi: 31,
+      Amasi: 31,
       Bread: 30,
       'Chakalaka Can': 28,
       'Gold Dish Vegetable Curry Can': 30,
@@ -62,19 +62,27 @@ describe("process_weekly_sales", function() {
     });
   });
 
-  it('should return the most popular product sold and quantity sold', function() {
-    assert.deepEqual(process_weekly_sales.getPopularProduct(weekly_sales), {
-      'Most popular product is': 'Coke 500ml',
-      Sold: 42
+  it('should return a map of categories and products', function() {
+    assert.deepEqual(process_weekly_sales.getCategoriesMap('./input/categories.csv'), {
+      Milk: 'Dairy',
+      Amasi: 'Dairy',
+      Bread: 'Bakery',
+      'Chakalaka Can': 'Canned Food',
+      'Gold Dish Vegetable Curry Can': 'Canned Food',
+      'Fanta 500ml': 'Soft Drinks',
+      'Coke 500ml': 'Soft Drinks',
+      'Cream Soda 500ml': 'Soft Drinks',
+      'Iwisa Pap 5kg': 'Staples',
+      'Top Class Soy Mince': 'Staples',
+      'Shampoo 1 litre': 'Toiletries',
+      'Soap Bar': 'Toiletries',
+      'Bananas - loose': 'Fruit',
+      'Apples - loose': 'Fruit',
+      'Mixed Sweets 5s': 'Sweets',
+      'Heart Chocolates': 'Sweets',
+      'Rose (plastic)': 'Stationery',
+      'Valentine Cards': 'Stationery'
     });
   });
-
-  it('should return the least popular product sold and quantity sold', function() {
-    assert.deepEqual(process_weekly_sales.getLeastPopularProduct(weekly_sales), {
-      'Least popular product is': 'Shampoo 1 litre',
-      Sold: 10
-    });
-  });
-
 
 });

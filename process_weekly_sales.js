@@ -5,13 +5,12 @@ var fs = require('fs');
 exports.getSalesList = function(filepath) {
 
   var inputSales = fs.readFileSync(filepath, "utf8");
-  inputSales = inputSales.replace("Day,Date,stock item,No sold,Sales Price\n", "");
+  inputSales = inputSales.replace("Day,Date,stock item,No sold,Sales Price\n", "").split('\n');
 
-  var interimArray = inputSales.split('\n');
   var salesArray = [];
 
-  for (i = 0; i < interimArray.length - 1; i++) {
-    salesArray.push(interimArray[i].split(","));
+  for (i = 0; i < inputSales.length - 1; i++) {
+    salesArray.push(inputSales[i].split(","));
   }
 
   for (var i = salesArray.length - 1; i >= 0; i--) {
@@ -25,7 +24,7 @@ exports.getSalesList = function(filepath) {
   salesArray.forEach(function(array) {
     salesList.push([array[2], Number(array[3]), array[4]]);
   });
-
+  salesList.sort();
   return salesList;
 };
 
@@ -59,46 +58,24 @@ exports.getWeeklySales = function(salesList) {
   return weeklySales;
 };
 
-exports.getPopularProduct = function(weeklySales) {
+exports.getCategoriesMap = function(filepath){
 
-  var mostSold = 0;
+  var categories = fs.readFileSync('./input/categories.csv', "utf8");
+  categories = categories.replace("Product,Category\n", "").split('\n');
 
-  for (var product in weeklySales) {
-    if (weeklySales[product] > mostSold) {
-      mostSold = weeklySales[product];
+  var categoriesArray = [];
+
+  for (i = 0; i < categories.length - 1; i++) {
+    categoriesArray.push(categories[i].split(","));
+  }
+
+  var categoriesMap = {};
+
+  categoriesArray.forEach(function(array){
+    if (!categoriesMap.hasOwnProperty(array[0])) {
+      categoriesMap[array[0]] = array[1];
     }
-  }
+  })
 
-  for (product in weeklySales) {
-    if (weeklySales[product] === mostSold) {
-      var popularProduct = {
-        "Most popular product is": product,
-        "Sold": mostSold
-      };
-    }
-  }
-
-  return popularProduct;
-};
-
-exports.getLeastPopularProduct = function(weeklySales) {
-
-  var sold = [];
-
-  for (var product in weeklySales) {
-    sold.push(weeklySales[product]);
-  }
-
-  var leastSold = Math.min.apply(null, sold);
-
-  for (product in weeklySales) {
-    if (weeklySales[product] === leastSold) {
-      var leastPopularProduct = {
-        "Least popular product is": product,
-        "Sold": leastSold
-      };
-    }
-  }
-
-  return leastPopularProduct;
-};
+  return categoriesMap;
+}

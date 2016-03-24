@@ -5,13 +5,12 @@ var fs = require('fs');
 exports.getPurchases = function(filepath) {
 
   var inputPurchases = fs.readFileSync(filepath, "utf8");
-  inputPurchases = inputPurchases.replace("Shop;Date;Item;Quantity;Cost;Total Cost\n", "");
+  inputPurchases = inputPurchases.replace("Shop;Date;Item;Quantity;Cost;Total Cost\n", "").split('\n');
 
-  var tempArray = inputPurchases.split('\n');
   var purchasesArray = [];
 
-  for (i = 0; i < tempArray.length - 1; i++) {
-    purchasesArray.push(tempArray[i].split(";"));
+  for (i = 0; i < inputPurchases.length - 1; i++) {
+    purchasesArray.push(inputPurchases[i].split(";"));
   }
 
   for (var i = purchasesArray.length - 1; i >= 0; i--) {
@@ -57,11 +56,11 @@ exports.getPurchases = function(filepath) {
   return purchases;
 };
 
-exports.getWeeklyPurchases = function(purchases) {
+exports.getWeeklyPurchases = function(purchases, week) {
 
   var purchasesList = [];
 
-  purchases.week4.forEach(function(array) {
+  purchases[week].forEach(function(array) {
     var price = array[4].replace("R", "");
     price = Number(price.replace(",", "."));
     purchasesList.push([array[2], price]);
