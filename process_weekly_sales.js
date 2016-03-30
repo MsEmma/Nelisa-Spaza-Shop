@@ -24,24 +24,10 @@ exports.getSalesList = function(filepath) {
   salesArray.forEach(function(array) {
     salesList.push([array[2], Number(array[3]), array[4]]);
   });
+
   salesList.sort();
   return salesList;
 };
-
-exports.getSPMap = function(salesList) {
-
-  var SPMap = {};
-
-  salesList.forEach(function(array) {
-    var price = Number(array[2].replace("R", ""));
-    if (!SPMap.hasOwnProperty(array[0])) {
-      SPMap[array[0]] = price;
-    }
-  });
-
-  return SPMap;
-};
-
 
 exports.getWeeklySales = function(salesList) {
 
@@ -58,24 +44,56 @@ exports.getWeeklySales = function(salesList) {
   return weeklySales;
 };
 
-exports.getCategoriesMap = function(filepath){
+exports.getPopularProduct = function(weeklySales) {
 
-  var categories = fs.readFileSync('./input/categories.csv', "utf8");
-  categories = categories.replace("Product,Category\n", "").split('\n');
+  var mostSold = 0;
+  var mostPP = "";
 
-  var categoriesArray = [];
-
-  for (i = 0; i < categories.length - 1; i++) {
-    categoriesArray.push(categories[i].split(","));
+  for (var product in weeklySales) {
+    if (weeklySales[product] > mostSold) {
+      mostSold = weeklySales[product];
+      mostPP = product;
+    }
   }
 
-  var categoriesMap = {};
+  var popularProduct = {
+    "Most popular product is": mostPP,
+    "Sold": mostSold
+  };
 
-  categoriesArray.forEach(function(array){
-    if (!categoriesMap.hasOwnProperty(array[0])) {
-      categoriesMap[array[0]] = array[1];
+  return popularProduct;
+};
+
+exports.getLeastPopularProduct = function(weeklySales) {
+
+  var leastSold = 50;
+  var leastPP = "";
+
+  for (product in weeklySales) {
+    if (weeklySales[product] < leastSold) {
+      leastSold = weeklySales[product];
+      leastPP = product;
     }
-  })
+  }
 
-  return categoriesMap;
-}
+  var leastPopularProduct = {
+    "Least popular product is": leastPP,
+    "Sold": leastSold
+  };
+
+  return leastPopularProduct;
+};
+
+exports.getSellPrices = function(salesList) {
+
+  var sellPrices = {};
+
+  salesList.forEach(function(array) {
+    var price = Number(array[2].replace("R", ""));
+    if (!sellPrices.hasOwnProperty(array[0])) {
+      sellPrices[array[0]] = price;
+    }
+  });
+
+  return sellPrices;
+};

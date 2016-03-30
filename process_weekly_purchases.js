@@ -1,6 +1,11 @@
 #!/usr/bin/node
 
 var fs = require('fs');
+var process_weekly_sales = require("./process_weekly_sales");
+
+var sales = process_weekly_sales.getSalesList('./input/week4.csv');
+var selling_prices = process_weekly_sales.getSellPrices(sales);
+var weekly_sales = process_weekly_sales.getWeeklySales(sales);
 
 exports.getPurchases = function(filepath) {
 
@@ -18,7 +23,7 @@ exports.getPurchases = function(filepath) {
       purchasesArray.splice(i, 1);
     }
   }
-
+  var week0Purchases = [];
   var week1Purchases = [];
   var week2Purchases = [];
   var week3Purchases = [];
@@ -28,6 +33,10 @@ exports.getPurchases = function(filepath) {
   for (i = 0; i < purchasesArray.length; i++) {
     dt = purchasesArray[i][1];
     var date = new Date(dt);
+
+    if (date.getMonth() === 0) {
+      week0Purchases.push(purchasesArray[i]);
+    }
 
     if (date.getDate() < 8) {
       week1Purchases.push(purchasesArray[i]);
@@ -47,6 +56,7 @@ exports.getPurchases = function(filepath) {
   }
 
   purchases = {
+    "week0": week0Purchases,
     "week1": week1Purchases,
     "week2": week2Purchases,
     "week3": week3Purchases,
@@ -82,9 +92,9 @@ exports.getWeeklyPurchases = function(purchases, week) {
   return weeklyPurchases;
 };
 
-exports.getCostPriceMap = function(weeklyPurchases) {
+exports.getCostPrices = function(weeklyPurchases) {
 
-  var costPriceMap = {};
+  var costPrices = {};
 
   for (var fruit in weeklyPurchases) {
     var total = 0;
@@ -95,8 +105,55 @@ exports.getCostPriceMap = function(weeklyPurchases) {
 
     var averageCost = Number((total / (weeklyPurchases[fruit].length)).toFixed(2));
 
-    costPriceMap[fruit] = averageCost;
+    costPrices[fruit] = averageCost;
   }
 
-  return costPriceMap;
-};
+  return costPrices;
+}
+
+exports.getTotalProfit = function(costPrices) {
+
+  var profitMap = {};
+
+  for (var product in selling_prices) {
+    for (var products in costPrices) {
+      if (product === products) {
+        profitMap[product] = (selling_prices[product] - costPrices[products])
+      }
+    }
+  }
+
+  var totalProfit = {};
+
+  for (var product in profitMap) {
+    for (var products in weekly_sales) {
+      if (product === products) {
+        totalProfit[product] = Number((weekly_sales[products] * profitMap[product]).toFixed(2))
+      }
+    }
+  }
+
+  return totalProfit;
+}
+
+exports.getMostProfitableProduct = function(totalProfit) {
+
+  var profit = [];
+
+  for (var product in totalProfit) {
+    profit.push(totalProfit[product]);
+  }
+
+  var mostProfit = Math.max.apply(null, profit);
+
+  for (product in totalProfit) {
+    if (totalProfit[product] === mostProfit) {
+      var mostProfitableProduct = {
+        "Most profitable product is": product,
+        "Profit": mostProfit
+      };
+    }
+  }
+
+  return mostProfitableProduct;
+}

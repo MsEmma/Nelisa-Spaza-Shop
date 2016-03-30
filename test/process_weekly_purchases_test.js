@@ -1,5 +1,6 @@
 var assert = require('assert');
 var process_weekly_purchases = require('../process_weekly_purchases');
+
 var purchases = process_weekly_purchases.getPurchases('./input/purchases.csv');
 var weekly_purchases = process_weekly_purchases.getWeeklyPurchases(purchases, "week4");
 
@@ -36,8 +37,8 @@ describe("process_weekly_purchases", function() {
     });
   });
 
-  it('should return costPriceMap for week4', function() {
-    var result = process_weekly_purchases.getCostPriceMap(weekly_purchases);
+  it('should return cost price map for week4', function() {
+    var result = process_weekly_purchases.getCostPrices(weekly_purchases);
     assert.deepEqual(result, {
       'Apples - loose': 1.5,
       'Bananas - loose': 1,
@@ -54,6 +55,65 @@ describe("process_weekly_purchases", function() {
       'Shampoo 1 litre': 20,
       'Soap Bar': 3,
       'Top Class Soy Mince': 8
+    });
+  });
+
+  it('should return the total profit map', function() {
+    assert.deepEqual(process_weekly_purchases.getTotalProfit({
+      'Apples - loose': 1.5,
+      'Bananas - loose': 1,
+      Bread: 9.67,
+      'Chakalaka Can': 7.67,
+      'Coke 500ml': 3.5,
+      'Cream Soda 500ml': 4.5,
+      'Fanta 500ml': 5.17,
+      'Gold Dish Vegetable Curry Can': 6.17,
+      Amasi: 17,
+      'Iwisa Pap 5kg': 25,
+      'Milk 1l': 7,
+      'Mixed Sweets 5s': 3,
+      'Shampoo 1 litre': 20,
+      'Soap Bar': 3,
+      'Top Class Soy Mince': 8
+    }), {
+      Amasi: 248,
+      'Apples - loose': 13.5,
+      'Bananas - loose': 18,
+      Bread: 69.9,
+      'Chakalaka Can': 65.24,
+      'Coke 500ml': 126,
+      'Cream Soda 500ml': 57,
+      'Fanta 500ml': 29.26,
+      'Gold Dish Vegetable Curry Can': 84.9,
+      'Iwisa Pap 5kg': 75,
+      'Milk 1l': 123,
+      'Mixed Sweets 5s': 0,
+      'Shampoo 1 litre': 100,
+      'Soap Bar': 57,
+      'Top Class Soy Mince': 156
+    });
+  });
+
+  it('should return the most profitable product sold and profit amount', function() {
+    assert.deepEqual(process_weekly_purchases.getMostProfitableProduct({
+      Amasi: 248,
+      'Apples - loose': 13.5,
+      'Bananas - loose': 18,
+      Bread: 69.9,
+      'Chakalaka Can': 65.24,
+      'Coke 500ml': 126,
+      'Cream Soda 500ml': 57,
+      'Fanta 500ml': 29.26,
+      'Gold Dish Vegetable Curry Can': 84.9,
+      'Iwisa Pap 5kg': 75,
+      'Milk 1l': 123,
+      'Mixed Sweets 5s': 0,
+      'Shampoo 1 litre': 100,
+      'Soap Bar': 57,
+      'Top Class Soy Mince': 156
+    }), {
+      'Most profitable product is': 'Amasi',
+      Profit: 248
     });
   });
 
