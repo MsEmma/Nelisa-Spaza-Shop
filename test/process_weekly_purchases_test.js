@@ -144,8 +144,9 @@ describe("process_weekly_purchases", function() {
       'Soap Bar': 57,
       'Top Class Soy Mince': 156
     }), {
-      'Most Profitable Product': 'Amasi',
-      Profit: 248
+      "descr" : 'Most Profitable Product',
+      "name" : 'Amasi',
+      "prof" : 248
     });
   });
 

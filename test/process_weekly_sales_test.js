@@ -44,15 +44,17 @@ describe("process_weekly_sales", function() {
 
   it('should return the most popular product sold and quantity sold for week4', function() {
     assert.deepEqual(process_weekly_sales.getPopularProduct(weekly_sales), {
-      'Most Popular Product': 'Coke 500ml',
-      Sold: 42
+      "descr": 'Most Popular Product',
+      "name": 'Coke 500ml',
+      "quantity": 42
     });
   });
 
   it('should return the least popular product sold and quantity sold for week4', function() {
     assert.deepEqual(process_weekly_sales.getLeastPopularProduct(weekly_sales), {
-      'Least Popular Product': 'Shampoo 1 litre',
-      Sold: 10
+      "descr": 'Least Popular Product',
+      "name": 'Shampoo 1 litre',
+      "quantity": 10
     });
   });
 

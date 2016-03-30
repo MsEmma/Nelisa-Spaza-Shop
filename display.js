@@ -45,28 +45,13 @@ var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
 //display using handlebars
 
 var source = "<h1> Week {{Week}} STATISTICS </h1>" +
-             "<li>{{#content}}{{Most_popular}}{{/content}}</li>"+
-             "<li>{{#content}}{{Least_popular}}{{/content}}</li>"+
-             "<li>{{#content}}{{Most_popular_cat}}{{/content}}</li>"+
-             "<li>{{#content}}{{Least_popular_cat}}{{/content}}</li>"+
-             "<li>{{#content}}{{Most_profitable_product}}{{/content}}</li>"+
-             "<li>{{#content}}{{Most_profitable_cat}}{{/content}}</li>";
+  "<ul>{{#pop}}<li>The {{descr}} is {{name}} with {{quantity}} units sold</li>{{/pop}}</ul>"+
+  "<ul>{{#profit}}<li>The {{descr}} is {{name}} with a total profit of R{{prof}}</li>{{/profit}}</ul>";
 
 var template = handlebars.compile(source);
 
-var Most_popular = JSON.stringify(most_popular);
-var Least_popular = JSON.stringify(least_popular);
-var Most_popular_cat = JSON.stringify(most_popular_cat);
-var Least_popular_cat = JSON.stringify(least_popular_cat);
-var Most_profitable_product = JSON.stringify(most_profitable_product);
-var Most_profitable_cat = JSON.stringify(most_profitable_cat);
-
-var data ={Week: week.match(/\d+/), content: [{Most_popular},
-                                {Least_popular},
-                                {Most_popular_cat},
-                                {Least_popular_cat},
-                                {Most_profitable_product},
-                                {Most_profitable_cat}]};
+var data = { Week: week.match(/\d+/), pop:[most_popular,least_popular,most_popular_cat,least_popular_cat],
+            profit: [most_profitable_product, most_profitable_cat ]};
 
 var result = template(data);
 

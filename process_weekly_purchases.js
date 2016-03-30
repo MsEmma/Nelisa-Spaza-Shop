@@ -144,8 +144,9 @@ exports.getMostProfitableProduct = function(totalProfit) {
   for (product in totalProfit) {
     if (totalProfit[product] === mostProfit) {
       var mostProfitableProduct = {
-        "Most Profitable Product": product,
-        "Profit": mostProfit
+        "descr" : "Most Profitable Product",
+        "name" :  product,
+        "prof": mostProfit
       };
     }
   }

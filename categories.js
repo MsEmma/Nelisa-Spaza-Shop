@@ -58,8 +58,9 @@ exports.getMostPopularCategory = function(catSales) {
   }
 
   var mostPopularCategory = {
-    "Most Popular Category": category,
-    "Sold": mostCatSold
+    "descr" : "Most Popular Category",
+    "name" : category,
+    "quantity": mostCatSold
   }
 
   return mostPopularCategory;
@@ -78,8 +79,9 @@ exports.getLeastPopularCategory = function(catSales) {
   }
 
   var leastPopularCategory = {
-    "Least Popular Category": category,
-    "Sold": leastCatSold
+    "descr" : "Least Popular Category",
+    "name" :  category,
+    "quantity" : leastCatSold
   }
 
   return leastPopularCategory;
@@ -117,8 +119,9 @@ exports.getMostProfitableCategory = function(catProfit) {
   }
 
   var mostProfitableCategory = {
-    "Most Profitable Category": mostProfitableCat,
-    "Profit": maxProfit
+    "descr" :"Most Profitable Category",
+    "name" : mostProfitableCat,
+    "prof": maxProfit
   }
 
   return mostProfitableCategory;
