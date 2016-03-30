@@ -1,13 +1,6 @@
 #!/usr/bin/node
 
 var fs = require('fs');
-var process_weekly_sales = require("./process_weekly_sales");
-var process_weekly_purchases = require("./process_weekly_purchases");
-
-var sales = process_weekly_sales.getSalesList('./input/week4.csv');
-var weekly_sales = process_weekly_sales.getWeeklySales(sales);
-
-var total_profit = process_weekly_purchases.getTotalProfit();
 
 exports.getCategories = function(filepath) {
 
@@ -65,7 +58,7 @@ exports.getMostPopularCategory = function(catSales) {
   }
 
   var mostPopularCategory = {
-    "Most popular category is": category,
+    "Most Popular Category": category,
     "Sold": mostCatSold
   }
 
@@ -85,7 +78,7 @@ exports.getLeastPopularCategory = function(catSales) {
   }
 
   var leastPopularCategory = {
-    "Least popular category is": category,
+    "Least Popular Category": category,
     "Sold": leastCatSold
   }
 
@@ -124,7 +117,7 @@ exports.getMostProfitableCategory = function(catProfit) {
   }
 
   var mostProfitableCategory = {
-    "Most profitable category is": mostProfitableCat,
+    "Most Profitable Category": mostProfitableCat,
     "Profit": maxProfit
   }
 

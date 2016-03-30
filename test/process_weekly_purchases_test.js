@@ -75,6 +75,38 @@ describe("process_weekly_purchases", function() {
       'Shampoo 1 litre': 20,
       'Soap Bar': 3,
       'Top Class Soy Mince': 8
+    },{
+      'Milk 1l': 10,
+      Amasi: 25,
+      Bread: 12,
+      'Chakalaka Can': 10,
+      'Gold Dish Vegetable Curry Can': 9,
+      'Fanta 500ml': 6.5,
+      'Coke 500ml': 6.5,
+      'Cream Soda 500ml': 7.5,
+      'Iwisa Pap 5kg': 30,
+      'Top Class Soy Mince': 12,
+      'Shampoo 1 litre': 30,
+      'Soap Bar': 6,
+      'Bananas - loose': 2,
+      'Apples - loose': 2,
+      'Mixed Sweets 5s': 3
+    }, {
+      'Milk 1l': 41,
+      Amasi: 31,
+      Bread: 30,
+      'Chakalaka Can': 28,
+      'Gold Dish Vegetable Curry Can': 30,
+      'Fanta 500ml': 22,
+      'Coke 500ml': 42,
+      'Cream Soda 500ml': 19,
+      'Iwisa Pap 5kg': 15,
+      'Top Class Soy Mince': 39,
+      'Shampoo 1 litre': 10,
+      'Soap Bar': 19,
+      'Bananas - loose': 18,
+      'Apples - loose': 27,
+      'Mixed Sweets 5s': 28
     }), {
       Amasi: 248,
       'Apples - loose': 13.5,
@@ -112,7 +144,7 @@ describe("process_weekly_purchases", function() {
       'Soap Bar': 57,
       'Top Class Soy Mince': 156
     }), {
-      'Most profitable product is': 'Amasi',
+      'Most Profitable Product': 'Amasi',
       Profit: 248
     });
   });

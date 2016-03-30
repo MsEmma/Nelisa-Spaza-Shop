@@ -58,7 +58,7 @@ describe("categories", function() {
       Sweets: 28,
       Toiletries: 29
     }), {
-      'Most popular category is': 'Soft Drinks',
+      'Most Popular Category': 'Soft Drinks',
       Sold: 83
     });
   });
@@ -74,7 +74,7 @@ describe("categories", function() {
       Sweets: 28,
       Toiletries: 29
     }), {
-      'Least popular category is': 'Sweets',
+      'Least Popular Category': 'Sweets',
       Sold: 28
     });
   });
@@ -119,7 +119,7 @@ describe("categories", function() {
       Sweets: 0,
       Toiletries: 157
     }), {
-      'Most profitable category is': 'Dairy',
+      'Most Profitable Category': 'Dairy',
       Profit: 371
     });
   });

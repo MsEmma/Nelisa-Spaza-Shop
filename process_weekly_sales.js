@@ -57,7 +57,7 @@ exports.getPopularProduct = function(weeklySales) {
   }
 
   var popularProduct = {
-    "Most popular product is": mostPP,
+    "Most Popular Product": mostPP,
     "Sold": mostSold
   };
 
@@ -77,7 +77,7 @@ exports.getLeastPopularProduct = function(weeklySales) {
   }
 
   var leastPopularProduct = {
-    "Least popular product is": leastPP,
+    "Least Popular Product": leastPP,
     "Sold": leastSold
   };
 

@@ -22,7 +22,7 @@ describe("process_weekly_sales", function() {
     assert.equal(105, process_weekly_sales.getSalesList('./input/week4.csv').length);
   });
 
-  it('should return weeklySales list', function() {
+  it('should return weeklySales list for week4', function() {
     assert.deepEqual(process_weekly_sales.getWeeklySales(sales), {
       'Milk 1l': 41,
       Amasi: 31,
@@ -42,21 +42,21 @@ describe("process_weekly_sales", function() {
     });
   });
 
-  it('should return the most popular product sold and quantity sold', function() {
+  it('should return the most popular product sold and quantity sold for week4', function() {
     assert.deepEqual(process_weekly_sales.getPopularProduct(weekly_sales), {
-      'Most popular product is': 'Coke 500ml',
+      'Most Popular Product': 'Coke 500ml',
       Sold: 42
     });
   });
 
-  it('should return the least popular product sold and quantity sold', function() {
+  it('should return the least popular product sold and quantity sold for week4', function() {
     assert.deepEqual(process_weekly_sales.getLeastPopularProduct(weekly_sales), {
-      'Least popular product is': 'Shampoo 1 litre',
+      'Least Popular Product': 'Shampoo 1 litre',
       Sold: 10
     });
   });
 
-  it('should return selling price map', function() {
+  it('should return selling price map for week4', function() {
     assert.deepEqual(process_weekly_sales.getSellPrices(sales), {
       'Milk 1l': 10,
       Amasi: 25,

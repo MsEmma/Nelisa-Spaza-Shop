@@ -1,11 +1,6 @@
 #!/usr/bin/node
 
 var fs = require('fs');
-var process_weekly_sales = require("./process_weekly_sales");
-
-var sales = process_weekly_sales.getSalesList('./input/week4.csv');
-var selling_prices = process_weekly_sales.getSellPrices(sales);
-var weekly_sales = process_weekly_sales.getWeeklySales(sales);
 
 exports.getPurchases = function(filepath) {
 
@@ -111,7 +106,7 @@ exports.getCostPrices = function(weeklyPurchases) {
   return costPrices;
 }
 
-exports.getTotalProfit = function(costPrices) {
+exports.getTotalProfit = function(costPrices, selling_prices, weekly_sales) {
 
   var profitMap = {};
 
@@ -149,7 +144,7 @@ exports.getMostProfitableProduct = function(totalProfit) {
   for (product in totalProfit) {
     if (totalProfit[product] === mostProfit) {
       var mostProfitableProduct = {
-        "Most profitable product is": product,
+        "Most Profitable Product": product,
         "Profit": mostProfit
       };
     }
