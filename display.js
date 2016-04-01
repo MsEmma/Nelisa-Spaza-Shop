@@ -10,8 +10,8 @@ var categories = require('./categories');
 
 //read params from the command line & use the modules
 
-var filepath = process.argv[2];
-var week = process.argv[3];
+var filepath = './input/' + process.argv[2] + '.csv';
+var week = process.argv[2];
 
 var sales = process_weekly_sales.getSalesList(filepath);
 var weekly_sales = process_weekly_sales.getWeeklySales(sales);
@@ -41,12 +41,9 @@ var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
 // console.log(most_profitable_product);
 // console.log(most_profitable_cat);
 
-
 //display using handlebars
 
-var source = "<h1> Week {{Week}} STATISTICS </h1>" +
-  "<ul>{{#pop}}<li>The {{descr}} is {{name}} with {{quantity}} units sold</li>{{/pop}}</ul>"+
-  "<ul>{{#profit}}<li>The {{descr}} is {{name}} with a total profit of R{{prof}}</li>{{/profit}}</ul>";
+var source = fs.readFileSync('./display.hbs', "utf8");
 
 var template = handlebars.compile(source);
 
@@ -55,7 +52,6 @@ var data = { Week: week.match(/\d+/), pop:[most_popular,least_popular,most_popul
 
 var result = template(data);
 
-fs.writeFileSync('weekly_display.html', result);
-
+fs.writeFileSync( process.argv[2] + '_display.html', result);
 
 // call function using node display.js ./input/week1.csv week1
