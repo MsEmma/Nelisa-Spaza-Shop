@@ -10,8 +10,9 @@ var categories = require('./categories');
 
 //read params from the command line & use the modules
 
-var filepath = './input/' + process.argv[2] + '.csv';
 var week = process.argv[2];
+
+var filepath = './input/' + week + '.csv';
 
 var sales = process_weekly_sales.getSalesList(filepath);
 var weekly_sales = process_weekly_sales.getWeeklySales(sales);
@@ -52,6 +53,6 @@ var data = { Week: week.match(/\d+/), pop:[most_popular,least_popular,most_popul
 
 var result = template(data);
 
-fs.writeFileSync( process.argv[2] + '_display.html', result);
+fs.writeFileSync( week + '_display.html', result);
 
 // call function using node display.js ./input/week1.csv week1
