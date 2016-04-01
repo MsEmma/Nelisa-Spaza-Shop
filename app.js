@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var handlebars = require('handlebars');
+var path = require('path');
 
 var process_weekly_sales = require("./process_weekly_sales");
 var process_weekly_purchases = require("./process_weekly_purchases");
@@ -45,6 +46,8 @@ app.get('/sales/:week', function(req, res) {
 
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.listen(3000, function() {
-  console.log('Example app listening on port 3000!');
+  console.log('Opening port 3000!');
 });
