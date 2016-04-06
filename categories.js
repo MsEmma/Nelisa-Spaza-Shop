@@ -24,6 +24,7 @@ exports.getCategories = function(filepath) {
   })
 
   return categories;
+
 }
 
 exports.getCatSales = function(categories, weekly_sales) {
@@ -58,8 +59,8 @@ exports.getMostPopularCategory = function(catSales) {
   }
 
   var mostPopularCategory = {
-    "descr" : "Most Popular Category",
-    "name" : category,
+    "descr": "Most Popular Category",
+    "name": category,
     "quantity": mostCatSold
   }
 
@@ -79,9 +80,9 @@ exports.getLeastPopularCategory = function(catSales) {
   }
 
   var leastPopularCategory = {
-    "descr" : "Least Popular Category",
-    "name" :  category,
-    "quantity" : leastCatSold
+    "descr": "Least Popular Category",
+    "name": category,
+    "quantity": leastCatSold
   }
 
   return leastPopularCategory;
@@ -119,8 +120,8 @@ exports.getMostProfitableCategory = function(catProfit) {
   }
 
   var mostProfitableCategory = {
-    "descr" :"Most Profitable Category",
-    "name" : mostProfitableCat,
+    "descr": "Most Profitable Category",
+    "name": mostProfitableCat,
     "prof": maxProfit
   }
 

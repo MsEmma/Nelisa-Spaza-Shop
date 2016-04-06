@@ -1,4 +1,5 @@
 var express = require('express');
+var exphbs  = require('express-handlebars');
 var app = express();
 var fs = require('fs');
 var handlebars = require('handlebars');
@@ -8,10 +9,18 @@ var process_weekly_sales = require("./process_weekly_sales");
 var process_weekly_purchases = require("./process_weekly_purchases");
 var categories = require('./categories');
 
-app.get('/sales/:week', function(req, res) {
+app.use(express.static('public'));
+
+app.engine('hbs', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'hbs');
+
+app.get('/', function (req, res) {
+    res.render('home');
+});
+
+app.get('/:week', function(req, res) {
 
     var week = req.params.week;
-
     var filepath = './input/' + week + '.csv';
 
     var sales = process_weekly_sales.getSalesList(filepath);
@@ -33,20 +42,12 @@ app.get('/sales/:week', function(req, res) {
     var cat_profit = categories.getCatProfit(category_map, total_profit);
     var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
 
-    var source = fs.readFileSync('./display.hbs', "utf8");
-
-    var template = handlebars.compile(source);
-
-    var data = { Week: week.match(/\d+/), pop:[most_popular,least_popular, most_popular_cat,least_popular_cat],
+    var result = { Week: week.match(/\d+/), pop:[most_popular,least_popular, most_popular_cat,least_popular_cat],
                 profit: [most_profitable_product, most_profitable_cat ]};
 
-    var result = template(data);
-
-    res.send(result);
+    res.render('display',result);
 
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, function() {
   console.log('Opening port 3000!');
