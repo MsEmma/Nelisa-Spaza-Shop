@@ -18,6 +18,10 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
+app.get('/aboutus', function (req, res) {
+    res.render('aboutus');
+});
+
 app.get('/:week', function(req, res) {
 
     var week = req.params.week;
