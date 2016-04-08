@@ -11,6 +11,8 @@ var categories = require('./categories');
 
 app.use(express.static('public'));
 
+app.set('port', (process.env.PORT || 3000));
+
 app.engine('hbs', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
 
@@ -53,6 +55,10 @@ app.get('/:week', function(req, res) {
 
 });
 
-app.listen(3000, function() {
-  console.log('Opening port 3000!');
+// app.listen(3000, function() {
+//   console.log('Opening port 3000!');
+// });
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
