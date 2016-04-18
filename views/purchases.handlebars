@@ -1,0 +1,36 @@
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Purchase ID</th>
+                <th>Shop</th>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Cost (R)</th>
+                <th>Total Cost (R)</th>
+                <th>Week</th>
+                <th>Product ID</th>
+            </tr>
+        </thead>
+
+        {{#purchases}}
+            <tbody>
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{shop}}</td>
+                    <td>{{date}}</td>
+                    <td>{{product}}</td>
+                    <td>{{quantity}}</td>
+                    <td>{{cost}}</td>
+                    <td>{{total_cost}}</td>
+                    <td>{{week}}</td>
+                    <td>{{product_id}}</td>
+                </tr>
+            </tbody>
+        {{/purchases}}
+
+    </table>
+
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Sale ID</th>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Quantity Sold</th>
+                <th>Selling Price (R)</th>
+                <th>Product ID</th>
+                <th>Week</th>
+            </tr>
+        </thead>
+
+        {{#sales}}
+            <tbody>
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{day}}</td>
+                    <td>{{date}}</td>
+                    <td>{{product}}</td>
+                    <td>{{sold}}</td>
+                    <td>{{sales_price}}</td>
+                    <td>{{product_id}}</td>
+                    <td>{{week}}</td>
+                </tr>
+            </tbody>
+        {{/sales}}
+
+    </table>
+
+</div>

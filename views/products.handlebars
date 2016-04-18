@@ -1,0 +1,24 @@
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product</th>
+                <th>Category ID</th>
+            </tr>
+        </thead>
+
+        {{#products}}
+            <tbody>
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{product}}</td>
+                    <td>{{category_id}}</td>
+                </tr>
+            </tbody>
+        {{/products}}
+
+    </table>
+
+</div>

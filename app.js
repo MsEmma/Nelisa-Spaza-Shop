@@ -1,20 +1,46 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var app = express();
-var fs = require('fs');
-var handlebars = require('handlebars');
-var path = require('path');
+var express = require('express'),
+    exphbs  = require('express-handlebars'),
+    app = express(),
+    fs = require('fs'),
+    handlebars = require('handlebars'),
+    mysql = require('mysql'),
+    bodyParser = require('body-parser'),
+    myConnection = require('express-myconnection'),
+    products = require('./routes/products'),
+    db_categories = require('./routes/db_categories'),
+    db_sales = require('./routes/db_sales'),
+    db_purchases = require('./routes/db_purchases'),
+    process_weekly_sales = require("./process_weekly_sales"),
+    process_weekly_purchases = require("./process_weekly_purchases"),
+    categories = require('./categories');
 
-var process_weekly_sales = require("./process_weekly_sales");
-var process_weekly_purchases = require("./process_weekly_purchases");
-var categories = require('./categories');
+var dbOptions = {
+    host: 'localhost',
+    user: 'root',
+    password: 'nelisa',
+    port: 3306,
+    database: 'spaza'
+    };
 
 app.use(express.static('public'));
 
+//configure the port number using and environment number
 app.set('port', (process.env.PORT || 3000));
 
-app.engine('hbs', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'hbs');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+//setup middleware
+app.use(myConnection(mysql, dbOptions, 'single'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
+function errorHandler(err, req, res, next) {
+  res.status(500);
+  res.render('error', { error: err });
+}
 
 app.get('/', function (req, res) {
     res.render('home');
@@ -24,7 +50,7 @@ app.get('/aboutus', function (req, res) {
     res.render('aboutus');
 });
 
-app.get('/:week', function(req, res) {
+app.get('/stats/:week', function(req, res) {
 
     var week = req.params.week;
     var filepath = './input/' + week + '.csv';
@@ -54,6 +80,16 @@ app.get('/:week', function(req, res) {
     res.render('display',result);
 
 });
+
+app.get('/products', products.show);
+
+app.get('/categories', db_categories.show);
+
+app.get('/sales', db_sales.show);
+
+app.get('/purchases', db_purchases.show);
+
+app.use(errorHandler);
 
 // app.listen(3000, function() {
 //   console.log('Opening port 3000!');
