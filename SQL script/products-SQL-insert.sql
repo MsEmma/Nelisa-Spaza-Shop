@@ -25,7 +25,14 @@ INSERT INTO `products` (`product`)  VALUES ('Heart Chocolates')# 1 row affected.
 INSERT INTO `products` (`product`)  VALUES ('Rose (plastic)')# 1 row affected.
 INSERT INTO `products` (`product`)  VALUES ('Valentine Cards')# 1 row affected.
 
-    UPDATE products AS p
-    INNER JOIN category AS c
-    ON p.category = c.description
-    SET p.category_id = c.id;
+UPDATE products AS p
+INNER JOIN category AS c
+ON p.category = c.description
+SET p.category_id = c.id;
+
+ALTER TABLE products ADD category VARCHAR(30) AFTER product;
+
+UPDATE products AS p
+INNER JOIN categories AS c
+ON p.category_id = c.id
+SET p.category = c.category;

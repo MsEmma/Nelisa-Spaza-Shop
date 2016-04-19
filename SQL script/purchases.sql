@@ -15,3 +15,10 @@ UPDATE purchases AS pur
 INNER JOIN products AS p
 ON pur.product = p.product
 SET pur.product_id = p.id;
+
+ALTER TABLE purchases ADD category VARCHAR(30) AFTER product;
+
+UPDATE purchases AS pur
+INNER JOIN products AS p
+ON pur.product = p.product
+SET pur.category = p.category;

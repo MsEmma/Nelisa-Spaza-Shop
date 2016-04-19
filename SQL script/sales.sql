@@ -32,3 +32,10 @@ DELETE FROM `spaza`.`sales` WHERE `sales`.`id` = 444;
 DELETE FROM `spaza`.`sales` WHERE `sales`.`id` = 445;
 DELETE FROM `spaza`.`sales` WHERE `sales`.`id` = 446;
 DELETE FROM `spaza`.`sales` WHERE `sales`.`id` = 447;
+
+ALTER TABLE sales ADD category VARCHAR(30) AFTER product;
+
+UPDATE sales AS s
+INNER JOIN products AS p
+ON s.product = p.product
+SET s.category = p.category;
