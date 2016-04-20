@@ -1,5 +1,5 @@
 var express = require('express'),
-    exphbs  = require('express-handlebars'),
+    exphbs = require('express-handlebars'),
     app = express(),
     fs = require('fs'),
     handlebars = require('handlebars'),
@@ -20,33 +20,39 @@ var dbOptions = {
     password: 'nelisa',
     port: 3306,
     database: 'spaza'
-    };
+};
 
 app.use(express.static('public'));
 
 //configure the port number using and environment number
 app.set('port', (process.env.PORT || 3000));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 //setup middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 // parse application/json
 app.use(bodyParser.json());
 
 function errorHandler(err, req, res, next) {
-  res.status(500);
-  res.render('error', { error: err });
+    res.status(500);
+    res.render('error', {
+        error: err
+    });
 }
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.render('home');
 });
 
-app.get('/aboutus', function (req, res) {
+app.get('/aboutus', function(req, res) {
     res.render('aboutus');
 });
 
@@ -74,16 +80,29 @@ app.get('/stats/:week', function(req, res) {
     var cat_profit = categories.getCatProfit(category_map, total_profit);
     var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
 
-    var result = { Week: week.match(/\d+/), pop:[most_popular,least_popular, most_popular_cat,least_popular_cat],
-                profit: [most_profitable_product, most_profitable_cat ]};
+    var result = {
+        Week: week.match(/\d+/),
+        pop: [most_popular, least_popular, most_popular_cat, least_popular_cat],
+        profit: [most_profitable_product, most_profitable_cat]
+    };
 
-    res.render('display',result);
+    res.render('display', result);
 
 });
 
 app.get('/products', products.show);
+app.get('/products/edit/:id', products.get);
+app.post('/products/update/:id', products.update);
+app.get('/products/add', products.showAdd);
+app.post('/products/add', products.add);
+app.post('/products/delete/:id', products.delete);
 
 app.get('/categories', db_categories.show);
+app.get('/categories/add', db_categories.showAdd);
+app.post('/categories/add', db_categories.add);
+app.get('/categories/edit/:id', db_categories.get);
+app.post('/categories/update/:id', db_categories.update);
+app.post('/categories/delete/:id', db_categories.delete);
 
 app.get('/sales', db_sales.show);
 
@@ -96,5 +115,5 @@ app.use(errorHandler);
 // });
 
 app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+    console.log('Node app is running on port', app.get('port'));
 });
