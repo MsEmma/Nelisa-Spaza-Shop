@@ -4,6 +4,8 @@
         <thead>
             <tr>
                 <th>Category List</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -11,6 +13,8 @@
             <tbody>
                 <tr>
                     <td>{{category}}</td>
+                    <td><a class="btn btn-default" href="/categories/edit/{{id}}" role="button">EDIT</a></td>
+                    <td><a class="btn btn-default" role="button">DELETE</a></td>
                 </tr>
             </tbody>
         {{/categories}}

@@ -1,19 +1,22 @@
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
-        connection.query('SELECT * from products', function(err, results) {
-            if (err) return next(err);
-            res.render('products', {
-                products: results
+        connection.query(`SELECT products.id, products.product, categories.category
+          FROM products
+          INNER JOIN categories ON products.category_id = categories.id`,
+            function(err, results) {
+                if (err) return next(err);
+                res.render('products', {
+                    products: results
+                });
             });
-        });
     });
 };
 
 exports.showAdd = function(req, res) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
-        connection.query('SELECT * from categories', [], function(err, categories) {
+        connection.query('SELECT * from categories', function(err, categories) {
             if (err) return next(err);
             res.render('add', {
                 categories: categories,
@@ -27,7 +30,6 @@ exports.add = function(req, res, next) {
         if (err) return next(err);
         var data = {
             product: req.body.product,
-            category: req.body.category,
             category_id: Number(req.body.category_id)
         };
 
@@ -63,7 +65,6 @@ exports.update = function(req, res, next) {
 
     var data = {
         product: req.body.product,
-        category: req.body.category,
         category_id: Number(req.body.category_id)
     };
     var id = req.params.id;
@@ -74,6 +75,16 @@ exports.update = function(req, res, next) {
             res.redirect('/products');
         });
     });
+};
+
+exports.showDelete = function(req, res) {
+  var id = req.params.id;
+  req.getConnection(function(err, connection) {
+      connection.query('DELETE FROM products WHERE id = ?', [id], function(err, rows) {
+          if (err) return next(err);
+          res.render('delete');
+      });
+  });
 };
 
 exports.delete = function(req, res, next) {

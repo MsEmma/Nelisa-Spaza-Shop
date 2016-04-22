@@ -44,15 +44,18 @@ var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
 
 //display using handlebars
 
-var source = fs.readFileSync('./display.hbs', "utf8");
+var source = fs.readFileSync('./display.handlebars', "utf8");
 
 var template = handlebars.compile(source);
 
-var data = { Week: week.match(/\d+/), pop:[most_popular,least_popular,most_popular_cat,least_popular_cat],
-            profit: [most_profitable_product, most_profitable_cat ]};
+var data = {
+    Week: week.match(/\d+/),
+    pop: [most_popular, least_popular, most_popular_cat, least_popular_cat],
+    profit: [most_profitable_product, most_profitable_cat]
+};
 
 var result = template(data);
 
-fs.writeFileSync( week + '_display.html', result);
+fs.writeFileSync(week + '_display.html', result);
 
 // call function using node display.js ./input/week1.csv week1

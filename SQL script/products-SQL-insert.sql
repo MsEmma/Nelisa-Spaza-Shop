@@ -38,4 +38,6 @@ ON p.category_id = c.id
 SET p.category = c.category;
 
 
+
+
 -- query that joins products and categories
