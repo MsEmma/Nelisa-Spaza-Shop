@@ -1,5 +1,7 @@
 <div class="container">
 
+  <p><a class="btn btn-primary btn-lg" href="/categories/add" role="button">ADD A CATEGORY</a></p>
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -14,14 +16,13 @@
                 <tr>
                     <td>{{category}}</td>
                     <td><a class="btn btn-default" href="/categories/edit/{{id}}" role="button">EDIT</a></td>
-                    <td><a class="btn btn-default" role="button">DELETE</a></td>
+                    <td><a class="btn btn-default" href="/categories/delete/{{id}}">DELETE</a></td>
                 </tr>
             </tbody>
         {{/categories}}
 
     </table>
 
-    <p><a class="btn btn-primary btn-lg" href="/categories/add" role="button">ADD A CATEGORY</a></p>
 
 
 </div>

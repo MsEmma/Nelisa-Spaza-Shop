@@ -30,8 +30,6 @@ INNER JOIN category AS c
 ON p.category = c.description
 SET p.category_id = c.id;
 
-ALTER TABLE products ADD category VARCHAR(30) AFTER product;
-
 UPDATE products AS p
 INNER JOIN categories AS c
 ON p.category_id = c.id

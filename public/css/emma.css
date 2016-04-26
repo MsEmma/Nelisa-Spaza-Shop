@@ -45,3 +45,11 @@ label {
 input[type=submit] {
     margin-left: 100px;
 }
+
+.navbar-form .form-group {
+    display: block !important;
+}
+
+#purchases {
+  margin-left: 15px;
+}

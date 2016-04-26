@@ -1,28 +1,34 @@
 <div class="container">
 
+    <p><a class="btn btn-primary btn-lg" href="/sales/add" role="button">ADD A SALE</a></p>
+
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Day</th>
+                <!-- <th>Day</th> -->
                 <th>Date</th>
-                <th>Week</th>
+                <!-- <th>Week</th> -->
                 <th>Product</th>
                 <th>Category</th>
                 <th>Quantity Sold</th>
                 <th>Selling Price (R)</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
         {{#sales}}
             <tbody>
                 <tr>
-                    <td>{{day}}</td>
+                    <!-- <td>{{day}}</td> -->
                     <td>{{date}}</td>
-                    <td>{{week}}</td>
+                    <!-- <td>{{week}}</td> -->
                     <td>{{product}}</td>
                     <td>{{category}}</td>
                     <td>{{sold}}</td>
-                    <td>{{sales_price}}</td>
+                    <td>{{price}}</td>
+                    <td><a class="btn btn-default" href="/sales/edit/{{id}}" role="button">EDIT</a></td>
+                    <td><a class="btn btn-default" href="/sales/delete/{{id}}">DELETE</a></td>
                 </tr>
             </tbody>
         {{/sales}}
