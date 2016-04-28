@@ -1,28 +1,26 @@
-<div class="container">
+<table class="table table-hover" class="container">
+    <thead>
+        <tr>
+            <th>Product
+                <a class="btn btn-default" href="/products/add" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+            </th>
+            <th>Category</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
-    <p><a class="btn btn-primary btn-lg" href="/products/add" role="button">ADD A PRODUCT</a></p>
-
-    <table class="table table-hover">
-        <thead>
+    {{#products}}
+        <tbody>
             <tr>
-                <th>Product</th>
-                <th>Category</th>
-                <th></th>
-                <th></th>
+                <td>{{product}}</td>
+                <td>{{category}}</td>
+                <td><a class="btn btn-default" href="/products/edit/{{id}}" role="button">EDIT</a></td>
+                <td><a class="btn btn-default" href="/products/delete/{{id}}">DELETE</a></td>
             </tr>
-        </thead>
+        </tbody>
+    {{/products}}
 
-        {{#products}}
-            <tbody>
-                <tr>
-                    <td>{{product}}</td>
-                    <td>{{category}}</td>
-                    <td><a class="btn btn-default" href="/products/edit/{{id}}" role="button">EDIT</a></td>
-                    <td><a class="btn btn-default" href="/products/delete/{{id}}">DELETE</a></td>
-                </tr>
-            </tbody>
-        {{/products}}
-
-    </table>
-
-</div>
+</table>

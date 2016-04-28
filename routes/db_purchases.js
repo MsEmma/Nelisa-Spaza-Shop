@@ -1,7 +1,7 @@
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
-        connection.query(`SELECT purchases.id, purchases.date,
+        connection.query(`SELECT purchases.id, DATE_FORMAT(purchases.date,'%a %d %b %Y') as date,
 					purchases.shop, products.product, categories.category,
 					purchases.quantity, purchases.cost
 					FROM  purchases
@@ -9,7 +9,7 @@ exports.show = function(req, res, next) {
 					ON purchases.product_id = products.id
 					INNER JOIN categories
 					ON products.category_id = categories.id
-					ORDER BY date ASC`, function(err, results) {
+					ORDER BY purchases.date ASC`, function(err, results) {
             if (err) return next(err);
             res.render('purchases', {
                 purchases: results

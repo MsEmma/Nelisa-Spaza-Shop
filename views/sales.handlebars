@@ -1,38 +1,32 @@
-<div class="container">
+<table class="table table-hover" class="container">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity Sold</th>
+            <th>Selling Price (R)</th>
+            <th></th>
+            <th>
+                <a href="/sales/add" role="button">
+                    <b>ADD SALE</b>
+                </a>
+            </th>
+        </tr>
+    </thead>
 
-    <p><a class="btn btn-primary btn-lg" href="/sales/add" role="button">ADD A SALE</a></p>
-
-    <table class="table table-hover">
-        <thead>
+    {{#sales}}
+        <tbody>
             <tr>
-                <!-- <th>Day</th> -->
-                <th>Date</th>
-                <!-- <th>Week</th> -->
-                <th>Product</th>
-                <th>Category</th>
-                <th>Quantity Sold</th>
-                <th>Selling Price (R)</th>
-                <th></th>
-                <th></th>
+                <td>{{date}}</td>
+                <td>{{product}}</td>
+                <td>{{category}}</td>
+                <td>{{sold}}</td>
+                <td>{{price}}</td>
+                <td><a class="btn btn-default" href="/sales/edit/{{id}}" role="button">EDIT</a></td>
+                <td><a class="btn btn-default" href="/sales/delete/{{id}}">DELETE</a></td>
             </tr>
-        </thead>
+        </tbody>
+    {{/sales}}
 
-        {{#sales}}
-            <tbody>
-                <tr>
-                    <!-- <td>{{day}}</td> -->
-                    <td>{{date}}</td>
-                    <!-- <td>{{week}}</td> -->
-                    <td>{{product}}</td>
-                    <td>{{category}}</td>
-                    <td>{{sold}}</td>
-                    <td>{{price}}</td>
-                    <td><a class="btn btn-default" href="/sales/edit/{{id}}" role="button">EDIT</a></td>
-                    <td><a class="btn btn-default" href="/sales/delete/{{id}}">DELETE</a></td>
-                </tr>
-            </tbody>
-        {{/sales}}
-
-    </table>
-
-</div>
+</table>

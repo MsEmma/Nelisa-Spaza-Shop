@@ -1,28 +1,24 @@
-<div class="container">
+<table class="table table-hover" class="container">
+    <thead>
+        <tr>
+            <th>Category List
+                <a class="btn btn-default" href="/categories/add" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
-  <p><a class="btn btn-primary btn-lg" href="/categories/add" role="button">ADD A CATEGORY</a></p>
-
-    <table class="table table-hover">
-        <thead>
+    {{#categories}}
+        <tbody>
             <tr>
-                <th>Category List</th>
-                <th></th>
-                <th></th>
+                <td>{{category}}</td>
+                <td><a class="btn btn-default" href="/categories/edit/{{id}}" role="button">EDIT</a></td>
+                <td><a class="btn btn-default" href="/categories/delete/{{id}}">DELETE</a></td>
             </tr>
-        </thead>
+        </tbody>
+    {{/categories}}
 
-        {{#categories}}
-            <tbody>
-                <tr>
-                    <td>{{category}}</td>
-                    <td><a class="btn btn-default" href="/categories/edit/{{id}}" role="button">EDIT</a></td>
-                    <td><a class="btn btn-default" href="/categories/delete/{{id}}">DELETE</a></td>
-                </tr>
-            </tbody>
-        {{/categories}}
-
-    </table>
-
-
-
-</div>
+</table>
