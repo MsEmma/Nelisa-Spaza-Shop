@@ -1,8 +1,8 @@
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
-        connection.query(`SELECT sales.id, DATE_FORMAT(sales.date,'%a %d %b %Y') as date , products.product,
-					categories.category, sales.sold, sales.price
+        connection.query(`SELECT sales.id, DATE_FORMAT(sales.date,'%a %d %b %Y') as date,
+          products.product, categories.category, sales.sold, sales.price
 					FROM  sales
 				 	INNER JOIN products
           ON sales.product_id = products.id
