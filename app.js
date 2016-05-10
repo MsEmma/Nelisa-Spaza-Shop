@@ -10,6 +10,7 @@ var express = require('express'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
     db_purchases = require('./routes/db_purchases'),
+    weekly = require('./routes/weekly'),
     process_weekly_sales = require("./process_weekly_sales"),
     process_weekly_purchases = require("./process_weekly_purchases"),
     categories = require('./categories');
@@ -95,7 +96,6 @@ app.get('/products/add', products.showAdd);
 app.post('/products/add', products.add);
 app.get('/products/edit/:id', products.get);
 app.post('/products/update/:id', products.update);
-//this should be a post but this is only an illustration of CRUD - not on good practices
 app.get('/products/delete/:id', products.delete);
 
 app.get('/categories', db_categories.show);
@@ -103,7 +103,6 @@ app.get('/categories/add', db_categories.showAdd);
 app.post('/categories/add', db_categories.add);
 app.get('/categories/edit/:id', db_categories.get);
 app.post('/categories/update/:id', db_categories.update);
-//this should be a post but this is only an illustration of CRUD - not on good practices
 app.get('/categories/delete/:id', db_categories.delete);
 
 app.get('/sales', db_sales.show);
@@ -111,7 +110,6 @@ app.get('/sales/add', db_sales.showAdd);
 app.post('/sales/add', db_sales.add);
 app.get('/sales/edit/:id', db_sales.get);
 app.post('/sales/update/:id', db_sales.update);
-//this should be a post but this is only an illustration of CRUD - not on good practices
 app.get('/sales/delete/:id', db_sales.delete);
 
 app.get('/purchases', db_purchases.show);
@@ -119,14 +117,12 @@ app.get('/purchases/add', db_purchases.showAdd);
 app.post('/purchases/add', db_purchases.add);
 app.get('/purchases/edit/:id', db_purchases.get);
 app.post('/purchases/update/:id', db_purchases.update);
-//this should be a post but this is only an illustration of CRUD - not on good practices
 app.get('/purchases/delete/:id', db_purchases.delete);
 
-app.use(errorHandler);
+app.get('/weekly', weekly.mostPopularProduct);
+app.get('/weekly', weekly.mostPopularCategory);
 
-// app.listen(3000, function() {
-//   console.log('Opening port 3000!');
-// });
+app.use(errorHandler);
 
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
