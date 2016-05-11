@@ -1,23 +1,19 @@
-<table class="table table-hover" class="container">
-    <thead>
-        <tr>
-            <th>Popular Product</th>
-            <th>Popular Category</th>
-        </tr>
-    </thead>
+<h2> WEEKLY STATISTICS </h2>
 
+<ul>
+    {{#most_popular}}
+        <li>The most popular product is {{product}} with {{quantity}} units sold.</li>
+    {{/most_popular}}
 
-    <tbody>
-        <tr>
-            {{#most_popular}}
-                <td>{{product}}</td>
-            {{/most_popular}}
-            
-            {{#most_popular_cat}}
-                <td>{{category}}</td>
-            {{/most_popular_cat}}
-        </tr>
-    </tbody>
+    {{#least_popular}}
+        <li>The least popular product is {{product}} with {{quantity}} units sold.</li>
+    {{/least_popular}}
 
+    {{#most_popular_cat}}
+        <li>The most popular category is {{category}} with {{quantity}} units sold.</li>
+    {{/most_popular_cat}}
 
-</table>
+    {{#least_popular_cat}}
+        <li>The least popular category is {{category}} with {{quantity}} units sold.</li>
+    {{/least_popular_cat}}
+</ul>

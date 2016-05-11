@@ -119,8 +119,7 @@ app.get('/purchases/edit/:id', db_purchases.get);
 app.post('/purchases/update/:id', db_purchases.update);
 app.get('/purchases/delete/:id', db_purchases.delete);
 
-app.get('/weekly', weekly.mostPopularProduct);
-app.get('/weekly', weekly.mostPopularCategory);
+app.get('/weekly/:week', weekly.popular);
 
 app.use(errorHandler);
 

@@ -1,36 +1,48 @@
-exports.mostPopularProduct= function(req, res, next) {
+exports.popular = function(req, res, next) {
+   var week = req.params.week;
     req.getConnection(function(err, connection) {
         if (err) return next(err);
-        connection.query(`SELECT products.product, SUM( sales.sold )
+        connection.query(`SELECT products.product, SUM( sales.sold ) AS quantity
         FROM sales
         INNER JOIN products ON sales.product_id = products.id
         INNER JOIN categories ON products.category_id = categories.id
-        WHERE DATE <  '2016-02-07'
+        WHERE DATE < ?
         GROUP BY products.product
-        ORDER BY SUM( sales.sold ) DESC
-        LIMIT 0,1`, function(err, results) {
-            if (err) return next(err);
-            res.render('weekly', {
-                most_popular: results
-            });
-        });
-    });
-};
-
-exports.mostPopularCategory= function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query(`SELECT  categories.category, sum(sales.sold)
-        FROM sales
-        INNER JOIN products ON sales.product_id = products.id
-        INNER JOIN categories ON products.category_id = categories.id
-        WHERE DATE <  '2016-02-07'
-        GROUP BY categories.category
-        ORDER BY sum(sales.sold) DESC
-        LIMIT 0,1`, function(err, results) {
-            if (err) return next(err);
-            res.render('weekly', {
-                most_popular_cat: results
+        ORDER BY quantity DESC
+        LIMIT 0,1`, week ,function(err, most_popular) {
+            connection.query(`SELECT products.product, SUM( sales.sold ) AS quantity
+          FROM sales
+          INNER JOIN products ON sales.product_id = products.id
+          INNER JOIN categories ON products.category_id = categories.id
+          WHERE DATE <  ?
+          GROUP BY products.product
+          ORDER BY quantity ASC
+          LIMIT 0,1`, week,function(err, least_popular) {
+                connection.query(`SELECT  categories.category, sum(sales.sold) AS quantity
+            FROM sales
+            INNER JOIN products ON sales.product_id = products.id
+            INNER JOIN categories ON products.category_id = categories.id
+            WHERE DATE < ?
+            GROUP BY categories.category
+            ORDER BY quantity DESC
+            LIMIT 0,1`, week, function(err, most_popular_cat) {
+                    connection.query(`SELECT  categories.category, sum(sales.sold) AS quantity
+                  FROM sales
+                  INNER JOIN products ON sales.product_id = products.id
+                  INNER JOIN categories ON products.category_id = categories.id
+                  WHERE DATE < ?
+                  GROUP BY categories.category
+                  ORDER BY quantity ASC
+                  LIMIT 0,1`, week, function(err, least_popular_cat) {
+                        if (err) return next(err);
+                        res.render('weekly', {
+                            most_popular,
+                            least_popular,
+                            most_popular_cat,
+                            least_popular_cat
+                        });
+                    });
+                });
             });
         });
     });
