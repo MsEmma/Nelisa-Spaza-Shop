@@ -1,9 +1,9 @@
-<h2>ADD SALE</h2>
+<h3>ADD SALES</h3>
 
 <form class="navbar-form navbar-left" action="/sales/add" method="POST">
 
     <div>
-        <label for="">Product</label>
+        <label for="">Product &nbsp;&nbsp;&nbsp;&nbsp;</label>
         <select class="" name="product_id">
             {{#products}}
                 <option class="btn btn-default" value="{{id}}">{{product}}</option>
@@ -12,12 +12,12 @@
     </div>
 
     <div class="form-group">
-        <label for="">Date</label>
+        <label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="date" name="date" value="{{data.date}}">
     </div>
 
     <div class="form-group">
-        <label for="">Sold</label>
+        <label for="">Sold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="number" placeholder="Sold" name="sold" value="{{data.sold}}">
     </div>
 

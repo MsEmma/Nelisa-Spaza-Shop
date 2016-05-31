@@ -1,8 +1,8 @@
-<h2>EDIT SALES</h2>
+<h3>EDIT SALE</h3>
 
 <form class="navbar-form navbar-left" action="/sales/update/{{data.id}}" method="POST">
     <div>
-        <label for="">Product</label>
+        <label for="">Product &nbsp;&nbsp;&nbsp;&nbsp;</label>
         <select class="" name="product_id">
             {{#products}}
                 <option {{selected}} value="{{id}}">{{product}}</option>
@@ -11,12 +11,12 @@
     </div>
 
     <div class="form-group">
-        <label for="">Date</label>
+        <label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="text" name="date" value="{{data.date}}">
     </div>
 
     <div class="form-group">
-        <label for="">Sold</label>
+        <label for="">Sold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="number" name="sold" value="{{data.sold}}">
     </div>
 

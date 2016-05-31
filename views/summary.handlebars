@@ -1,4 +1,5 @@
-<h2> WEEKLY STATISTICS </h2>
+<h2>Summary</h2>
+<h4>Period From: {{start_date}} To {{end_date}}</h4>
 
 <ul>
     {{#most_popular}}
@@ -8,7 +9,8 @@
     {{#least_popular}}
         <li>The least popular product is {{product}} with {{quantity}} units sold.</li>
     {{/least_popular}}
-  {{#most_popular_cat}}
+
+    {{#most_popular_cat}}
         <li>The most popular category is {{category}} with {{quantity}} units sold.</li>
     {{/most_popular_cat}}
 

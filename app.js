@@ -10,7 +10,7 @@ var express = require('express'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
     db_purchases = require('./routes/db_purchases'),
-    weekly = require('./routes/weekly'),
+    summary = require('./routes/summary'),
     process_weekly_sales = require("./process_weekly_sales"),
     process_weekly_purchases = require("./process_weekly_purchases"),
     categories = require('./categories');
@@ -57,39 +57,39 @@ app.get('/aboutus', function(req, res) {
     res.render('aboutus');
 });
 
-app.get('/stats/:week', function(req, res) {
-
-    var week = req.params.week;
-    var filepath = './input/' + week + '.csv';
-
-    var sales = process_weekly_sales.getSalesList(filepath);
-    var weekly_sales = process_weekly_sales.getWeeklySales(sales);
-    var selling_prices = process_weekly_sales.getSellPrices(sales);
-    var most_popular = process_weekly_sales.getPopularProduct(weekly_sales);
-    var least_popular = process_weekly_sales.getLeastPopularProduct(weekly_sales);
-
-    var purchases = process_weekly_purchases.getPurchases('./input/purchases.csv');
-    var weekly_purchases = process_weekly_purchases.getWeeklyPurchases(purchases, week);
-    var cost_prices = process_weekly_purchases.getCostPrices(weekly_purchases);
-    var total_profit = process_weekly_purchases.getTotalProfit(cost_prices, selling_prices, weekly_sales);
-    var most_profitable_product = process_weekly_purchases.getMostProfitableProduct(total_profit);
-
-    var category_map = categories.getCategories('./input/categories.csv');
-    var category_sales = categories.getCatSales(category_map, weekly_sales);
-    var most_popular_cat = categories.getMostPopularCategory(category_sales);
-    var least_popular_cat = categories.getLeastPopularCategory(category_sales);
-    var cat_profit = categories.getCatProfit(category_map, total_profit);
-    var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
-
-    var result = {
-        Week: week.match(/\d+/),
-        pop: [most_popular, least_popular, most_popular_cat, least_popular_cat],
-        profit: [most_profitable_product, most_profitable_cat]
-    };
-
-    res.render('display', result);
-
-});
+// app.get('/stats/:week', function(req, res) {
+//
+//     var week = req.params.week;
+//     var filepath = './input/' + week + '.csv';
+//
+//     var sales = process_weekly_sales.getSalesList(filepath);
+//     var weekly_sales = process_weekly_sales.getWeeklySales(sales);
+//     var selling_prices = process_weekly_sales.getSellPrices(sales);
+//     var most_popular = process_weekly_sales.getPopularProduct(weekly_sales);
+//     var least_popular = process_weekly_sales.getLeastPopularProduct(weekly_sales);
+//
+//     var purchases = process_weekly_purchases.getPurchases('./input/purchases.csv');
+//     var weekly_purchases = process_weekly_purchases.getWeeklyPurchases(purchases, week);
+//     var cost_prices = process_weekly_purchases.getCostPrices(weekly_purchases);
+//     var total_profit = process_weekly_purchases.getTotalProfit(cost_prices, selling_prices, weekly_sales);
+//     var most_profitable_product = process_weekly_purchases.getMostProfitableProduct(total_profit);
+//
+//     var category_map = categories.getCategories('./input/categories.csv');
+//     var category_sales = categories.getCatSales(category_map, weekly_sales);
+//     var most_popular_cat = categories.getMostPopularCategory(category_sales);
+//     var least_popular_cat = categories.getLeastPopularCategory(category_sales);
+//     var cat_profit = categories.getCatProfit(category_map, total_profit);
+//     var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
+//
+//     var result = {
+//         Week: week.match(/\d+/),
+//         pop: [most_popular, least_popular, most_popular_cat, least_popular_cat],
+//         profit: [most_profitable_product, most_profitable_cat]
+//     };
+//
+//     res.render('display', result);
+//
+// });
 
 app.get('/products', products.show);
 app.get('/products/add', products.showAdd);
@@ -119,8 +119,10 @@ app.get('/purchases/edit/:id', db_purchases.get);
 app.post('/purchases/update/:id', db_purchases.update);
 app.get('/purchases/delete/:id', db_purchases.delete);
 
-app.get('/weekly', weekly.showPopular);
-app.post('/weekly/stats', weekly.getStats);
+app.get('/getsummary', function(req, res) {
+    res.render('getsummary');
+});
+app.post('/summary', summary.showPopular);
 
 app.use(errorHandler);
 
