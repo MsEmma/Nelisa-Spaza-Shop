@@ -8,7 +8,6 @@ exports.showPopular = function(req, res, next) {
         connection.query(`SELECT products.product, SUM( sales.sold ) AS quantity
         FROM sales
         INNER JOIN products ON sales.product_id = products.id
-        INNER JOIN categories ON products.category_id = categories.id
         WHERE sales.date
         BETWEEN  ?
         AND ?
@@ -18,7 +17,6 @@ exports.showPopular = function(req, res, next) {
             connection.query(`SELECT products.product, SUM( sales.sold ) AS quantity
           FROM sales
           INNER JOIN products ON sales.product_id = products.id
-          INNER JOIN categories ON products.category_id = categories.id
           WHERE sales.date
           BETWEEN  ?
           AND ?

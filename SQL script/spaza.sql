@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 10, 2016 at 12:27 PM
+-- Generation Time: Jun 02, 2016 at 09:29 AM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.16
+-- PHP Version: 5.5.9-1ubuntu4.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `price` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=431 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=432 ;
 
 --
 -- Dumping data for table `sales`
@@ -682,7 +682,8 @@ INSERT INTO `sales` (`id`, `date`, `product_id`, `sold`, `price`) VALUES
 (427, '2016-02-28', 12, 7, 6.00),
 (428, '2016-02-28', 13, 6, 2.00),
 (429, '2016-02-28', 14, 8, 2.00),
-(430, '2016-02-28', 15, 8, 3.00);
+(430, '2016-02-28', 15, 8, 3.00),
+(431, '2016-06-01', 1, 8, 5.00);
 
 --
 -- Constraints for dumped tables
