@@ -6,14 +6,15 @@ var express = require('express'),
     mysql = require('mysql'),
     bodyParser = require('body-parser'),
     myConnection = require('express-myconnection'),
+    session = require('express-session'),
     products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
     db_purchases = require('./routes/db_purchases'),
-    summary = require('./routes/summary'),
-    process_weekly_sales = require("./process_weekly_sales"),
-    process_weekly_purchases = require("./process_weekly_purchases"),
-    categories = require('./categories');
+    summary = require('./routes/summary');
+// process_weekly_sales = require("./process_weekly_sales"),
+// process_weekly_purchases = require("./process_weekly_purchases"),
+// categories = require('./categories');
 
 var dbOptions = {
     host: 'localhost',
@@ -23,14 +24,13 @@ var dbOptions = {
     database: 'spaza'
 };
 
-app.use(express.static('public'));
-
 //configure the port number using and environment number
 app.set('port', (process.env.PORT || 3000));
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
+
 app.set('view engine', 'handlebars');
 
 //setup middleware
@@ -42,6 +42,12 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
+
+app.use(session({
+    secret: 'ssshhhhh'
+}));
+
 function errorHandler(err, req, res, next) {
     res.status(500);
     res.render('error', {
@@ -49,13 +55,62 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-app.get('/', function(req, res) {
+app.use(function(req, res, next) {
+    // the user is not going to the login screen
+    if (req.path != "/login") {
+        //is the user not logged in?
+        if (!req.session.username) {
+            // redirects to the login screen
+            return res.redirect("/login");
+        }
+    }
+    next();
+});
+
+app.get('/login', function(req, res) {
+    res.render('login');
+});
+
+app.post('/login/:Emma', function(req, res) {
     res.render('home');
 });
 
-app.get('/aboutus', function(req, res) {
+app.get('/aboutus/:username', function(req, res) {
     res.render('aboutus');
 });
+
+app.get('/products', products.show);
+app.get('/products/add', products.showAdd);
+app.post('/products/add', products.add);
+app.get('/products/edit/:id', products.get);
+app.post('/products/update/:id', products.update);
+app.get('/products/delete/:id', products.delete);
+
+app.get('/categories', db_categories.show);
+app.get('/categories/add', db_categories.showAdd);
+app.post('/categories/add', db_categories.add);
+app.get('/categories/edit/:id', db_categories.get);
+app.post('/categories/update/:id', db_categories.update);
+app.get('/categories/delete/:id', db_categories.delete);
+
+app.get('/sales', db_sales.show);
+app.get('/sales/add', db_sales.showAdd);
+app.post('/sales/add', db_sales.add);
+app.get('/sales/edit/:id', db_sales.get);
+app.post('/sales/update/:id', db_sales.update);
+app.get('/sales/delete/:id', db_sales.delete);
+
+app.get('/purchases', db_purchases.show);
+app.get('/purchases/add', db_purchases.showAdd);
+app.post('/purchases/add', db_purchases.add);
+app.get('/purchases/edit/:id', db_purchases.get);
+app.post('/purchases/update/:id', db_purchases.update);
+app.get('/purchases/delete/:id', db_purchases.delete);
+
+app.get('/getsummary', function(req, res) {
+    res.render('getsummary');
+});
+app.post('/summary', summary.showPopular);
 
 // app.get('/stats/:week', function(req, res) {
 //
@@ -90,39 +145,6 @@ app.get('/aboutus', function(req, res) {
 //     res.render('display', result);
 //
 // });
-
-app.get('/products', products.show);
-app.get('/products/add', products.showAdd);
-app.post('/products/add', products.add);
-app.get('/products/edit/:id', products.get);
-app.post('/products/update/:id', products.update);
-app.get('/products/delete/:id', products.delete);
-
-app.get('/categories', db_categories.show);
-app.get('/categories/add', db_categories.showAdd);
-app.post('/categories/add', db_categories.add);
-app.get('/categories/edit/:id', db_categories.get);
-app.post('/categories/update/:id', db_categories.update);
-app.get('/categories/delete/:id', db_categories.delete);
-
-app.get('/sales', db_sales.show);
-app.get('/sales/add', db_sales.showAdd);
-app.post('/sales/add', db_sales.add);
-app.get('/sales/edit/:id', db_sales.get);
-app.post('/sales/update/:id', db_sales.update);
-app.get('/sales/delete/:id', db_sales.delete);
-
-app.get('/purchases', db_purchases.show);
-app.get('/purchases/add', db_purchases.showAdd);
-app.post('/purchases/add', db_purchases.add);
-app.get('/purchases/edit/:id', db_purchases.get);
-app.post('/purchases/update/:id', db_purchases.update);
-app.get('/purchases/delete/:id', db_purchases.delete);
-
-app.get('/getsummary', function(req, res) {
-    res.render('getsummary');
-});
-app.post('/summary', summary.showPopular);
 
 app.use(errorHandler);
 
