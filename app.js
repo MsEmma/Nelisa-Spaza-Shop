@@ -7,6 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     myConnection = require('express-myconnection'),
     session = require('express-session'),
+    basicAuth = require('basic-auth-connect'),
     products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
@@ -45,8 +46,10 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use(session({
-    secret: 'ssshhhhh'
-}));
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}))
 
 function errorHandler(err, req, res, next) {
     res.status(500);
@@ -55,27 +58,54 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-app.use(function(req, res, next) {
-    // the user is not going to the login screen
-    if (req.path != "/login") {
-        //is the user not logged in?
-        if (!req.session.username) {
-            // redirects to the login screen
-            return res.redirect("/login");
-        }
-    }
-    next();
+// app.use(function(req, res, next) {
+//     // the user is not going to the login screen
+//     if (req.path != '/login') {
+//         //is the user not logged in?
+//         if (!req.session.username) {
+//             // redirects to the login screen
+//             return res.render('login');
+//         }
+//     }
+//     next();
+// });
+
+// // Logout
+// app.get('/logout', function(req, res) {
+//     delete req.session.username
+//     res.send("logout success!");
+// });
+
+// Authentication and Authorization Middleware
+var auth = function(req, res, next) {
+  if (req.session && req.session.user === "emma" && req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+
+// Login endpoint
+app.get('/login', function (req, res) {
+  if (!req.query.username || !req.query.password) {
+    res.send('login failed');
+  } else if(req.query.username === "emma" || req.query.password === "emma321") {
+    req.session.user = "emma";
+    req.session.admin = true;
+    res.redirect('/');
+  }
 });
 
-app.get('/login', function(req, res) {
-    res.render('login');
+// Logout endpoint
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.send("logout success!");
 });
 
-app.post('/login/:Emma', function(req, res) {
+app.get('/', auth, function(req, res) {
     res.render('home');
 });
 
-app.get('/aboutus/:username', function(req, res) {
+app.get('/aboutus',auth,function(req, res) {
     res.render('aboutus');
 });
 
