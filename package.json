@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/MsEmma/Nelisa-Spaza-Shop#readme",
   "dependencies": {
-    "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",

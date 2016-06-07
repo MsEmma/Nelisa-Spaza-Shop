@@ -73,19 +73,31 @@ app.get('/login', function(req, res) {
     res.render('login');
 });
 
-app.post("/login", function(req, res, error) {
+app.post("/login", function(req, res) {
 
     req.session.username = req.body.username;
 
     if (req.session.username === "emma") {
         res.redirect('/')
     } else {
-      delete req.session.username;
-      res.redirect('/login')
+        delete req.session.username;
+        res.render('login', {
+            msg: "Incorrect Login"
+        })
     }
 });
 
-// Logout
+app.get('/signup', function(req, res) {
+    res.render('signup');
+});
+
+// app.post("/signup", function(req, res) {
+//
+//     req.session.username = req.body.username;
+//     res.render('login', {msg: "Done Continue to Login"})
+//
+// });
+
 app.get('/logout', function(req, res) {
     delete req.session.username;
     res.redirect('/login');
