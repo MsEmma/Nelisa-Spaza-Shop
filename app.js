@@ -7,6 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     myConnection = require('express-myconnection'),
     session = require('express-session'),
+    _ = require('underscore'),
     products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
@@ -50,6 +51,8 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(require('flash')());
+
 function errorHandler(err, req, res, next) {
     res.status(500);
     res.render('error', {
@@ -59,13 +62,15 @@ function errorHandler(err, req, res, next) {
 
 app.use(function(req, res, next) {
     // the user is not going to the login screen
-    if (req.path != '/login') {
-        //is the user not logged in?
-        if (!req.session.username) {
-            // redirects to the login screen
-            return res.redirect('/login');
-        }
+    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup','/getsummary','/summary'];
+
+    if (_.contains(nonSecurePaths, req.path)) return next();
+    //is the user not logged in?
+    if (!req.session.username) {
+        // redirects to the login screen
+        return res.redirect('/login');
     }
+
     next();
 });
 
@@ -76,14 +81,15 @@ app.get('/login', function(req, res) {
 app.post("/login", function(req, res) {
 
     req.session.username = req.body.username;
+    req.session.password = req.body.password;
 
-    if (req.session.username === "emma") {
+    if (req.session.username === "emma" || req.session.password === "321emma") {
         res.redirect('/')
     } else {
+        
         delete req.session.username;
-        res.render('login', {
-            msg: "Incorrect Login"
-        })
+        delete req.session.password;
+        res.render('login', { msg: "Incorrect Login"})
     }
 });
 
@@ -100,6 +106,7 @@ app.get('/signup', function(req, res) {
 
 app.get('/logout', function(req, res) {
     delete req.session.username;
+    delete req.session.password;
     res.redirect('/login');
 });
 
