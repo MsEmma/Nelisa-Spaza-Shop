@@ -85,7 +85,7 @@ app.get('/login', function(req, res) {
 app.post("/login", function(req, res) {
 
     req.session.username = req.body.username;
-    req.session.password = req.body.username;
+    req.session.password = req.body.password;
 
     if (users.hasOwnProperty(req.session.username)) {
         res.redirect('/');
