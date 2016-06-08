@@ -7,12 +7,15 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     myConnection = require('express-myconnection'),
     session = require('express-session'),
+    flash = require('express-flash'),
     _ = require('underscore'),
     products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),
     db_sales = require('./routes/db_sales'),
     db_purchases = require('./routes/db_purchases'),
-    summary = require('./routes/summary');
+    summary = require('./routes/summary'),
+    requested_url = "",
+    users = {};
 // process_weekly_sales = require("./process_weekly_sales"),
 // process_weekly_purchases = require("./process_weekly_purchases"),
 // categories = require('./categories');
@@ -51,7 +54,7 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.use(require('flash')());
+app.use(flash());
 
 function errorHandler(err, req, res, next) {
     res.status(500);
@@ -62,11 +65,12 @@ function errorHandler(err, req, res, next) {
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup','/getsummary','/summary'];
+    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup', '/getsummary', '/summary'];
 
     if (_.contains(nonSecurePaths, req.path)) return next();
     //is the user not logged in?
     if (!req.session.username) {
+        requested_url = req.path;
         // redirects to the login screen
         return res.redirect('/login');
     }
@@ -81,15 +85,15 @@ app.get('/login', function(req, res) {
 app.post("/login", function(req, res) {
 
     req.session.username = req.body.username;
-    req.session.password = req.body.password;
+    req.session.password = req.body.username;
 
-    if (req.session.username === "emma" || req.session.password === "321emma") {
-        res.redirect('/')
+    if (users.hasOwnProperty(req.session.username)) {
+        res.redirect('/');
+
     } else {
-
+        req.flash('warning', 'Incorrect Login!');
         delete req.session.password;
-        res.render('login', { msg: "Incorrect Login"})
-
+        res.redirect('/login')
     }
 });
 
@@ -97,12 +101,16 @@ app.get('/signup', function(req, res) {
     res.render('signup');
 });
 
-// app.post("/signup", function(req, res) {
-//
-//     req.session.username = req.body.username;
-//     res.render('login', {msg: "Done Continue to Login"})
-//
-// });
+app.post("/signup", function(req, res) {
+
+    var username = req.body.username;
+    var password = req.body.password;
+    users[username] = password;
+    console.log(users);
+    req.flash('info', "Thank you for registering, Now login");
+    res.redirect('/login')
+
+});
 
 app.get('/logout', function(req, res) {
     delete req.session.username;
