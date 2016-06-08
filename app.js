@@ -59,6 +59,7 @@ function errorHandler(err, req, res, next) {
 
 app.use(function(req, res, next) {
     // the user is not going to the login screen
+
     if (req.path != '/login') {
         //is the user not logged in?
         if (!req.session.username) {
@@ -66,6 +67,7 @@ app.use(function(req, res, next) {
             return res.redirect('/login');
         }
     }
+    
     next();
 });
 
@@ -81,9 +83,7 @@ app.post("/login", function(req, res) {
         res.redirect('/')
     } else {
         delete req.session.username;
-        res.render('login', {
-            msg: "Incorrect Login"
-        })
+        res.render('login', {msg: "Incorrect Login"})
     }
 });
 
