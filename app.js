@@ -8,17 +8,7 @@ var express = require('express'),
     myConnection = require('express-myconnection'),
     session = require('express-session'),
     flash = require('express-flash'),
-    _ = require('underscore'),
-    products = require('./routes/products'),
-    db_categories = require('./routes/db_categories'),
-    db_sales = require('./routes/db_sales'),
-    db_purchases = require('./routes/db_purchases'),
-    summary = require('./routes/summary'),
-    requested_url = "",
-    users = {};
-// process_weekly_sales = require("./process_weekly_sales"),
-// process_weekly_purchases = require("./process_weekly_purchases"),
-// categories = require('./categories');
+    _ = require('underscore');
 
 var dbOptions = {
     host: 'localhost',
@@ -28,7 +18,6 @@ var dbOptions = {
     database: 'spaza'
 };
 
-//configure the port number using and environment number
 app.set('port', (process.env.PORT || 3000));
 
 app.engine('handlebars', exphbs({
@@ -39,11 +28,11 @@ app.set('view engine', 'handlebars');
 
 //setup middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
-// parse application/x-www-form-urlencoded
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-// parse application/json
+
 app.use(bodyParser.json());
 
 app.use(express.static('public'));
@@ -56,6 +45,19 @@ app.use(session({
 
 app.use(flash());
 
+app.use(function(req, res, next) {
+
+    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup', '/getsummary', '/summary'];
+
+    if (_.contains(nonSecurePaths, req.path)) return next();
+
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+
+    next();
+});
+
 function errorHandler(err, req, res, next) {
     res.status(500);
     res.render('error', {
@@ -63,58 +65,28 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-app.use(function(req, res, next) {
-
-    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup', '/getsummary', '/summary'];
-
-    if (_.contains(nonSecurePaths, req.path)) return next();
-    //is the user not logged in?
-    if (!req.session.username) {
-        requested_url = req.path;
-        // redirects to the login screen
-        return res.redirect('/login');
-    }
-
-    next();
-});
+var products = require('./routes/products'),
+    db_categories = require('./routes/db_categories'),
+    db_sales = require('./routes/db_sales'),
+    db_purchases = require('./routes/db_purchases'),
+    summary = require('./routes/summary'),
+    signup = require('./routes/signup'),
+    login = require('./routes/login');
 
 app.get('/login', function(req, res) {
     res.render('login');
 });
 
-app.post("/login", function(req, res) {
-
-    req.session.username = req.body.username;
-    req.session.password = req.body.password;
-
-    if (users.hasOwnProperty(req.session.username)) {
-        res.redirect('/');
-
-    } else {
-        req.flash('warning', 'Incorrect Login!');
-        delete req.session.password;
-        res.redirect('/login')
-    }
-});
+app.post("/login", login);
 
 app.get('/signup', function(req, res) {
     res.render('signup');
 });
 
-app.post("/signup", function(req, res) {
-
-    var username = req.body.username;
-    var password = req.body.password;
-    users[username] = password;
-    console.log(users);
-    req.flash('info', "Thank you for registering, Now login");
-    res.redirect('/login')
-
-});
+app.post("/signup", signup);
 
 app.get('/logout', function(req, res) {
-    delete req.session.username;
-    delete req.session.password;
+    delete req.session.user;
     res.redirect('/login');
 });
 
@@ -158,40 +130,6 @@ app.get('/getsummary', function(req, res) {
     res.render('getsummary');
 });
 app.post('/summary', summary.showPopular);
-
-// app.get('/stats/:week', function(req, res) {
-//
-//     var week = req.params.week;
-//     var filepath = './input/' + week + '.csv';
-//
-//     var sales = process_weekly_sales.getSalesList(filepath);
-//     var weekly_sales = process_weekly_sales.getWeeklySales(sales);
-//     var selling_prices = process_weekly_sales.getSellPrices(sales);
-//     var most_popular = process_weekly_sales.getPopularProduct(weekly_sales);
-//     var least_popular = process_weekly_sales.getLeastPopularProduct(weekly_sales);
-//
-//     var purchases = process_weekly_purchases.getPurchases('./input/purchases.csv');
-//     var weekly_purchases = process_weekly_purchases.getWeeklyPurchases(purchases, week);
-//     var cost_prices = process_weekly_purchases.getCostPrices(weekly_purchases);
-//     var total_profit = process_weekly_purchases.getTotalProfit(cost_prices, selling_prices, weekly_sales);
-//     var most_profitable_product = process_weekly_purchases.getMostProfitableProduct(total_profit);
-//
-//     var category_map = categories.getCategories('./input/categories.csv');
-//     var category_sales = categories.getCatSales(category_map, weekly_sales);
-//     var most_popular_cat = categories.getMostPopularCategory(category_sales);
-//     var least_popular_cat = categories.getLeastPopularCategory(category_sales);
-//     var cat_profit = categories.getCatProfit(category_map, total_profit);
-//     var most_profitable_cat = categories.getMostProfitableCategory(cat_profit);
-//
-//     var result = {
-//         Week: week.match(/\d+/),
-//         pop: [most_popular, least_popular, most_popular_cat, least_popular_cat],
-//         profit: [most_profitable_product, most_profitable_cat]
-//     };
-//
-//     res.render('display', result);
-//
-// });
 
 app.use(errorHandler);
 
