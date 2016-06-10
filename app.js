@@ -47,14 +47,12 @@ app.use(flash());
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/login', '/', '/aboutus', '/signup', '/getsummary', '/summary'];
+    if (req.path != "/login") {
 
-    if (_.contains(nonSecurePaths, req.path)) return next();
-
-    if (!req.session.user) {
-        return res.redirect('/login');
+        if (!req.session.user) {
+            return res.redirect('/login');
+        }
     }
-
     next();
 });
 
@@ -63,6 +61,17 @@ function errorHandler(err, req, res, next) {
     res.render('error', {
         error: err
     });
+}
+
+function requireRole(role) {
+    return function(req, res, next) {
+        var users = [admin, user];
+
+        if(req.session.user && req.session.user.role === role)
+            next();
+        else
+            res.send(403);
+    }
 }
 
 var products = require('./routes/products'),
@@ -90,46 +99,46 @@ app.get('/logout', function(req, res) {
     res.redirect('/login');
 });
 
-app.get('/', function(req, res) {
+app.get('/',requireRole('user') || requireRole('admin'), function(req, res) {
     res.render('home');
 });
 
-app.get('/aboutus', function(req, res) {
+app.get('/aboutus',requireRole('user') || requireRole('admin'), function(req, res) {
     res.render('aboutus');
 });
 
-app.get('/products', products.show);
-app.get('/products/add', products.showAdd);
-app.post('/products/add', products.add);
-app.get('/products/edit/:id', products.get);
-app.post('/products/update/:id', products.update);
-app.get('/products/delete/:id', products.delete);
+app.get('/products',requireRole('admin'), products.show);
+app.get('/products/add',requireRole('admin'), products.showAdd);
+app.post('/products/add',requireRole('admin'), products.add);
+app.get('/products/edit/:id',requireRole('admin'), products.get);
+app.post('/products/update/:id',requireRole('admin'), products.update);
+app.get('/products/delete/:id',requireRole('admin'), products.delete);
 
-app.get('/categories', db_categories.show);
-app.get('/categories/add', db_categories.showAdd);
-app.post('/categories/add', db_categories.add);
-app.get('/categories/edit/:id', db_categories.get);
-app.post('/categories/update/:id', db_categories.update);
-app.get('/categories/delete/:id', db_categories.delete);
+app.get('/categories',requireRole('admin'), db_categories.show);
+app.get('/categories/add',requireRole('admin'), db_categories.showAdd);
+app.post('/categories/add',requireRole('admin'), db_categories.add);
+app.get('/categories/edit/:id',requireRole('admin'), db_categories.get);
+app.post('/categories/update/:id',requireRole('admin'), db_categories.update);
+app.get('/categories/delete/:id',requireRole('admin'), db_categories.delete);
 
-app.get('/sales', db_sales.show);
-app.get('/sales/add', db_sales.showAdd);
-app.post('/sales/add', db_sales.add);
-app.get('/sales/edit/:id', db_sales.get);
-app.post('/sales/update/:id', db_sales.update);
-app.get('/sales/delete/:id', db_sales.delete);
+app.get('/sales',requireRole('admin'), db_sales.show);
+app.get('/sales/add',requireRole('admin'), db_sales.showAdd);
+app.post('/sales/add',requireRole('admin'), db_sales.add);
+app.get('/sales/edit/:id',requireRole('admin'), db_sales.get);
+app.post('/sales/update/:id',requireRole('admin'), db_sales.update);
+app.get('/sales/delete/:id',requireRole('admin'), db_sales.delete);
 
-app.get('/purchases', db_purchases.show);
-app.get('/purchases/add', db_purchases.showAdd);
-app.post('/purchases/add', db_purchases.add);
-app.get('/purchases/edit/:id', db_purchases.get);
-app.post('/purchases/update/:id', db_purchases.update);
-app.get('/purchases/delete/:id', db_purchases.delete);
+app.get('/purchases',requireRole('admin'), db_purchases.show);
+app.get('/purchases/add',requireRole('admin'), db_purchases.showAdd);
+app.post('/purchases/add',requireRole('admin'), db_purchases.add);
+app.get('/purchases/edit/:id',requireRole('admin'), db_purchases.get);
+app.post('/purchases/update/:id',requireRole('admin'), db_purchases.update);
+app.get('/purchases/delete/:id',requireRole('admin'), db_purchases.delete);
 
-app.get('/getsummary', function(req, res) {
+app.get('/getsummary',requireRole('user') || requireRole('admin'), function(req, res) {
     res.render('getsummary');
 });
-app.post('/summary', summary.showPopular);
+app.post('/summary',requireRole('user') || requireRole('admin'), summary.showPopular);
 
 app.use(errorHandler);
 
