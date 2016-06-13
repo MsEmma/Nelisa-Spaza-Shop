@@ -47,7 +47,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/','/login', '/signup'];
+    var nonSecurePaths = ['/', '/login', '/signup'];
 
     if (_.contains(nonSecurePaths, req.path)) return next();
 
@@ -65,12 +65,16 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-function requireRole(role) {
+function enableUser(role) {
     return function(req, res, next) {
-        if (req.session.user && req.session.user.role === role)
-            next();
-        else
-            res.send(403);
+        if (req.session.user) {
+            if (req.session.user.role === role)
+                next();
+            else if (role === 'both')
+                next();
+            else
+                res.send(403);
+        }
     }
 }
 
@@ -103,42 +107,42 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
-app.get('/aboutus', requireRole('admin'), function(req, res) {
+app.get('/aboutus',enableUser('both'), function(req, res) {
     res.render('aboutus');
 });
 
-app.get('/products', requireRole('admin'), products.show);
-app.get('/products/add', requireRole('admin'), products.showAdd);
-app.post('/products/add', requireRole('admin'), products.add);
-app.get('/products/edit/:id', requireRole('admin'), products.get);
-app.post('/products/update/:id', requireRole('admin'), products.update);
-app.get('/products/delete/:id', requireRole('admin'), products.delete);
+app.get('/products', enableUser('both'), products.show);
+app.get('/products/add', enableUser('admin'), products.showAdd);
+app.post('/products/add', enableUser('admin'), products.add);
+app.get('/products/edit/:id', enableUser('admin'), products.get);
+app.post('/products/update/:id', enableUser('admin'), products.update);
+app.get('/products/delete/:id', enableUser('admin'), products.delete);
 
-app.get('/categories', requireRole('admin'), db_categories.show);
-app.get('/categories/add', requireRole('admin'), db_categories.showAdd);
-app.post('/categories/add', requireRole('admin'), db_categories.add);
-app.get('/categories/edit/:id', requireRole('admin'), db_categories.get);
-app.post('/categories/update/:id', requireRole('admin'), db_categories.update);
-app.get('/categories/delete/:id', requireRole('admin'), db_categories.delete);
+app.get('/categories', enableUser('admin'), db_categories.show);
+app.get('/categories/add', enableUser('admin'), db_categories.showAdd);
+app.post('/categories/add', enableUser('admin'), db_categories.add);
+app.get('/categories/edit/:id', enableUser('admin'), db_categories.get);
+app.post('/categories/update/:id', enableUser('admin'), db_categories.update);
+app.get('/categories/delete/:id', enableUser('admin'), db_categories.delete);
 
-app.get('/sales', requireRole('admin'), db_sales.show);
-app.get('/sales/add', requireRole('admin'), db_sales.showAdd);
-app.post('/sales/add', requireRole('admin'), db_sales.add);
-app.get('/sales/edit/:id', requireRole('admin'), db_sales.get);
-app.post('/sales/update/:id', requireRole('admin'), db_sales.update);
-app.get('/sales/delete/:id', requireRole('admin'), db_sales.delete);
+app.get('/sales', enableUser('admin'), db_sales.show);
+app.get('/sales/add', enableUser('admin'), db_sales.showAdd);
+app.post('/sales/add', enableUser('admin'), db_sales.add);
+app.get('/sales/edit/:id', enableUser('admin'), db_sales.get);
+app.post('/sales/update/:id', enableUser('admin'), db_sales.update);
+app.get('/sales/delete/:id', enableUser('admin'), db_sales.delete);
 
-app.get('/purchases', requireRole('admin'), db_purchases.show);
-app.get('/purchases/add', requireRole('admin'), db_purchases.showAdd);
-app.post('/purchases/add', requireRole('admin'), db_purchases.add);
-app.get('/purchases/edit/:id', requireRole('admin'), db_purchases.get);
-app.post('/purchases/update/:id', requireRole('admin'), db_purchases.update);
-app.get('/purchases/delete/:id', requireRole('admin'), db_purchases.delete);
+app.get('/purchases', enableUser('admin'), db_purchases.show);
+app.get('/purchases/add', enableUser('admin'), db_purchases.showAdd);
+app.post('/purchases/add', enableUser('admin'), db_purchases.add);
+app.get('/purchases/edit/:id', enableUser('admin'), db_purchases.get);
+app.post('/purchases/update/:id', enableUser('admin'), db_purchases.update);
+app.get('/purchases/delete/:id', enableUser('admin'), db_purchases.delete);
 
-app.get('/getsummary', requireRole('admin'), function(req, res) {
+app.get('/getsummary', enableUser('both'), function(req, res) {
     res.render('getsummary');
 });
-app.post('/summary', requireRole('admin'), summary.showPopular);
+app.post('/summary', enableUser('both'), summary.showPopular);
 
 app.use(errorHandler);
 
