@@ -84,7 +84,9 @@ var products = require('./routes/products'),
     db_purchases = require('./routes/db_purchases'),
     summary = require('./routes/summary'),
     signup = require('./routes/signup'),
-    login = require('./routes/login');
+    login = require('./routes/login'),
+    users = require('./routes/users');
+
 
 app.get('/login', function(req, res) {
     res.render('login');
@@ -110,6 +112,8 @@ app.get('/', function(req, res) {
 app.get('/aboutus',enableUser('both'), function(req, res) {
     res.render('aboutus');
 });
+
+app.get('/users', enableUser('admin'), users.show);
 
 app.get('/products', enableUser('both'), products.show);
 app.get('/products/add', enableUser('admin'), products.showAdd);
