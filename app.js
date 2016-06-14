@@ -87,7 +87,6 @@ var products = require('./routes/products'),
     login = require('./routes/login'),
     users = require('./routes/users');
 
-
 app.get('/login', function(req, res) {
     res.render('login');
 });
@@ -114,6 +113,11 @@ app.get('/aboutus',enableUser('both'), function(req, res) {
 });
 
 app.get('/users', enableUser('admin'), users.show);
+app.get('/users/add', enableUser('admin'), users.showAdd);
+app.post('/users/add', enableUser('admin'), users.add);
+app.get('/users/edit/:id', enableUser('admin'), users.get);
+app.post('/users/update/:id', enableUser('admin'), users.update);
+app.get('/users/delete/:id', enableUser('admin'), users.delete);
 
 app.get('/products', enableUser('both'), products.show);
 app.get('/products/add', enableUser('admin'), products.showAdd);
