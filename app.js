@@ -125,6 +125,7 @@ app.post('/products/add', enableUser('admin'), products.add);
 app.get('/products/edit/:id', enableUser('admin'), products.get);
 app.post('/products/update/:id', enableUser('admin'), products.update);
 app.get('/products/delete/:id', enableUser('admin'), products.delete);
+app.get('/products/search', enableUser('both'), products.search);
 
 app.get('/categories', enableUser('admin'), db_categories.show);
 app.get('/categories/add', enableUser('admin'), db_categories.showAdd);

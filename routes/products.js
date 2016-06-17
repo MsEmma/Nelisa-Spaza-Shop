@@ -86,3 +86,27 @@ exports.delete = function(req, res, next) {
         });
     });
 };
+
+exports.search = function(req, res, next) {
+    var product = req.body.product;
+    req.getConnection(function(err, connection) {
+        connection.query('SELECT FROM products WHERE product = ?', [product], function(err, rows) {
+            if (err) return next(err);
+            res.render('/products/search');
+        });
+    });
+};
+
+// exports.search = function(req, res, next) {
+//     req.getConnection(function(err, connection) {
+//         var searchVal = '%' + req.params.searchVal + '%';
+//         console.log(searchVal);
+//         connection.query('SELECT product_id, product_name from products where product_name like ?', [searchVal], function(err, results) {
+//             if (err) return next(err);
+//             res.render('search_products', {
+//                 products: results,
+//                 layout: false
+//             });
+//         });
+//     });
+// };
