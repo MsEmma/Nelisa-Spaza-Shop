@@ -7,13 +7,14 @@ exports.show = function(req, res, next) {
       res.render('categories', {
         no_products: results.length === 0,
         categories: results,
+        admin: req.session.admintab
       });
     });
   });
 };
 
 exports.showAdd = function(req, res) {
-  res.render('add_category');
+  res.render('add_category', req.session.admintab);
 }
 
 exports.add = function(req, res, next) {
@@ -37,7 +38,8 @@ exports.get = function(req, res, next) {
     connection.query('SELECT * FROM categories WHERE id = ?', [id], function(err, rows) {
       if (err) return next(err);
       res.render('edit_category', {
-        data: rows[0]
+        data: rows[0],
+        admin: req.session.admintab
       });
     });
   });

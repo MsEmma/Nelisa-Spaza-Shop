@@ -4,7 +4,8 @@ exports.show = function(req, res, next) {
         connection.query('SELECT * FROM users', function(err, results) {
             if (err) return next(err);
             res.render('users', {
-                users: results
+                users: results,
+                admin: req.session.admintab
             });
         });
     });
@@ -44,7 +45,8 @@ exports.get = function(req, res, next) {
         connection.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {
             if (err) return next(err);
             res.render('edit_user', {
-                data: rows[0]
+                data: rows[0],
+                admin: req.session.admintab
             });
         });
     });

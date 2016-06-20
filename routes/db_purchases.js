@@ -12,7 +12,8 @@ exports.show = function(req, res, next) {
 					ORDER BY purchases.date ASC`, function(err, results) {
             if (err) return next(err);
             res.render('purchases', {
-                purchases: results
+                purchases: results,
+                admin: req.session.admintab
             });
         });
     });
@@ -25,6 +26,7 @@ exports.showAdd = function(req, res) {
             if (err) return next(err);
             res.render('add_purchases', {
                 products: products,
+                admin: req.session.admintab
             });
         });
     });
@@ -62,7 +64,8 @@ exports.get = function(req, res, next) {
                 });
                 res.render('edit_purchases', {
                     products: products,
-                    data: purchase
+                    data: purchase,
+                    admin: req.session.admintab
                 });
             });
         });

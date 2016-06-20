@@ -11,7 +11,8 @@ exports.show = function(req, res, next) {
 					ORDER BY sales.date ASC`, function(err, results) {
             if (err) return next(err);
             res.render('sales', {
-                sales: results
+                sales: results,
+                admin: req.session.admintab
             });
         });
     });
@@ -24,6 +25,7 @@ exports.showAdd = function(req, res) {
             if (err) return next(err);
             res.render('add_sales', {
                 products: products,
+                admin: req.session.admintab
             });
         });
     });
@@ -60,7 +62,8 @@ exports.get = function(req, res, next) {
                 });
                 res.render('edit_sales', {
                     products: products,
-                    data: sale
+                    data: sale,
+                    admin: req.session.admintab
                 });
             });
         });

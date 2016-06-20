@@ -14,6 +14,23 @@ exports.show = function(req, res, next) {
     });
 };
 
+exports.showOurProducts = function(req, res, next) {
+    req.getConnection(function(err, connection) {
+        if (err) return next(err);
+        connection.query(`SELECT products.id, products.product, categories.category
+          FROM products
+          INNER JOIN categories ON products.category_id = categories.id`,
+            function(err, results) {
+                if (err) return next(err);
+                res.render('ourproducts', {
+                    products: results,
+                    admin: req.session.admintab
+                });
+            });
+    });
+};
+
+
 exports.showAdd = function(req, res) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
@@ -21,6 +38,7 @@ exports.showAdd = function(req, res) {
             if (err) return next(err);
             res.render('add', {
                 categories: categories,
+                admin: req.session.admintab
             });
         });
     });
@@ -55,7 +73,8 @@ exports.get = function(req, res, next) {
                 });
                 res.render('edit', {
                     categories: categories,
-                    data: product
+                    data: product,
+                    admin: req.session.admintab
                 });
             });
         });
@@ -97,7 +116,8 @@ exports.search = function(req, res, next) {
           WHERE products.product = ?`, product, function(err, results) {
             if (err) return next(err);
             res.render('search', {
-                products: results
+                products: results,
+                admin: req.session.admintab
             });
         });
     });
