@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
         var password = req.body.password;
         var data = {
             username: req.body.username,
-            role: 'readOnly',
+            admin: false,
             locked: 0
         };
 

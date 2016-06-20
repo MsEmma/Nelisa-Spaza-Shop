@@ -11,7 +11,7 @@ exports.show = function(req, res, next) {
 };
 
 exports.showAdd = function(req, res) {
-    res.render('add_user');
+    res.render('add_user', req.session.admintab);
 }
 
 var bcrypt = require('bcrypt');
@@ -22,7 +22,7 @@ exports.add = function(req, res, next) {
         var password = req.body.password;
         var data = {
             username: req.body.username,
-            role: req.body.role,
+            admin: true,
             locked: 0
         };
 

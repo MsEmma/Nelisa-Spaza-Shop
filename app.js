@@ -65,18 +65,24 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-function enableUser(role) {
-    return function(req, res, next) {
-        if (req.session.user) {
-            if (req.session.user.role === role)
-                next();
-            else if (role === 'both')
-                next();
-            else
-                res.send(403);
-        }
-    }
-}
+// function enableUser() {
+//     return function(req, res, next) {
+//         if (req.session.user) {
+//             if (req.session.user.admin){
+//               next();
+//             }
+//             else if (role === 'both')
+//                 next();
+//             else
+//                 res.send(403);
+//         }
+//     }
+// }
+
+// function checkAdmin(){
+//   if(req.session.user.role === "admin")
+//     return user = {"admin" : true}
+// }
 
 var products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),
@@ -105,53 +111,53 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-    res.render('home');
+    res.render('home', req.session.admintab);
 });
 
-app.get('/aboutus',enableUser('both'), function(req, res) {
-    res.render('aboutus');
+app.get('/aboutus', function(req, res) {
+    res.render('aboutus', req.session.admintab);
 });
 
-app.get('/users', enableUser('admin'), users.show);
-app.get('/users/add', enableUser('admin'), users.showAdd);
-app.post('/users/add', enableUser('admin'), users.add);
-app.get('/users/edit/:id', enableUser('admin'), users.get);
-app.post('/users/update/:id', enableUser('admin'), users.update);
-app.get('/users/delete/:id', enableUser('admin'), users.delete);
+app.get('/users', users.show);
+app.get('/users/add', users.showAdd);
+app.post('/users/add', users.add);
+app.get('/users/edit/:id', users.get);
+app.post('/users/update/:id', users.update);
+app.get('/users/delete/:id', users.delete);
 
-app.get('/products', enableUser('both'), products.show);
-app.get('/products/add', enableUser('admin'), products.showAdd);
-app.post('/products/add', enableUser('admin'), products.add);
-app.get('/products/edit/:id', enableUser('admin'), products.get);
-app.post('/products/update/:id', enableUser('admin'), products.update);
-app.get('/products/delete/:id', enableUser('admin'), products.delete);
-app.get('/products/search', enableUser('both'), products.search);
+app.get('/products', products.show);
+app.get('/products/add', products.showAdd);
+app.post('/products/add', products.add);
+app.get('/products/edit/:id', products.get);
+app.post('/products/update/:id', products.update);
+app.get('/products/delete/:id', products.delete);
+app.post('/products/search', products.search);
 
-app.get('/categories', enableUser('admin'), db_categories.show);
-app.get('/categories/add', enableUser('admin'), db_categories.showAdd);
-app.post('/categories/add', enableUser('admin'), db_categories.add);
-app.get('/categories/edit/:id', enableUser('admin'), db_categories.get);
-app.post('/categories/update/:id', enableUser('admin'), db_categories.update);
-app.get('/categories/delete/:id', enableUser('admin'), db_categories.delete);
+app.get('/categories', db_categories.show);
+app.get('/categories/add', db_categories.showAdd);
+app.post('/categories/add', db_categories.add);
+app.get('/categories/edit/:id', db_categories.get);
+app.post('/categories/update/:id', db_categories.update);
+app.get('/categories/delete/:id', db_categories.delete);
 
-app.get('/sales', enableUser('admin'), db_sales.show);
-app.get('/sales/add', enableUser('admin'), db_sales.showAdd);
-app.post('/sales/add', enableUser('admin'), db_sales.add);
-app.get('/sales/edit/:id', enableUser('admin'), db_sales.get);
-app.post('/sales/update/:id', enableUser('admin'), db_sales.update);
-app.get('/sales/delete/:id', enableUser('admin'), db_sales.delete);
+app.get('/sales', db_sales.show);
+app.get('/sales/add', db_sales.showAdd);
+app.post('/sales/add', db_sales.add);
+app.get('/sales/edit/:id', db_sales.get);
+app.post('/sales/update/:id', db_sales.update);
+app.get('/sales/delete/:id', db_sales.delete);
 
-app.get('/purchases', enableUser('admin'), db_purchases.show);
-app.get('/purchases/add', enableUser('admin'), db_purchases.showAdd);
-app.post('/purchases/add', enableUser('admin'), db_purchases.add);
-app.get('/purchases/edit/:id', enableUser('admin'), db_purchases.get);
-app.post('/purchases/update/:id', enableUser('admin'), db_purchases.update);
-app.get('/purchases/delete/:id', enableUser('admin'), db_purchases.delete);
+app.get('/purchases', db_purchases.show);
+app.get('/purchases/add', db_purchases.showAdd);
+app.post('/purchases/add', db_purchases.add);
+app.get('/purchases/edit/:id', db_purchases.get);
+app.post('/purchases/update/:id', db_purchases.update);
+app.get('/purchases/delete/:id', db_purchases.delete);
 
-app.get('/getsummary', enableUser('both'), function(req, res) {
+app.get('/getsummary', function(req, res) {
     res.render('getsummary');
 });
-app.post('/summary', enableUser('both'), summary.showPopular);
+app.post('/summary', summary.showPopular);
 
 app.use(errorHandler);
 

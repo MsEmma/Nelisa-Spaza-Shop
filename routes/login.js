@@ -22,6 +22,9 @@ module.exports = function(req, res) {
                 bcrypt.compare(password, user.password, function(err, match) {
                     if (match) {
                         req.session.user = user;
+                        req.session.admintab = {
+                          admin: req.session.user.admin
+                        };
                         return res.redirect("/");
                     } else {
                         login_count++;

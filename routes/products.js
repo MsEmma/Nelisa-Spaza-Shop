@@ -7,7 +7,8 @@ exports.show = function(req, res, next) {
             function(err, results) {
                 if (err) return next(err);
                 res.render('products', {
-                    products: results
+                    products: results,
+                    admin: req.session.admintab
                 });
             });
     });
@@ -90,9 +91,14 @@ exports.delete = function(req, res, next) {
 exports.search = function(req, res, next) {
     var product = req.body.product;
     req.getConnection(function(err, connection) {
-        connection.query('SELECT FROM products WHERE product = ?', [product], function(err, rows) {
+        connection.query(`SELECT products.id, products.product, categories.category
+          FROM products
+          INNER JOIN categories ON products.category_id = categories.id
+          WHERE products.product = ?`, product, function(err, results) {
             if (err) return next(err);
-            res.render('/products/search');
+            res.render('search', {
+                products: results
+            });
         });
     });
 };
