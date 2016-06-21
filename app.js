@@ -1,3 +1,5 @@
+// 'use strict'
+
 var express = require('express'),
     exphbs = require('express-handlebars'),
     app = express(),
@@ -100,6 +102,7 @@ app.get('/aboutus', function(req, res) {
     res.render('aboutus', req.session.admintab);
 });
 
+// app.get('/products/search/:searchVal', products.search);
 app.get('/products', products.show);
 app.get('/ourproducts', products.showOurProducts);
 app.get('/products/add', products.showAdd);
