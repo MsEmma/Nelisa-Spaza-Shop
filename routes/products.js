@@ -24,7 +24,7 @@ exports.showOurProducts = function(req, res, next) {
                 if (err) return next(err);
                 res.render('ourproducts', {
                     products: results,
-                    admin: req.session.admintab
+                    // admin: req.session.admintab
                 });
             });
     });

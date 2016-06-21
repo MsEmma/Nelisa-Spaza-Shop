@@ -24,7 +24,9 @@
                             </a>
                         </li>
                         <li role="presentation"><a href="/aboutus">About Us</a></li>
+                        {{#unless admin}}
                         <li role="presentation"><a href="/ourproducts">Our Products</a></li>
+                        {{/unless}}
 
                         {{#if admin}}
                             <li role="presentation"><a href="/products">Products</a></li>
