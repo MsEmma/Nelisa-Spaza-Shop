@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 02, 2016 at 09:29 AM
+-- Generation Time: Jun 21, 2016 at 09:36 AM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -684,6 +684,32 @@ INSERT INTO `sales` (`id`, `date`, `product_id`, `sold`, `price`) VALUES
 (429, '2016-02-28', 14, 8, 2.00),
 (430, '2016-02-28', 15, 8, 3.00),
 (431, '2016-06-01', 1, 8, 5.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(150) NOT NULL,
+  `admin` tinyint(1) NOT NULL,
+  `locked` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `admin`, `locked`) VALUES
+(1, 'emma', '$2a$10$eCHguJkeOBZqJ7fC3YdaTuGFIN4XwzuUsxpNKiAajRSsXRymr8FNG', 1, 0),
+(2, 'nick', '$2a$10$guS3ak.Bkj/x3RYeFh9Ake0QNBIE5p.95HCzQnLT/Oef4oLMh05K6', 0, 0),
+(3, 'tom', '$2a$10$OJ1wnWQFQsi4AqxpZTJiCOoDayEeZUodr9su7Z3bykf8g5UC.Gx.6', 0, 1),
+(5, 'rose', '$2a$10$5c8UW/MCUkfY8so4SrFBJufQtxfnNBM2XipvND.PCU1TOGO0IoKw6', 0, 0);
 
 --
 -- Constraints for dumped tables

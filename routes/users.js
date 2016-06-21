@@ -58,7 +58,7 @@ exports.update = function(req, res, next) {
     var password = req.body.password;
     var data = {
         username: req.body.username,
-        role: req.body.role,
+        admin: req.body.admin,
         locked: req.body.locked
     };
 
