@@ -102,7 +102,6 @@ app.get('/aboutus', function(req, res) {
     res.render('aboutus', req.session.admintab);
 });
 
-// app.get('/products/search/:searchVal', products.search);
 app.get('/products', products.show);
 app.get('/ourproducts', products.showOurProducts);
 app.get('/products/add', products.showAdd);
@@ -110,7 +109,7 @@ app.post('/products/add', products.add);
 app.get('/products/edit/:id', products.get);
 app.post('/products/update/:id', products.update);
 app.get('/products/delete/:id', products.delete);
-app.post('/products/search', products.search);
+app.get('/products/search/:search_val', products.search);
 
 app.get('/categories', db_categories.show);
 app.get('/categories/add', db_categories.showAdd);

@@ -107,31 +107,17 @@ exports.delete = function(req, res, next) {
 };
 
 exports.search = function(req, res, next) {
-    var product = req.body.product;
     req.getConnection(function(err, connection) {
+        var search_val = '%' + req.params.search_val + '%';
         connection.query(`SELECT products.id, products.product, categories.category
-          FROM products
-          INNER JOIN categories ON products.category_id = categories.id
-          WHERE products.product = ?`, product, function(err, results) {
+                          FROM products
+                          INNER JOIN categories ON products.category_id = categories.id
+                          WHERE products.product like ?`, [search_val], function(err, results) {
             if (err) return next(err);
-            res.render('search', {
+            res.render('products', {
                 products: results,
-                admin: req.session.admintab
+                layout: false
             });
         });
     });
 };
-
-// exports.search = function(req, res, next) {
-//     req.getConnection(function(err, connection) {
-//         var searchVal = '%' + req.params.searchVal + '%';
-//         console.log(searchVal);
-//         connection.query('SELECT product_id, product_name from products where product_name like ?', [searchVal], function(err, results) {
-//             if (err) return next(err);
-//             res.render('search_products', {
-//                 products: results,
-//                 layout: false
-//             });
-//         });
-//     });
-// };

@@ -1,76 +1,65 @@
-<div class="container">
+<div>
+    <form action="/products/search/">
 
-  <!-- <form class ="navbar-form navbar-left" role ="search" action ="/products/search" method="post">
-         <div class = "form-group">
-        <input type="text" class="form-control" placeholder="Search" id ="search" name="searchVal"></input>
-  </div>
-  </form> -->
+        <input type="text" class="form-control" placeholder="Search" name="search_val" id="searchForm">
+        <input type="submit" value="Search">
 
-  <!-- <script type="text/javascript">
-  //We will initialize the typeahead in JQuery function
-  $(document).ready(function(){
-      $('input.typeahead').typeahead({
-          name: 'typeahead',
-          remote: 'http://localhost:8080/search?key=%QUERY',
-          limit: 10
-      });
-  });
-  </script> -->
-
-
-
-      <div>
-
-        <form class="navbar-form navbar-left" action="/products/search" method="POST">
-
-            <div class="form-group">
-
-                <input type="text" class="form-control" placeholder="search" name="product">
-                <label for=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-            </div>
-
-            <input type="submit" value="search">
-
-        </form>
-    </div>
-
-    <div>
-
-        <table class="table table-hover">
-
-            <thead>
-                <tr>
-                    <th>Product
-                        <a class="btn btn-default" href="/products/add" role="button">
-                            <i class="material-icons">add</i>
-                        </a>
-                    </th>
-                    <th>Category</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            {{#products}}
-                <tbody>
-                    <tr>
-                        <td>{{product}}</td>
-                        <td>{{category}}</td>
-                        <td>
-                            <a class="btn btn-default" href="/products/edit/{{id}}" role="button">
-                                <i class="material-icons">mode_edit</i>
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-default" href="/products/delete/{{id}}">
-                                <i class="material-icons">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            {{/products}}
-
-        </table>
-
-    </div>
+    </form>
 </div>
+
+<div id="searchResult">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Product
+                    <a class="btn btn-default" href="/products/add" role="button">
+                        <i class="material-icons">add</i>
+                    </a>
+                </th>
+                <th>Category</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        {{#products}}
+            <tbody>
+                <tr>
+                    <td>{{product}}</td>
+                    <td>{{category}}</td>
+                    <td>
+                        <a class="btn btn-default" href="/products/edit/{{id}}" role="button">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="/products/delete/{{id}}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {{/products}}
+
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $("#searchForm").keyup(function(event) {
+
+            // Stop the form from submitting normally
+            event.preventDefault();
+
+            var searchValue = $("#searchForm").val();
+            $.get("/products/search/" + searchValue, function(results) {
+                $("#searchResult").html(results);
+            });
+        });
+    })
+</script>
