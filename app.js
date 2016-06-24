@@ -124,6 +124,7 @@ app.post('/purchases/add', db_purchases.add);
 app.get('/purchases/edit/:id', db_purchases.get);
 app.post('/purchases/update/:id', db_purchases.update);
 app.get('/purchases/delete/:id', db_purchases.delete);
+app.get('/purchases/search/:search_val', db_purchases.search);
 
 app.get('/sales', db_sales.show);
 app.get('/sales/add', db_sales.showAdd);
@@ -131,6 +132,7 @@ app.post('/sales/add', db_sales.add);
 app.get('/sales/edit/:id', db_sales.get);
 app.post('/sales/update/:id', db_sales.update);
 app.get('/sales/delete/:id', db_sales.delete);
+app.get('/sales/search/:search_val', db_sales.search);
 
 app.get('/users', users.show);
 app.get('/users/add', users.showAdd);

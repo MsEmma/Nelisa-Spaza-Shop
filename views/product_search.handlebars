@@ -1,0 +1,31 @@
+<table>
+
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    {{#products}}
+        <tbody>
+            <tr>
+                <td>{{product}}</td>
+                <td>{{category}}</td>
+                <td>
+                    <a class="btn btn-default" href="/products/edit/{{id}}" role="button">
+                        <i class="material-icons">mode_edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-default" href="/products/delete/{{id}}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    {{/products}}
+
+</table>

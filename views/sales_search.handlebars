@@ -1,9 +1,3 @@
-<form action="/sales/search/">
-
-    <input type="text" placeholder="Search" name="search_val" id="sales_search_bar">
-    <!-- <input type="submit" value="Search"> -->
-</form>
-
 <table id="sales_search">
     <thead>
         <tr>
@@ -44,18 +38,3 @@
     {{/sales}}
 
 </table>
-
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
-<script>
-    $(document).ready(function() {
-
-        $("#sales_search_bar").keyup(function(event) {
-
-            var searchValue = $("#sales_search_bar").val();
-            $.get("/sales/search/" + searchValue, function(results) {
-                $('#sales_search').html(results);
-            });
-        });
-    })
-</script>

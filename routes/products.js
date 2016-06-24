@@ -112,9 +112,11 @@ exports.search = function(req, res, next) {
         connection.query(`SELECT products.id, products.product, categories.category
                           FROM products
                           INNER JOIN categories ON products.category_id = categories.id
-                          WHERE products.product like ?`, [search_val], function(err, results) {
+                          WHERE products.product LIKE ?
+                          OR
+                          categories.category LIKE ?`, [search_val, search_val], function(err, results) {
             if (err) return next(err);
-            res.render('products', {
+            res.render('product_search', {
                 products: results,
                 layout: false
             });

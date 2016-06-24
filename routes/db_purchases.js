@@ -100,3 +100,25 @@ exports.delete = function(req, res, next) {
         });
     });
 };
+
+exports.search = function(req, res, next) {
+    req.getConnection(function(err, connection) {
+        var search_val = '%' + req.params.search_val + '%';
+        connection.query(`SELECT purchases.id, DATE_FORMAT(purchases.date,'%a %d %b %Y') as date,
+					purchases.shop, products.product, categories.category,
+					purchases.quantity, purchases.cost
+					FROM  purchases
+				 	INNER JOIN products
+					ON purchases.product_id = products.id
+					INNER JOIN categories
+					ON products.category_id = categories.id
+					WHERE products.product LIKE ?
+          OR categories.category LIKE ?`, [search_val, search_val], function(err, results) {
+            if (err) return next(err);
+            res.render('purchases_search', {
+                purchases: results,
+                layout: false
+            });
+        });
+    });
+};

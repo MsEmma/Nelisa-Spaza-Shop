@@ -1,64 +1,55 @@
-<div>
-    <form action="/products/search/">
+<form action="/products/search/">
 
-        <input type="text" class="form-control" placeholder="Search" name="search_val" id="searchForm">
-        <input type="submit" value="Search">
+    <input type="text" placeholder="Search" name="search_val" id="search_bar">
+    <!-- <input type="submit" value="Search"> -->
+</form>
 
-    </form>
-</div>
+<table id="product_search">
 
-<div id="searchResult">
+    <thead>
+        <tr>
+            <th>Product
+                <a class="btn btn-default" href="/products/add" role="button">
+                    <i class="material-icons">add</i>
+                </a>
+            </th>
+            <th>Category</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
-    <table>
-
-        <thead>
+    {{#products}}
+        <tbody>
             <tr>
-                <th>Product
-                    <a class="btn btn-default" href="/products/add" role="button">
-                        <i class="material-icons">add</i>
+                <td>{{product}}</td>
+                <td>{{category}}</td>
+                <td>
+                    <a class="btn btn-default" href="/products/edit/{{id}}" role="button">
+                        <i class="material-icons">mode_edit</i>
                     </a>
-                </th>
-                <th>Category</th>
-                <th></th>
-                <th></th>
+                </td>
+                <td>
+                    <a class="btn btn-default" href="/products/delete/{{id}}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
             </tr>
-        </thead>
+        </tbody>
+    {{/products}}
 
-        {{#products}}
-            <tbody>
-                <tr>
-                    <td>{{product}}</td>
-                    <td>{{category}}</td>
-                    <td>
-                        <a class="btn btn-default" href="/products/edit/{{id}}" role="button">
-                            <i class="material-icons">mode_edit</i>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-default" href="/products/delete/{{id}}">
-                            <i class="material-icons">delete</i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        {{/products}}
-
-    </table>
-</div>
+</table>
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <script>
     $(document).ready(function() {
 
-        $("#searchForm").keyup(function(event) {
+        $("#search_bar").keyup(function(event) {
 
-            // Stop the form from submitting normally
-            event.preventDefault();
-
-            var searchValue = $("#searchForm").val();
+            var searchValue = $("#search_bar").val();
             $.get("/products/search/" + searchValue, function(results) {
-                $("#searchResult").html(results);
+                $('#product_search').html(results);
             });
         });
     })
