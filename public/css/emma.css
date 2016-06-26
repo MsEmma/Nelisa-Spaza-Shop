@@ -1,10 +1,25 @@
-.jumbotron {
-    text-align: center;
-    background-color: #33B7A0 !important;
-    padding-top: 40px !important;
-    padding-bottom: 20px !important;
+h4 {
+  text-align: center;
+  padding: 2%;
 }
-.image {
+
+#warning {
+    margin-left: 95px;
+    color: #FF0000 !important;
+}
+#success {
+    margin-left: 50px;
+    color: green !important;
+}
+#signup {
+    margin-left: 50px;
+}
+
+#about_us {
+  padding: 5%;
+}
+
+/*.image {
     text-align: center;
     height: 60%;
     padding-bottom: 10px;
@@ -47,15 +62,4 @@ input[type=submit] {
 }
 .table {
     margin-top: 30px;
-}
-#warning {
-    margin-left: 95px;
-    color: #FF0000 !important;
-}
-#success {
-    margin-left: 50px;
-    color: green !important;
-}
-#signup {
-    margin-left: 50px;
 }

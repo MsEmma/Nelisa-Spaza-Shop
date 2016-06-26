@@ -1,32 +1,25 @@
-<table class="table table-hover" class="container">
-    <thead>
-        <tr>
-            <th>Category List
-                <a class="btn btn-default" href="/categories/add" role="button">
-                    <i class="material-icons">add</i>
-                </a>
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
+<div class="container">
+    <div>
+        <h4>CATEGORIES</h4>
+    </div>
+
+    <div class="row">
+        <div class="col s4"><b>Category</b>
+            <a class="btn btn-default" href="/categories/add" role="button">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    </div>
+
 
     {{#categories}}
-        <tbody>
-            <tr>
-                <td>{{category}}</td>
-                <td>
-                    <a class="btn btn-default" href="/categories/edit/{{id}}" role="button">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="/categories/delete/{{id}}">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+        <div class="row" class="bordered">
+            <div class="col s3"><a href="/categories/edit/{{id}}">{{category}}</a></div>
+            <div class="col s2">
+                <a class="btn btn-default" href="/categories/delete/{{id}}">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
+        </div>
     {{/categories}}
-
-</table>
+</div>

@@ -49,7 +49,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/', '/login', '/signup'];
+    var nonSecurePaths = ['/login', '/signup'];
 
     if (_.contains(nonSecurePaths, req.path)) return next();
 

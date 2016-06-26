@@ -1,8 +1,16 @@
-<form action="/sales/search/">
+<div class="row">
+    <form action="/sales/search/">
+        <div class="input-field col s6 offset-s6">
+            <i class="material-icons prefix">search</i>
+            <input id="sales_search_bar" type="text" class="validate" name="search_val">
+            <label for="sales_search_bar">Search</label>
+        </div>
+    </form>
+</div>
 
-    <input type="text" placeholder="Search" name="search_val" id="sales_search_bar">
-    <!-- <input type="submit" value="Search"> -->
-</form>
+<div>
+    <h4>SALES</h4>
+</div>
 
 <table id="sales_search">
     <thead>

@@ -1,36 +1,43 @@
-<table class="table table-hover" style="width:60%" class="container">
-    <thead>
-        <tr>
-            <th style="width:10%">User
-                <a class="btn btn-default" href="/users/add" role="button">
-                    <i class="material-icons">add</i>
-                </a>
-            </th>
-            <th style="width:5%">Admin</th>
-            <th style="width:5%">Locked</th>
-            <th style="width:5%"></th>
-            <th style="width:5%"></th>
-        </tr>
-    </thead>
+<div class="container">
 
-    {{#users}}
-        <tbody>
+    <div>
+        <h4>USERS</h4>
+    </div>
+
+    <table class="table table-hover" >
+        <thead>
             <tr>
-                <td>{{username}}</td>
-                <td>{{admin}}</td>
-                <td>{{locked}}</td>
-                <td>
-                    <a class="btn btn-default" href="/users/edit/{{id}}" role="button">
-                        <i class="material-icons">mode_edit</i>
+                <th>User
+                    <a class="btn btn-default" href="/users/add" role="button">
+                        <i class="material-icons">add</i>
                     </a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="/users/delete/{{id}}">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
+                </th>
+                <th>Admin</th>
+                <th>Locked</th>
+                <th></th>
+                <th></th>
             </tr>
-        </tbody>
-    {{/users}}
+        </thead>
 
-</table>
+        {{#users}}
+            <tbody>
+                <tr>
+                    <td>{{username}}</td>
+                    <td>{{admin}}</td>
+                    <td>{{locked}}</td>
+                    <td>
+                        <a class="btn btn-default" href="/users/edit/{{id}}" role="button">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="/users/delete/{{id}}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {{/users}}
+
+    </table>
+</div>

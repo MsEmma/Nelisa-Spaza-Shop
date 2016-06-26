@@ -1,10 +1,18 @@
-<form action="/purchases/search/">
+<div class="row">
+    <form action="/purchases/search/">
+        <div class="input-field col s6 offset-s6">
+            <i class="material-icons prefix">search</i>
+            <input id="purchases_search_bar" type="text" class="validate" name="search_val">
+            <label for="purchases_search_bar">Search</label>
+        </div>
+    </form>
+</div>
 
-    <input type="text" placeholder="Search" name="search_val" id = "purchases_search_bar">
-    <!-- <input type="submit" value="Search"> -->
-</form>
+<div>
+    <h4>PURCHASES</h4>
+</div>
 
-<table id = "purchases_search">
+<table id="purchases_search">
     <thead>
         <tr>
             <th>Date</th>
