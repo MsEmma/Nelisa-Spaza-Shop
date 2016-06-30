@@ -23,8 +23,10 @@ module.exports = function(req, res) {
                     if (match) {
                         req.session.user = user;
                         req.session.admintab = {
-                          admin: req.session.user.admin
+                          admin: req.session.user.admin,
+                          // user: req.session.user.username
                         };
+
                         return res.redirect("/");
                     } else {
                         login_count++;

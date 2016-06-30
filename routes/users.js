@@ -3,8 +3,23 @@ exports.show = function(req, res, next) {
         if (err) return next(err);
         connection.query('SELECT * FROM users', function(err, results) {
             if (err) return next(err);
+
+            var formattedResults = [];
+            results.forEach(function(obj) {
+                if (obj.admin === 0) {
+                    obj.admin = "No";
+                } else {
+                    obj.admin = "Yes";
+                }
+                if (obj.locked === 0) {
+                    obj.locked = "No";
+                } else {
+                    obj.locked = "Yes";
+                }
+                formattedResults.push(obj);
+            });
             res.render('users', {
-                users: results,
+                users: formattedResults,
                 admin: req.session.admintab
             });
         });
@@ -38,14 +53,27 @@ exports.add = function(req, res, next) {
     });
 };
 
-
 exports.get = function(req, res, next) {
     var id = req.params.id;
     req.getConnection(function(err, connection) {
         connection.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {
             if (err) return next(err);
+
+            var user = rows [0];
+
+            if (user.admin === 0) {
+                user.admin = "No";
+            } else {
+                user.admin = "Yes";
+            }
+            if (user.locked === 0) {
+                user.locked = "No";
+            } else {
+                user.locked = "Yes";
+            }
+
             res.render('edit_user', {
-                data: rows[0],
+                data: user,
                 admin: req.session.admintab
             });
         });
@@ -55,21 +83,16 @@ exports.get = function(req, res, next) {
 exports.update = function(req, res, next) {
 
     var id = req.params.id;
-    var password = req.body.password;
+
     var data = {
-        username: req.body.username,
         admin: req.body.admin,
         locked: req.body.locked
     };
 
-    bcrypt.hash(password, 10, function(err, hash) {
-        data.password = hash;
-
-        req.getConnection(function(err, connection) {
-            connection.query('UPDATE users SET ? WHERE id = ?', [data, id], function(err, rows) {
-                if (err) next(err);
-                res.redirect('/users');
-            });
+    req.getConnection(function(err, connection) {
+        connection.query('UPDATE users SET ? WHERE id = ?', [data, id], function(err, rows) {
+            if (err) next(err);
+            res.redirect('/users');
         });
     });
 };

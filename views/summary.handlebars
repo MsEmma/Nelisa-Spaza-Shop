@@ -1,20 +1,48 @@
-<h2>Summary</h2>
-<h4>Period From: {{start_date}} To {{end_date}}</h4>
+<h4>Summary</h4>
+<h5>Period From: {{start_date}} To {{end_date}}</h5>
 
-<ul>
-    {{#most_popular}}
-        <li>The most popular product is {{product}} with {{quantity}} units sold.</li>
-    {{/most_popular}}
+<table class="responsive-table" class="bordered">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Product</th>
+            <th>Quantity Sold</th>
+        </tr>
+    </thead>
 
-    {{#least_popular}}
-        <li>The least popular product is {{product}} with {{quantity}} units sold.</li>
-    {{/least_popular}}
+    <tbody>
 
-    {{#most_popular_cat}}
-        <li>The most popular category is {{category}} with {{quantity}} units sold.</li>
-    {{/most_popular_cat}}
+        {{#most_popular}}
+            <tr>
+                <td>Most Popular Product</td>
+                <td>{{product}}</td>
+                <td>{{quantity}}</td>
+            </tr>
+        {{/most_popular}}
 
-    {{#least_popular_cat}}
-        <li>The least popular category is {{category}} with {{quantity}} units sold.</li>
-    {{/least_popular_cat}}
-</ul>
+        {{#least_popular}}
+            <tr>
+                <td>Least Popular Product</td>
+                <td>{{product}}</td>
+                <td>{{quantity}}</td>
+            </tr>
+        {{/least_popular}}
+
+        {{#most_popular_cat}}
+            <tr>
+                <td>Most Popular Category</td>
+                <td>{{category}}</td>
+                <td>{{quantity}}</td>
+            </tr>
+        {{/most_popular_cat}}
+
+        {{#least_popular_cat}}
+            <tr>
+                <td>Least Popular Category</td>
+                <td>{{category}}</td>
+                <td>{{quantity}}</td>
+            </tr>
+        {{/least_popular_cat}}
+
+    </tbody>
+</table>
