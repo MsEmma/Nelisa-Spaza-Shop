@@ -2,17 +2,21 @@ var ProductsDB = require('./products_db_modules');
 
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query(`SELECT products.id, products.product, categories.category
-          FROM products
-          INNER JOIN categories ON products.category_id = categories.id`,
-            function(err, results) {
-                if (err) return next(err);
+        if (err) return cb(err, null);
+        var productsDB = new ProductsDB(connection);
+        productsDB.show(function(err, results) {
+            if (err) return next(err);
+            if (results && results.length > 0) {
                 res.render('products', {
                     products: results,
                     admin: req.session.admintab
                 });
-            });
+            } else {
+                res.render('products', {
+                    error: 'Product not found.'
+                })
+            }
+        });
     });
 };
 

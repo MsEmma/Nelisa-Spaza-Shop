@@ -1,5 +1,5 @@
 module.exports = function(connection) {
-    this.getProducts = function(cb) {
+    this.show = function(cb) {
 
         connection.query(`SELECT products.id, products.product, categories.category
           FROM products

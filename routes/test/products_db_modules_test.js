@@ -14,7 +14,7 @@ describe('test the ProductsDB', function() {
 
     it('should return product list length', function(done) {
         var productsDB = new ProductsDB(connection);
-        productsDB.getProducts(function(err, products) {
+        productsDB.show(function(err, products) {
           assert.ifError(err)
           assert.equal(20, products.length);
           done();
