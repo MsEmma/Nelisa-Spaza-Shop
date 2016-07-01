@@ -1,3 +1,5 @@
+var ProductsDB = require('./products_db_modules');
+
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
@@ -28,7 +30,6 @@ exports.showOurProducts = function(req, res, next) {
             });
     });
 };
-
 
 exports.showAdd = function(req, res) {
     req.getConnection(function(err, connection) {
