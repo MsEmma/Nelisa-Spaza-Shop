@@ -8,8 +8,8 @@ describe('test the ProductsDataService', function() {
 
     var connection = mysql.createConnection({
       host: '127.0.0.1',
-      user: 'root',
-      password: process.env.MYSQL_USER ||'nelisa',
+      user: process.env.MYSQL_USER ||'root',
+      password: password,
       port: 3306,
       database: 'spaza'
     });
