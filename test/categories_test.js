@@ -25,8 +25,8 @@ describe("categories", function() {
       'Top Class Soy Mince': 'Staples',
       'Shampoo 1 litre': 'Toiletries',
       'Soap Bar': 'Toiletries',
-      'Bananas - loose': 'Fruit',
-      'Apples - loose': 'Fruit',
+      'Bananas - loose': 'Fruits',
+      'Apples - loose': 'Fruits',
       'Mixed Sweets 5s': 'Sweets',
       'Heart Chocolates': 'Sweets',
       'Rose (plastic)': 'Stationery',
@@ -37,7 +37,7 @@ describe("categories", function() {
   it('should return a map of categories sales', function() {
     assert.deepEqual(categories.getCatSales(category_map, weekly_sales), {
       Dairy: 72,
-      Fruit: 45,
+      Fruits: 45,
       Bakery: 30,
       'Canned Food': 58,
       'Soft Drinks': 83,
@@ -50,7 +50,7 @@ describe("categories", function() {
   it('should return the most popular category  and the quantity sold', function() {
     assert.deepEqual(categories.getMostPopularCategory({
       Dairy: 72,
-      Fruit: 45,
+      Fruits: 45,
       Bakery: 30,
       'Canned Food': 58,
       'Soft Drinks': 83,
@@ -67,7 +67,7 @@ describe("categories", function() {
   it('should return the least popular category  and the quantity sold', function() {
     assert.deepEqual(categories.getLeastPopularCategory({
       Dairy: 72,
-      Fruit: 45,
+      Fruits: 45,
       Bakery: 30,
       'Canned Food': 58,
       'Soft Drinks': 83,
@@ -100,7 +100,7 @@ describe("categories", function() {
       'Top Class Soy Mince': 156
     }), {
       Dairy: 371,
-      Fruit: 31.5,
+      Fruits: 31.5,
       Bakery: 69.9,
       'Canned Food': 150.14,
       'Soft Drinks': 212.26,
@@ -113,7 +113,7 @@ describe("categories", function() {
   it('should return the most profitable category and the profit', function() {
     assert.deepEqual(categories.getMostProfitableCategory({
       Dairy: 371,
-      Fruit: 31.5,
+      Fruits: 31.5,
       Bakery: 69.9,
       'Canned Food': 150.14,
       'Soft Drinks': 212.26,
