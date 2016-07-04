@@ -707,9 +707,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `admin`, `locked`) VALUES
-(1, 'nelisa', '$2a$10$H0ZsbNmQmU6Ff7zh0IfvOuEbjbhjOZblW98O/Xmm8lnMIeAoN.mwm', 1, 0),
-(2, 'tom', '$2a$10$OJ1wnWQFQsi4AqxpZTJiCOoDayEeZUodr9su7Z3bykf8g5UC.Gx.6', 0, 1),
-(3, 'rose', '$2a$10$5c8UW/MCUkfY8so4SrFBJufQtxfnNBM2XipvND.PCU1TOGO0IoKw6', 0, 0);
+(2, 'nick', '', 0, 0),
+(3, 'tom', '$2a$10$OJ1wnWQFQsi4AqxpZTJiCOoDayEeZUodr9su7Z3bykf8g5UC.Gx.6', 0, 1),
+(5, 'rose', '$2a$10$5c8UW/MCUkfY8so4SrFBJufQtxfnNBM2XipvND.PCU1TOGO0IoKw6', 0, 0),
+(6, 'nelisa', '$2a$10$H0ZsbNmQmU6Ff7zh0IfvOuEbjbhjOZblW98O/Xmm8lnMIeAoN.mwm', 1, 0);
 
 --
 -- Constraints for dumped tables
