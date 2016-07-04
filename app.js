@@ -16,7 +16,7 @@ const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'nelis
 
 var dbOptions = {
     host: 'localhost',
-    user: 'root',
+    user: process.env.MYSQL_USER || 'root',
     password: password,
     port: 3306,
     database: 'spaza'
