@@ -12,10 +12,12 @@ var express = require('express'),
     flash = require('express-flash'),
     _ = require('underscore');
 
+var const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'passw0rd';
+
 var dbOptions = {
     host: 'localhost',
     user: 'root',
-    password: 'nelisa',
+    password: password,
     port: 3306,
     database: 'spaza'
 };

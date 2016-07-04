@@ -3,6 +3,6 @@
 before_script:
   - npm install
   - mysql -u root -e 'create database spaza;'
-  - mysql -u root spaza < spaza.sql
+  - mysql -u root spaza < spaza.sql;
 
 script: mocha
