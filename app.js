@@ -12,7 +12,7 @@ var express = require('express'),
     flash = require('express-flash'),
     _ = require('underscore');
 
-const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'passw0rd';
+const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'nelisa';
 
 var dbOptions = {
     host: 'localhost',
