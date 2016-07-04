@@ -13,7 +13,7 @@ var express = require('express'),
     _ = require('underscore');
 
 var dbOptions = {
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
     password: 'nelisa',
     port: 3306,
