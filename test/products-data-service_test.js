@@ -4,14 +4,14 @@ var assert = require('assert'),
 
 describe('test the ProductsDataService', function() {
 
-    const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'nelisa';
+    const password = process.env.MYSQL_PWD !== undefined ? process.env.MYSQL_PWD : 'nelisa';
 
     var connection = mysql.createConnection({
-      host: '127.0.0.1',
-      user: process.env.MYSQL_USER ||'root',
-      password: password,
-      port: 3306,
-      database: 'spaza'
+        host: '127.0.0.1',
+        user: process.env.MYSQL_USER || 'root',
+        password: password,
+        port: 3306,
+        database: 'spaza'
     });
 
     it('getProduct should return a specific product', function(done) {

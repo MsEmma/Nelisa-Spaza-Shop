@@ -23,6 +23,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.0",
+    "connection-provider": "^1.0.10",
     "express": "^4.13.4",
     "express-flash": "0.0.2",
     "express-handlebars": "^3.0.0",

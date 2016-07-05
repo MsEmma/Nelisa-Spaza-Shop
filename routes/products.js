@@ -1,10 +1,10 @@
-var ProductsDB = require('./products_db_modules');
+var ProductsDataService = require('./products-data-service');
 
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return cb(err, null);
-        var productsDB = new ProductsDB(connection);
-        productsDB.show(function(err, results) {
+        var productsDataService = new ProductsDataService(connection);
+        productsDataService.show(function(err, results) {
             if (err) return next(err);
             if (results && results.length > 0) {
                 res.render('products', {
