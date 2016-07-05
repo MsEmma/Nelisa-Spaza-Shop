@@ -30,7 +30,7 @@ var dbOptions = {
 };
 
 // create object instances that have a database connection
-var pDSSetupCallback = function(connection) {
+var setupCallback = function(connection) {
     return {
         productsDataServices: new ProductsDataServices(connection)
     }
@@ -46,7 +46,7 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 //setup middleware
-app.use(connectionProvider(dbOptions, pDSSetupCallback));
+app.use(connectionProvider(dbOptions, setupCallback));
 
 // app.use(myConnection(mysql, dbOptions, 'single'));
 
