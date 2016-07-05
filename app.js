@@ -4,7 +4,9 @@ var express = require('express'),
     exphbs = require('express-handlebars'),
     app = express(),
     fs = require('fs'),
+    handlebars = require('handlebars'),
     mysql = require('mysql'),
+    myConnection = require('express-myconnection'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     flash = require('express-flash'),
@@ -46,6 +48,8 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 //setup middleware
+app.use(myConnection(mysql, dbOptions, 'single'));
+
 app.use(connectionProvider(dbOptions, setupCallback));
 
 // app.use(myConnection(mysql, dbOptions, 'single'));
