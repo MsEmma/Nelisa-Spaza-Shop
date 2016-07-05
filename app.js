@@ -4,24 +4,38 @@ var express = require('express'),
     exphbs = require('express-handlebars'),
     app = express(),
     fs = require('fs'),
-    handlebars = require('handlebars'),
     mysql = require('mysql'),
     bodyParser = require('body-parser'),
-    myConnection = require('express-myconnection'),
     session = require('express-session'),
     flash = require('express-flash'),
     _ = require('underscore'),
     connectionProvider = require('connection-provider');
 
-const password = process.env.MYSQL_PWD !== undefined ? process.env.MYSQL_PWD : 'nelisa';
+var products = require('./routes/products'),
+    db_categories = require('./routes/db_categories'),
+    db_sales = require('./routes/db_sales'),
+    db_purchases = require('./routes/db_purchases'),
+    summary = require('./routes/summary'),
+    signup = require('./routes/signup'),
+    login = require('./routes/login'),
+    users = require('./routes/users'),
+    ProductsDataServices = require('./routes/products-data-services');
 
 var dbOptions = {
-    host: '127.0.0.1',
-    user: process.env.MYSQL_USER || 'root',
-    password: password,
+    host: 'localhost',
+    user: 'root',
+    password: 'nelisa',
     port: 3306,
     database: 'spaza'
 };
+
+// create object instances that have a database connection
+var pDSSetupCallback = function(connection) {
+    return {
+        productsDataServices: new ProductsDataServices(connection)
+    }
+};
+
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -32,7 +46,9 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 //setup middleware
-app.use(myConnection(mysql, dbOptions, 'single'));
+app.use(connectionProvider(dbOptions, pDSSetupCallback));
+
+// app.use(myConnection(mysql, dbOptions, 'single'));
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -69,7 +85,17 @@ app.use(function(req, res, next) {
     //
     if (!req.session.user) return next();
 
-    var adminPaths = ['/products', '/categories', '/sales', '/purchases', '/users'];
+    var adminPaths = ['/products', '/products/add', '/products/edit/:id', '/products/update/:id',
+        '/products/delete/:id', '/products/search/:search_val',
+        '/categories', '/categories/add', '/categories/edit/:id', '/categories/update/:id',
+        '/categories/delete/:id', '/categories/search/:search_val',
+        '/purchases', '/purchases/add', '/purchases/edit/:id', '/purchases/update/:id',
+        '/purchases/delete/:id', '/purchases/search/:search_val',
+        '/sales', '/sales/add', '/sales/edit/:id', '/sales/update/:id',
+        '/sales/delete/:id', '/sales/search/:search_val',
+        '/users', '/users/add', '/users/edit/:id', '/users/update/:id',
+        '/users/delete/:id'
+    ];
 
     if (!req.session.admintab.admin) {
         if (_.contains(adminPaths, req.path)) {
@@ -85,16 +111,6 @@ function errorHandler(err, req, res, next) {
         error: err
     });
 }
-
-var products = require('./routes/products'),
-    db_categories = require('./routes/db_categories'),
-    db_sales = require('./routes/db_sales'),
-    db_purchases = require('./routes/db_purchases'),
-    summary = require('./routes/summary'),
-    signup = require('./routes/signup'),
-    login = require('./routes/login'),
-    users = require('./routes/users');
-ProductsDataService = require('./routes/products-data-service');
 
 app.get('/login', function(req, res) {
     res.render('login');

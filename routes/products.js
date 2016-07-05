@@ -1,23 +1,28 @@
-var ProductsDataService = require('./products-data-service');
+var ProductsDataServices = require('./products-data-services');
 
 exports.show = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return cb(err, null);
-        var productsDataService = new ProductsDataService(connection);
-        productsDataService.show(function(err, results) {
-            if (err) return next(err);
-            if (results && results.length > 0) {
-                res.render('products', {
-                    products: results,
-                    admin: req.session.admintab
-                });
-            } else {
-                res.render('products', {
-                    error: 'Product not found.'
-                })
-            }
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = new ProductsDataServices(connection);
+            productsDataServices.show(function(err, results) {
+                if (err) return next(err);
+                if (results && results.length > 0) {
+                    res.render('products', {
+                        products: results,
+                        admin: req.session.admintab
+                    });
+                } else {
+                    res.render('products', {
+                        error: 'Product not found.'
+                    })
+                }
+            });
+        })
+        .catch(function(err) {
+            res.render('product', {
+                error: err
+            });
         });
-    });
 };
 
 exports.showOurProducts = function(req, res, next) {

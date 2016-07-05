@@ -1,10 +1,10 @@
 var assert = require('assert'),
     mysql = require('mysql'),
-    ProductsDataService = require('../products-data-service');
+    ProductsDataService = require('../products-data-services');
 
 describe('test the ProductsDataService', function() {
 
-    const password = process.env.MYSQL_PWD !== undefined ? process.env.MYSQL_PWD : 'nelisa';
+    const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'nelisa';
 
     var connection = mysql.createConnection({
         host: '127.0.0.1',
