@@ -11,12 +11,14 @@ var express = require('express'),
     session = require('express-session'),
     flash = require('express-flash'),
     _ = require('underscore'),
-    connectionProvider = require('connection-provider');;
+    connectionProvider = require('connection-provider');
+
+const password = process.env.MYSQL_PWD !== undefined ? process.env.MYSQL_PWD : 'nelisa';
 
 var dbOptions = {
-    host: 'locahost',
-    user: 'root',
-    password: 'nelisa',
+    host: '127.0.0.1',
+    user: process.env.MYSQL_USER || 'root',
+    password: password,
     port: 3306,
     database: 'spaza'
 };
@@ -92,7 +94,7 @@ var products = require('./routes/products'),
     signup = require('./routes/signup'),
     login = require('./routes/login'),
     users = require('./routes/users');
-    ProductsDataService = require('./routes/products-data-service');
+ProductsDataService = require('./routes/products-data-service');
 
 app.get('/login', function(req, res) {
     res.render('login');
