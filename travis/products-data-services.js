@@ -1,10 +1,12 @@
 module.exports = function(connection) {
-    this.getProduct = function(productId, cb) {
+    this.show = function(cb) {
 
-        connection.query('select product from products where id = ?', productId, function(err, products) {
+        connection.query(`SELECT products.id, products.product, categories.category
+          FROM products
+          INNER JOIN categories ON products.category_id = categories.id`, function(err, products) {
             if (err) return cb(err, null);
             if (products && products.length > 0) {
-                return cb(null, products[0]);
+                return cb(null, products);
             }
         });
     }

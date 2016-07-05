@@ -14,15 +14,6 @@ describe('test the ProductsDataService', function() {
         database: 'spaza'
     });
 
-    it('getProduct should return a specific product', function(done) {
-        var productsDataService = new ProductsDataService(connection);
-        productsDataService.getProduct(4, function(err, product) {
-            assert.ifError(err)
-            assert.equal('Chakalaka Can', product.product);
-            done();
-        });
-    });
-
     it("should should count the number of products in the products table", function(done) {
 
         connection.query('select count(*) as productCount from products', function(err, products) {
