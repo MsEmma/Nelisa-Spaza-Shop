@@ -11,7 +11,8 @@ var express = require('express'),
     session = require('express-session'),
     flash = require('express-flash'),
     _ = require('underscore'),
-    connectionProvider = require('connection-provider');
+    connectionProvider = require('connection-provider'),
+    Promise = require('bluebird');
 
 var products = require('./routes/products'),
     db_categories = require('./routes/db_categories'),

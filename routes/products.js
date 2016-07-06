@@ -3,69 +3,85 @@ var ProductsDataServices = require('./products-data-services');
 exports.show = function(req, res, next) {
     req.getServices()
         .then(function(services) {
-            var productsDataServices = new ProductsDataServices(connection);
-            productsDataServices.show(function(err, results) {
-                if (err) return next(err);
-                if (results && results.length > 0) {
-                    res.render('products', {
+            var productsDataServices = services.productsDataServices;
+            productsDataServices.show()
+                .then(function(results) {
+                    var displayData = {
                         products: results,
                         admin: req.session.admintab
-                    });
-                } else {
-                    res.render('products', {
-                        error: 'Product not found.'
-                    })
-                }
-            });
+                    };
+
+                    if (results && results.length <= 0) {
+                        displayData.err = 'Product not found.';
+                    }
+                    res.render('products', displayData);
+                });
         })
         .catch(function(err) {
-            res.render('product', {
-                error: err
-            });
+            next(err);
         });
 };
 
 exports.showOurProducts = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query(`SELECT products.id, products.product, categories.category
-          FROM products
-          INNER JOIN categories ON products.category_id = categories.id`,
-            function(err, results) {
-                if (err) return next(err);
-                res.render('ourproducts', {
-                    products: results,
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            productsDataServices.showOurProducts()
+                .then(function(results) {
+                    var displayData = {
+                        products: results,
+                        admin: req.session.admintab
+                    };
+
+                    if (results && results.length <= 0) {
+                        displayData.err = 'Product not found.';
+                    }
+                    res.render('ourproducts', displayData);
                 });
-            });
-    });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };
 
-exports.showAdd = function(req, res) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query('SELECT * from categories', function(err, categories) {
-            if (err) return next(err);
-            res.render('add', {
-                categories: categories,
-                admin: req.session.admintab
-            });
+exports.showAdd = function(req, res, next) {
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            productsDataServices.showAdd()
+                .then(function(results) {
+                    var displayData = {
+                        categories: results,
+                        admin: req.session.admintab
+                    };
+
+                    if (results && results.length <= 0) {
+                        displayData.err = 'Category not found.';
+                    }
+                    res.render('add', displayData);
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.add = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        var data = {
-            product: req.body.product,
-            category_id: Number(req.body.category_id)
-        };
-
-        connection.query('insert into products set ?', data, function(err, results) {
-            if (err) return next(err);
-            res.redirect('/products');
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            var data = {
+                product: req.body.product,
+                category_id: Number(req.body.category_id)
+            };
+            productsDataServices.add(data)
+                .then(function(results) {
+                    res.redirect('/products');
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.get = function(req, res, next) {
