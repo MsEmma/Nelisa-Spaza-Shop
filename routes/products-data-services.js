@@ -15,10 +15,27 @@ module.exports = function(connection) {
     };
 
     this.showAdd = function() {
-        return dbQueryService.executeQuery('SELECT * from categories');
+        return dbQueryService.executeQuery('SELECT * FROM categories');
     };
 
     this.add = function(data) {
-        return dbQueryService.executeQuery('insert into products set ?', data);
+        return dbQueryService.executeQuery('INSERT into products SET ?', data);
+    };
+
+    this.update = function(data, id) {
+        return dbQueryService.executeQuery('UPDATE products SET ? WHERE id = ?', [data, id]);
+    };
+
+    this.delete = function(id) {
+        return dbQueryService.executeQuery('DELETE FROM products WHERE id = ?', id);
+    };
+
+    this.search = function(search_val) {
+        return dbQueryService.executeQuery(`SELECT products.id, products.product, categories.category
+                          FROM products
+                          INNER JOIN categories ON products.category_id = categories.id
+                          WHERE products.product LIKE ?
+                          OR
+                          categories.category LIKE ?`, [search_val, search_val]);
     };
 };

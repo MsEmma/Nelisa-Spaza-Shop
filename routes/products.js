@@ -107,45 +107,54 @@ exports.get = function(req, res, next) {
 };
 
 exports.update = function(req, res, next) {
-
-    var data = {
-        product: req.body.product,
-        category_id: Number(req.body.category_id)
-    };
-    var id = req.params.id;
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query('UPDATE products SET ? WHERE id = ?', [data, id], function(err, rows) {
-            if (err) return next(err);
-            res.redirect('/products');
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            var data = {
+                product: req.body.product,
+                category_id: Number(req.body.category_id)
+            };
+            var id = req.params.id;
+            productsDataServices.update(data, id)
+                .then(function(results) {
+                    res.redirect('/products');
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.delete = function(req, res, next) {
-    var id = req.params.id;
-    req.getConnection(function(err, connection) {
-        connection.query('DELETE FROM products WHERE id = ?', [id], function(err, rows) {
-            if (err) return next(err);
-            res.redirect('/products');
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            var id = req.params.id;
+            productsDataServices.delete(id)
+                .then(function(results) {
+                    res.redirect('/products');
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.search = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        var search_val = '%' + req.params.search_val + '%';
-        connection.query(`SELECT products.id, products.product, categories.category
-                          FROM products
-                          INNER JOIN categories ON products.category_id = categories.id
-                          WHERE products.product LIKE ?
-                          OR
-                          categories.category LIKE ?`, [search_val, search_val], function(err, results) {
-            if (err) return next(err);
-            res.render('product_search', {
-                products: results,
-                layout: false
-            });
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            var search_val = '%' + req.params.search_val + '%';
+            productsDataServices.search(search_val)
+                .then(function(results) {
+                    res.render('product_search', {
+                        products: results,
+                        admin: req.session.admintab,
+                        layout: false
+                    });
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
