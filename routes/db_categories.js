@@ -1,68 +1,94 @@
+var CategoriesDataServices = require('./categories-data-services');
 
 exports.show = function(req, res, next) {
-  req.getConnection(function(err, connection) {
-    if (err) return next(err);
-    connection.query('SELECT * from categories', function(err, results) {
-      if (err) return next(err);
-      res.render('categories', {
-        no_products: results.length === 0,
-        categories: results,
-        admin: req.session.admintab
-      });
-    });
-  });
+    req.getServices()
+        .then(function(services) {
+            var categoriesDataServices = services.categoriesDataServices;
+            categoriesDataServices.show()
+                .then(function(results) {
+                    var displayData = {
+                        categories: results,
+                        admin: req.session.admintab
+                    };
+
+                    if (results && results.length <= 0) {
+                        displayData.err = 'Category not found.';
+                    }
+                    res.render('categories', displayData);
+                });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };
 
 exports.showAdd = function(req, res) {
-  res.render('add_category', req.session.admintab);
+    res.render('add_category', req.session.admintab);
 }
 
 exports.add = function(req, res, next) {
-  req.getConnection(function(err, connection) {
-    if (err) return next(err);
-    var input = req.body;
-    var data = {
-      category: input.category,
-    };
-
-    connection.query('insert into categories set ?', data, function(err, results) {
-      if (err) return next(err);
-      res.redirect('/categories');
-    });
-  });
+    req.getServices()
+        .then(function(services) {
+            var categoriesDataServices = services.categoriesDataServices;
+            var data = {
+                category: req.body.category
+            };
+            categoriesDataServices.add(data)
+                .then(function(results) {
+                    res.redirect('/categories');
+                });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };
 
 exports.get = function(req, res, next) {
-  var id = req.params.id;
-  req.getConnection(function(err, connection) {
-    connection.query('SELECT * FROM categories WHERE id = ?', [id], function(err, rows) {
-      if (err) return next(err);
-      res.render('edit_category', {
-        data: rows[0],
-        admin: req.session.admintab
-      });
-    });
-  });
+    req.getServices()
+        .then(function(services) {
+            var categoriesDataServices = services.categoriesDataServices;
+            var id = req.params.id;
+            categoriesDataServices.get(id)
+                .then(function(results) {
+                    console.log(results);
+                    res.render('edit_category', {
+                        data: results[0],
+                        admin: req.session.admintab
+                    });
+                });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };
 
 exports.update = function(req, res, next) {
-
-  var data = req.body;
-  var id = req.params.id;
-  req.getConnection(function(err, connection) {
-    connection.query('UPDATE categories SET ? WHERE id = ?', [data, id], function(err, rows) {
-      if (err) next(err);
-      res.redirect('/categories');
-    });
-  });
+    req.getServices()
+        .then(function(services) {
+            var categoriesDataServices = services.categoriesDataServices;
+            var data = req.body;
+            var id = req.params.id;
+            categoriesDataServices.update(data, id)
+                .then(function(results) {
+                    res.redirect('/categories');
+                });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };
 
 exports.delete = function(req, res, next) {
-  var id = req.params.id;
-  req.getConnection(function(err, connection) {
-    connection.query('DELETE FROM categories WHERE id = ?', [id], function(err, rows) {
-      if (err) return next(err);
-      res.redirect('/categories');
-    });
-  });
+    req.getServices()
+        .then(function(services) {
+            var categoriesDataServices = services.categoriesDataServices;
+            var id = req.params.id;
+            categoriesDataServices.delete(id)
+                .then(function(results) {
+                    res.redirect('/categories');
+                });
+        })
+        .catch(function(err) {
+            next(err);
+        });
 };

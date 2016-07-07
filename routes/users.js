@@ -1,30 +1,43 @@
-exports.show = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        connection.query('SELECT * FROM users', function(err, results) {
-            if (err) return next(err);
+var UsersDataServices = require('./users-data-services')
 
-            var formattedResults = [];
-            results.forEach(function(obj) {
-                if (obj.admin === 0) {
-                    obj.admin = "No";
-                } else {
-                    obj.admin = "Yes";
-                }
-                if (obj.locked === 0) {
-                    obj.locked = "No";
-                } else {
-                    obj.locked = "Yes";
-                }
-                formattedResults.push(obj);
-            });
-            res.render('users', {
-                users: formattedResults,
-                admin: req.session.admintab
-            });
+exports.show = function(req, res, next) {
+    req.getServices()
+        .then(function(services) {
+            var usersDataServices = services.usersDataServices;
+            usersDataServices.show()
+                .then(function(results) {
+                    var displayData = {
+                        users: formattedResults,
+                        admin: req.session.admintab
+                    };
+
+                    if (results && results.length <= 0) {
+                        displayData.err = 'User not found.';
+                    }
+
+                    var formattedResults = [];
+                    results.forEach(function(obj) {
+                        if (obj.admin === 0) {
+                            obj.admin = "No";
+                        } else {
+                            obj.admin = "Yes";
+                        }
+                        if (obj.locked === 0) {
+                            obj.locked = "No";
+                        } else {
+                            obj.locked = "Yes";
+                        }
+                        formattedResults.push(obj);
+                    });
+
+                    res.render('users', displayData);
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
+
 
 exports.showAdd = function(req, res) {
     res.render('add_user', req.session.admintab);
@@ -59,7 +72,7 @@ exports.get = function(req, res, next) {
         connection.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {
             if (err) return next(err);
 
-            var user = rows [0];
+            var user = rows[0];
 
             if (user.admin === 0) {
                 user.admin = "No";

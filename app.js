@@ -22,7 +22,11 @@ var products = require('./routes/products'),
     signup = require('./routes/signup'),
     login = require('./routes/login'),
     users = require('./routes/users'),
-    ProductsDataServices = require('./routes/products-data-services');
+    ProductsDataServices = require('./routes/products-data-services'),
+    CategoriesDataServices = require('./routes/categories-data-services'),
+    PurchasesDataServices = require('./routes/purchases-data-services'),
+    SalesDataServices = require('./routes/sales-data-services'),
+    UsersDataServices = require('./routes/users-data-services');
 
 var dbOptions = {
     host: 'localhost',
@@ -35,7 +39,11 @@ var dbOptions = {
 // create object instances that have a database connection
 var setupCallback = function(connection) {
     return {
-        productsDataServices: new ProductsDataServices(connection)
+        productsDataServices: new ProductsDataServices(connection),
+        categoriesDataServices: new CategoriesDataServices(connection),
+        purchasesDataServices: new PurchasesDataServices(connection),
+        salesDataServices: new SalesDataServices(connection),
+        usersDataServices: new UsersDataServices(connection)
     }
 };
 
@@ -52,8 +60,6 @@ app.set('view engine', 'handlebars');
 app.use(myConnection(mysql, dbOptions, 'single'));
 
 app.use(connectionProvider(dbOptions, setupCallback));
-
-// app.use(myConnection(mysql, dbOptions, 'single'));
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -90,17 +96,8 @@ app.use(function(req, res, next) {
     //
     if (!req.session.user) return next();
 
-    var adminPaths = ['/products', '/products/add', '/products/edit/:id', '/products/update/:id',
-        '/products/delete/:id', '/products/search/:search_val',
-        '/categories', '/categories/add', '/categories/edit/:id', '/categories/update/:id',
-        '/categories/delete/:id', '/categories/search/:search_val',
-        '/purchases', '/purchases/add', '/purchases/edit/:id', '/purchases/update/:id',
-        '/purchases/delete/:id', '/purchases/search/:search_val',
-        '/sales', '/sales/add', '/sales/edit/:id', '/sales/update/:id',
-        '/sales/delete/:id', '/sales/search/:search_val',
-        '/users', '/users/add', '/users/edit/:id', '/users/update/:id',
-        '/users/delete/:id'
-    ];
+    var adminPaths = ['/products','/products/','/categories','/categories/','/purchases','/purchases/',
+        '/sales','/sales/','/users', '/users/'];
 
     if (!req.session.admintab.admin) {
         if (_.contains(adminPaths, req.path)) {

@@ -8,18 +8,16 @@ module.exports = function(connection) {
           INNER JOIN categories ON products.category_id = categories.id`);
     };
 
-    this.showOurProducts = function() {
-        return dbQueryService.executeQuery(`SELECT products.id, products.product, categories.category
-          FROM products
-          INNER JOIN categories ON products.category_id = categories.id`);
+    this.add = function(data) {
+        return dbQueryService.executeQuery('INSERT into products SET ?', data);
     };
 
-    this.showAdd = function() {
+    this.getCategories = function() {
         return dbQueryService.executeQuery('SELECT * FROM categories');
     };
 
-    this.add = function(data) {
-        return dbQueryService.executeQuery('INSERT into products SET ?', data);
+    this.getProducts = function(id) {
+        return dbQueryService.executeQuery('SELECT * FROM products WHERE id = ?', id);
     };
 
     this.update = function(data, id) {

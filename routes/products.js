@@ -1,4 +1,5 @@
 var ProductsDataServices = require('./products-data-services');
+const Promise = require('bluebird');
 
 exports.show = function(req, res, next) {
     req.getServices()
@@ -26,7 +27,7 @@ exports.showOurProducts = function(req, res, next) {
     req.getServices()
         .then(function(services) {
             var productsDataServices = services.productsDataServices;
-            productsDataServices.showOurProducts()
+            productsDataServices.show()
                 .then(function(results) {
                     var displayData = {
                         products: results,
@@ -48,17 +49,13 @@ exports.showAdd = function(req, res, next) {
     req.getServices()
         .then(function(services) {
             var productsDataServices = services.productsDataServices;
-            productsDataServices.showAdd()
+            productsDataServices.getCategories()
                 .then(function(results) {
-                    var displayData = {
+
+                    res.render('add', {
                         categories: results,
                         admin: req.session.admintab
-                    };
-
-                    if (results && results.length <= 0) {
-                        displayData.err = 'Category not found.';
-                    }
-                    res.render('add', displayData);
+                    });
                 });
         })
         .catch(function(err) {
@@ -85,25 +82,29 @@ exports.add = function(req, res, next) {
 };
 
 exports.get = function(req, res, next) {
-    var id = req.params.id;
-    req.getConnection(function(err, connection) {
-        connection.query('SELECT * FROM categories', [id], function(err, categories) {
-            if (err) return next(err);
-            connection.query('SELECT * FROM products WHERE id = ?', [id], function(err, products) {
-                if (err) return next(err);
-                var product = products[0];
-                categories = categories.map(function(category) {
-                    category.selected = category.id === product.category_id ? "selected" : "";
-                    return category;
-                });
-                res.render('edit', {
-                    categories: categories,
-                    data: product,
-                    admin: req.session.admintab
-                });
-            });
+    req.getServices()
+        .then(function(services) {
+            var productsDataServices = services.productsDataServices;
+            var id = req.params.id;
+            Promise.join(productsDataServices.getCategories(),
+                productsDataServices.getProducts(id),
+                function(categories, products) {
+                    var product = products[0];
+                    categories = categories.map(function(category) {
+                        category.selected = category.id === product.category_id ? "selected" : "";
+                        return category;
+                    });
+
+                    res.render('edit', {
+                        categories: categories,
+                        data: product,
+                        admin: req.session.admintab
+                    });
+                })
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.update = function(req, res, next) {
