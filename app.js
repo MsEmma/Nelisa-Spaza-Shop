@@ -82,12 +82,10 @@ app.use(function(req, res, next) {
     var nonSecurePaths = ['/login', '/signup'];
     //check if the user don't need to be logged in
     if (_.contains(nonSecurePaths, req.path)) return next();
-
     //check if the user is logged in
     if (!req.session.user) {
         return res.redirect('/login');
     }
-
     //logged in - go ahead
     next();
 });
@@ -96,11 +94,10 @@ app.use(function(req, res, next) {
     //
     if (!req.session.user) return next();
 
-    var adminPaths = ['/products','/products/','/categories','/categories/','/purchases','/purchases/',
-        '/sales','/sales/','/users', '/users/'];
+    var adminPaths = ['products','categories','purchases','sales','users'];
 
     if (!req.session.admintab.admin) {
-        if (_.contains(adminPaths, req.path)) {
+        if (_.contains(adminPaths, req.path.split("/")[1])) {
             return res.redirect('/');
         }
     }

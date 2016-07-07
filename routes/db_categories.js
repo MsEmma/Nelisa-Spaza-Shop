@@ -50,7 +50,6 @@ exports.get = function(req, res, next) {
             var id = req.params.id;
             categoriesDataServices.get(id)
                 .then(function(results) {
-                    console.log(results);
                     res.render('edit_category', {
                         data: results[0],
                         admin: req.session.admintab

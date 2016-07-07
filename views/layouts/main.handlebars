@@ -23,9 +23,6 @@
                     </a>
                 </li>
                 <li><a href="/aboutus">About Us</a></li>
-                {{#unless admin}}
-                    <li><a href="/ourproducts">Our Products</a></li>
-                {{/unless}}
 
                 {{#if admin}}
                     <li><a href="/products">Products</a></li>
@@ -34,6 +31,9 @@
                     <li><a href="/sales">Sales</a></li>
                     <li><a href="/getsummary"><b>Summary</b></a></li>
                     <li><a href="/users">Users</a></li>
+
+                {{else}}
+                    <li><a href="/ourproducts">Our Products</a></li>
                 {{/if}}
                 <li>
                     <a class='dropdown-button' href='#' data-activates='dropdown1'>

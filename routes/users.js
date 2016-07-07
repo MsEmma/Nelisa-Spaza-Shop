@@ -6,14 +6,6 @@ exports.show = function(req, res, next) {
             var usersDataServices = services.usersDataServices;
             usersDataServices.show()
                 .then(function(results) {
-                    var displayData = {
-                        users: formattedResults,
-                        admin: req.session.admintab
-                    };
-
-                    if (results && results.length <= 0) {
-                        displayData.err = 'User not found.';
-                    }
 
                     var formattedResults = [];
                     results.forEach(function(obj) {
@@ -30,7 +22,10 @@ exports.show = function(req, res, next) {
                         formattedResults.push(obj);
                     });
 
-                    res.render('users', displayData);
+                    res.render('users', {
+                        users: formattedResults,
+                        admin: req.session.admintab
+                    });
                 });
         })
         .catch(function(err) {
@@ -46,76 +41,91 @@ exports.showAdd = function(req, res) {
 var bcrypt = require('bcrypt');
 
 exports.add = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        var password = req.body.password;
-        var data = {
-            username: req.body.username,
-            admin: true,
-            locked: 0
-        };
+    req.getServices()
+        .then(function(services) {
+            var usersDataServices = services.usersDataServices;
+            var password = req.body.password;
+            var data = {
+                username: req.body.username,
+                admin: true,
+                locked: 0
+            };
 
-        bcrypt.hash(password, 10, function(err, hash) {
-            data.password = hash;
+            bcrypt.hash(password, 10, function(err, hash) {
+                data.password = hash;
 
-            connection.query('insert into users set ?', data, function(err, data) {
-                if (err) return next(err);
-                res.redirect('/users');
+                usersDataServices.add(data)
+                    .then(function(results) {
+                        res.redirect('/users');
+                    });
             });
         })
-    });
+        .catch(function(err) {
+            next(err);
+        });
 };
 
 exports.get = function(req, res, next) {
-    var id = req.params.id;
-    req.getConnection(function(err, connection) {
-        connection.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {
-            if (err) return next(err);
+    req.getServices()
+        .then(function(services) {
+            var usersDataServices = services.usersDataServices;
+            var id = req.params.id;
+            usersDataServices.get(id)
+                .then(function(results) {
+                    var user = results[0];
 
-            var user = rows[0];
+                    if (user.admin === 0) {
+                        user.admin = "No";
+                    } else {
+                        user.admin = "Yes";
+                    }
+                    if (user.locked === 0) {
+                        user.locked = "No";
+                    } else {
+                        user.locked = "Yes";
+                    }
 
-            if (user.admin === 0) {
-                user.admin = "No";
-            } else {
-                user.admin = "Yes";
-            }
-            if (user.locked === 0) {
-                user.locked = "No";
-            } else {
-                user.locked = "Yes";
-            }
-
-            res.render('edit_user', {
-                data: user,
-                admin: req.session.admintab
-            });
+                    res.render('edit_user', {
+                        data: user,
+                        admin: req.session.admintab
+                    });
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.update = function(req, res, next) {
-
-    var id = req.params.id;
-
-    var data = {
-        admin: req.body.admin,
-        locked: req.body.locked
-    };
-
-    req.getConnection(function(err, connection) {
-        connection.query('UPDATE users SET ? WHERE id = ?', [data, id], function(err, rows) {
-            if (err) next(err);
-            res.redirect('/users');
+    req.getServices()
+        .then(function(services) {
+            var usersDataServices = services.usersDataServices;
+            var data = {
+                admin: req.body.admin,
+                locked: req.body.locked
+            };
+            var id = req.params.id;
+            usersDataServices.update(data, id)
+                .then(function(results) {
+                    res.redirect('/users');
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };
 
 exports.delete = function(req, res, next) {
-    var id = req.params.id;
-    req.getConnection(function(err, connection) {
-        connection.query('DELETE FROM users WHERE id = ?', [id], function(err, rows) {
-            if (err) return next(err);
-            res.redirect('/users');
+    req.getServices()
+        .then(function(services) {
+            var usersDataServices = services.usersDataServices;
+            var id = req.params.id;
+            usersDataServices.delete(id)
+                .then(function(results) {
+                    res.redirect('/users');
+                });
+        })
+        .catch(function(err) {
+            next(err);
         });
-    });
 };

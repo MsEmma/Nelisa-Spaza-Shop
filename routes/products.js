@@ -30,8 +30,7 @@ exports.showOurProducts = function(req, res, next) {
             productsDataServices.show()
                 .then(function(results) {
                     var displayData = {
-                        products: results,
-                        admin: req.session.admintab
+                        products: results,                
                     };
 
                     if (results && results.length <= 0) {
