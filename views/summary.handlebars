@@ -1,48 +1,51 @@
-<h4>Summary</h4>
-<h5>Period From: {{start_date}} To {{end_date}}</h5>
+<div class="container">
 
-<table class="responsive-table" class="bordered">
-    <thead>
-        <tr>
-            <th>Description</th>
-            <th>Product</th>
-            <th>Quantity Sold</th>
-        </tr>
-    </thead>
+    <h4>Summary</h4>
+    <h5>Period From: {{start_date}} To {{end_date}}</h5>
 
-    <tbody>
-
-        {{#most_popular}}
+    <table class="responsive-table" class="bordered">
+        <thead>
             <tr>
-                <td>Most Popular Product</td>
-                <td>{{product}}</td>
-                <td>{{quantity}}</td>
+                <th>Description</th>
+                <th>Product</th>
+                <th>Quantity Sold</th>
             </tr>
-        {{/most_popular}}
+        </thead>
 
-        {{#least_popular}}
-            <tr>
-                <td>Least Popular Product</td>
-                <td>{{product}}</td>
-                <td>{{quantity}}</td>
-            </tr>
-        {{/least_popular}}
+        <tbody>
 
-        {{#most_popular_cat}}
-            <tr>
-                <td>Most Popular Category</td>
-                <td>{{category}}</td>
-                <td>{{quantity}}</td>
-            </tr>
-        {{/most_popular_cat}}
+            {{#most_popular}}
+                <tr>
+                    <td>Most Popular Product</td>
+                    <td>{{product}}</td>
+                    <td>{{quantity}}</td>
+                </tr>
+            {{/most_popular}}
 
-        {{#least_popular_cat}}
-            <tr>
-                <td>Least Popular Category</td>
-                <td>{{category}}</td>
-                <td>{{quantity}}</td>
-            </tr>
-        {{/least_popular_cat}}
+            {{#least_popular}}
+                <tr>
+                    <td>Least Popular Product</td>
+                    <td>{{product}}</td>
+                    <td>{{quantity}}</td>
+                </tr>
+            {{/least_popular}}
 
-    </tbody>
-</table>
+            {{#most_popular_cat}}
+                <tr>
+                    <td>Most Popular Category</td>
+                    <td>{{category}}</td>
+                    <td>{{quantity}}</td>
+                </tr>
+            {{/most_popular_cat}}
+
+            {{#least_popular_cat}}
+                <tr>
+                    <td>Least Popular Category</td>
+                    <td>{{category}}</td>
+                    <td>{{quantity}}</td>
+                </tr>
+            {{/least_popular_cat}}
+
+        </tbody>
+    </table>
+</div>

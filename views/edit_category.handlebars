@@ -1,11 +1,15 @@
-<h4>EDIT CATEGORY</h4>
+<div class="container">
 
-<form action="/categories/update/{{data.id}}" method="POST">
+	<h4>EDIT CATEGORY</h4>
 
-	<div class="">
-		<label for="">Category</label>
-		<input type="text" name="category" value="{{data.category}}">
-	</div>
+	<form action="/categories/update/{{data.id}}" method="POST">
 
-	<input type="submit" value="Edit">
-</form>
+		<div class="">
+			<label for="">Category</label>
+			<input type="text" name="category" value="{{data.category}}">
+		</div>
+
+		<input type="submit" value="Edit">
+	</form>
+
+</div>

@@ -1,40 +1,43 @@
-<table id="sales_search">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Quantity Sold</th>
-            <th>Selling Price (R)</th>
-            <th></th>
-            <th>
-                <a href="/sales/add" role="button">
-                    <b>ADD SALE</b>
-                </a>
-            </th>
-        </tr>
-    </thead>
+<div class="container">
 
-    {{#sales}}
-        <tbody>
+    <table id="sales_search">
+        <thead>
             <tr>
-                <td>{{date}}</td>
-                <td>{{product}}</td>
-                <td>{{category}}</td>
-                <td>{{sold}}</td>
-                <td>{{price}}</td>
-                <td>
-                    <a class="btn btn-default" href="/sales/edit/{{id}}" role="button">
-                        <i class="material-icons">mode_edit</i>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Quantity Sold</th>
+                <th>Selling Price (R)</th>
+                <th></th>
+                <th>
+                    <a href="/sales/add" role="button">
+                        <b>ADD SALE</b>
                     </a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="/sales/delete/{{id}}">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
+                </th>
             </tr>
-        </tbody>
-    {{/sales}}
+        </thead>
 
-</table>
+        {{#sales}}
+            <tbody>
+                <tr>
+                    <td>{{date}}</td>
+                    <td>{{product}}</td>
+                    <td>{{category}}</td>
+                    <td>{{sold}}</td>
+                    <td>{{price}}</td>
+                    <td>
+                        <a class="btn btn-default" href="/sales/edit/{{id}}" role="button">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="/sales/delete/{{id}}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {{/sales}}
+
+    </table>
+</div>

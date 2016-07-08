@@ -1,38 +1,41 @@
-<h4>EDIT PURCHASE</h4>
+<div class="container">
 
-<form class="navbar-form navbar-left" action="/purchases/update/{{data.id}}" method="POST">
-    <div>
-        <div class="form-group">
-            <label for="">Product &nbsp;</label>
-            <select class="" name="product_id">
-                {{#products}}
-                    <option {{selected}} value="{{id}}">{{product}}</option>
-                {{/products}}
-            </select>
+    <h4>EDIT PURCHASE</h4>
+
+    <form class="navbar-form navbar-left" action="/purchases/update/{{data.id}}" method="POST">
+        <div>
+            <div class="form-group">
+                <label for="">Product &nbsp;</label>
+                <select class="" name="product_id">
+                    {{#products}}
+                        <option {{selected}} value="{{id}}">{{product}}</option>
+                    {{/products}}
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="date" placeholder="Date" name="date" value="{{data.date}}">
-    </div>
+        <div class="form-group">
+            <label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="date" placeholder="Date" name="date" value="{{data.date}}">
+        </div>
 
-    <div class="form-group">
-        <label for="">Shop &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="text" placeholder="Shop" name="shop" value="{{data.shop}}">
-    </div>
+        <div class="form-group">
+            <label for="">Shop &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" placeholder="Shop" name="shop" value="{{data.shop}}">
+        </div>
 
-    <div class="form-group">
-        <label for="">Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="number" placeholder="Cost" name="cost" value="{{data.cost}}">
-    </div>
+        <div class="form-group">
+            <label for="">Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="number" placeholder="Cost" name="cost" value="{{data.cost}}">
+        </div>
 
-    <div class="form-group">
-        <label for="">Quantity</label>
-        <input type="number" placeholder="Quantity" name="quantity" value="{{data.quantity}}">
-    </div>
+        <div class="form-group">
+            <label for="">Quantity</label>
+            <input type="number" placeholder="Quantity" name="quantity" value="{{data.quantity}}">
+        </div>
 
-    <div>
-        <input type="submit" value="Edit">
-    </div>
-</form>
+        <div>
+            <input type="submit" value="Edit">
+        </div>
+    </form>
+</div>

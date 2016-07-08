@@ -1,36 +1,39 @@
-<h4>ADD PURCHASES</h4>
+<div class="container">
 
-<form class="navbar-form navbar-left" action="/purchases/add" method="POST">
+	<h4>ADD PURCHASES</h4>
 
-	<div>
-		<label for="">Product&nbsp;</label>
-		<select class="" name="product_id">
-			{{#products}}
-				<option class="btn btn-default" value="{{id}}">{{product}}</option>
-			{{/products}}
-		</select>
-	</div>
+	<form class="navbar-form navbar-left" action="/purchases/add" method="POST">
 
-	<div class="form-group">
-		<label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-		<input type="date" name="date" value="{{data.date}}">
-	</div>
+		<div>
+			<label for="">Product&nbsp;</label>
+			<select class="" name="product_id">
+				{{#products}}
+					<option class="btn btn-default" value="{{id}}">{{product}}</option>
+				{{/products}}
+			</select>
+		</div>
 
-	<div class="form-group">
-		<label for="">Shop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-		<input type="text" name="shop" value="{{data.shop}}">
-	</div>
+		<div class="form-group">
+			<label for="">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<input type="date" name="date" value="{{data.date}}">
+		</div>
 
-	<div class="form-group">
-		<label for="">Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-		<input type="number" name="cost" value="{{data.cost}}">
-	</div>
+		<div class="form-group">
+			<label for="">Shop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<input type="text" name="shop" value="{{data.shop}}">
+		</div>
 
-	<div class="form-group">
-		<label for="">Quantity</label>
-		<input type="number" name="quantity" value="{{data.quantity}}">
-	</div>
+		<div class="form-group">
+			<label for="">Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<input type="number" name="cost" value="{{data.cost}}">
+		</div>
 
-	<input type="submit" value="Add">
+		<div class="form-group">
+			<label for="">Quantity</label>
+			<input type="number" name="quantity" value="{{data.quantity}}">
+		</div>
 
-</form>
+		<input type="submit" value="Add">
+
+	</form>
+</div>

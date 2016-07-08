@@ -1,59 +1,62 @@
-<div class="row">
-    <form action="/purchases/search/">
-        <div class="input-field">
-            <i class="material-icons prefix">search</i>
-            <input id="purchases_search_bar" type="text" class="validate" name="search_val">
-            <label for="purchases_search_bar">Search</label>
-        </div>
-    </form>
-</div>
+<div class="container">
 
-<div>
-    <h4>PURCHASES</h4>
-</div>
+    <div class="row">
+        <form action="/purchases/search/">
+            <div class="input-field">
+                <i class="material-icons prefix">search</i>
+                <input id="purchases_search_bar" type="text" class="validate" name="search_val">
+                <label for="purchases_search_bar">Search</label>
+            </div>
+        </form>
+    </div>
 
-<table id="purchases_search">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Shop</th>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Quantity Bought</th>
-            <th>Cost (R)</th>
-            <th></th>
-            <th>
-                <a href="/purchases/add" role="button">
-                    <b>ADD PURCHASE</b>
-                </a>
-            </th>
-        </tr>
-    </thead>
+    <div>
+        <h4>PURCHASES</h4>
+    </div>
 
-    {{#purchases}}
-        <tbody>
+    <table id="purchases_search">
+        <thead>
             <tr>
-                <td>{{date}}</td>
-                <td>{{shop}}</td>
-                <td>{{product}}</td>
-                <td>{{category}}</td>
-                <td>{{quantity}}</td>
-                <td>{{cost}}</td>
-                <td>
-                    <a class="btn btn-default" href="/purchases/edit/{{id}}" role="button">
-                        <i class="material-icons">mode_edit</i>
+                <th>Date</th>
+                <th>Shop</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Quantity Bought</th>
+                <th>Cost (R)</th>
+                <th></th>
+                <th>
+                    <a href="/purchases/add" role="button">
+                        <b>ADD PURCHASE</b>
                     </a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="/purchases/delete/{{id}}">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
+                </th>
             </tr>
-        </tbody>
-    {{/purchases}}
+        </thead>
 
-</table>
+        {{#purchases}}
+            <tbody>
+                <tr>
+                    <td>{{date}}</td>
+                    <td>{{shop}}</td>
+                    <td>{{product}}</td>
+                    <td>{{category}}</td>
+                    <td>{{quantity}}</td>
+                    <td>{{cost}}</td>
+                    <td>
+                        <a class="btn btn-default" href="/purchases/edit/{{id}}" role="button">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="/purchases/delete/{{id}}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {{/purchases}}
+
+    </table>
+</div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 

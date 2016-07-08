@@ -1,23 +1,26 @@
-<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOGIN</h4>
+<div class="container">
 
-<form class="navbar-form navbar-left" action="/login" method="POST">
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOGIN</h4>
 
-    <div class="form-group">
-        <label for="">USERNAME&nbsp;:</label>
-        <input type="text" name="username">
-    </div>
+    <form class="navbar-form navbar-left" action="/login" method="POST">
 
-    <div class="form-group">
-        <label for="">PASSWORD&nbsp;:</label>
-        <input type="password" name="password">
-    </div>
+        <div class="form-group">
+            <label for="">USERNAME&nbsp;:</label>
+            <input type="text" name="username">
+        </div>
 
-    <h5 id = 'warning'>{{messages.warning}}</h5>
-    <h5 id = 'success'>{{messages.success}}</h5>
+        <div class="form-group">
+            <label for="">PASSWORD&nbsp;:</label>
+            <input type="password" name="password">
+        </div>
 
-    <input type="submit" value="Login">
-    <div>
-        <a href='/signup' id = 'signup'>No account? Create one!<a>
+        <h5 id='warning'>{{messages.warning}}</h5>
+        <h5 id='success'>{{messages.success}}</h5>
+
+        <input type="submit" value="Login">
+        <div>
+            <a href='/signup' id='signup'>No account? Create one!<a>
     </div>
 
 </form>
+</div>
