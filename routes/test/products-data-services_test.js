@@ -12,20 +12,19 @@ describe('test the ProductsDataServices', function() {
         database: 'spaza'
     });
 
-    it('should return product list length', function(done) {
+    it('should return product list length', function() {
         var productsDataServices = new ProductsDataServices(connection);
-        productsDataServices.show(function(err, products) {
-          assert.ifError(err)
-          assert.equal(20, products.length);
-          done();
-        });
+        return productsDataServices.show()
+            .then(function(products) {
+                assert.equal(22, products.length);
+            });
     });
 
     it("should should count the number of products in the products table", function(done) {
 
         connection.query('select count(*) as productCount from products', function(err, products) {
             console.log(err);
-            assert.equal(20, products[0].productCount);
+            assert.equal(22, products[0].productCount);
             done();
         });
     });
