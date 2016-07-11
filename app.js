@@ -47,7 +47,6 @@ var setupCallback = function(connection) {
     }
 };
 
-
 app.set('port', (process.env.PORT || 3000));
 
 app.engine('handlebars', exphbs({
@@ -79,7 +78,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/login', '/signup'];
+    var nonSecurePaths = ['/','/login', '/signup'];
     //check if the user don't need to be logged in
     if (_.contains(nonSecurePaths, req.path)) return next();
     //check if the user is logged in
