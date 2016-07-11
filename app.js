@@ -15,18 +15,18 @@ var express = require('express'),
     Promise = require('bluebird');
 
 var products = require('./routes/products'),
-    db_categories = require('./routes/db_categories'),
-    db_sales = require('./routes/db_sales'),
-    db_purchases = require('./routes/db_purchases'),
+    categories = require('./routes/categories'),
+    sales = require('./routes/sales'),
+    purchases = require('./routes/purchases'),
     summary = require('./routes/summary'),
     signup = require('./routes/signup'),
     login = require('./routes/login'),
     users = require('./routes/users'),
-    ProductsDataServices = require('./routes/products-data-services'),
-    CategoriesDataServices = require('./routes/categories-data-services'),
-    PurchasesDataServices = require('./routes/purchases-data-services'),
-    SalesDataServices = require('./routes/sales-data-services'),
-    UsersDataServices = require('./routes/users-data-services');
+    ProductsDataServices = require('./routes/db_services/products-data-services'),
+    CategoriesDataServices = require('./routes/db_services/categories-data-services'),
+    PurchasesDataServices = require('./routes/db_services/purchases-data-services'),
+    SalesDataServices = require('./routes/db_services/sales-data-services'),
+    UsersDataServices = require('./routes/db_services/users-data-services');
 
 var dbOptions = {
     host: 'localhost',
@@ -137,44 +137,44 @@ app.get('/aboutus', function(req, res) {
     res.render('aboutus', req.session.admintab);
 });
 
-app.get('/products', products.show);
-app.get('/ourproducts', products.showOurProducts);
-app.get('/products/add', products.showAdd);
-app.post('/products/add', products.add);
-app.get('/products/edit/:id', products.get);
-app.post('/products/update/:id', products.update);
-app.get('/products/delete/:id', products.delete);
-app.get('/products/search/:search_val', products.search);
+app.get('/products',products.show);
+app.get('/ourproducts',products.showOurProducts);
+app.get('/products/add',products.showAdd);
+app.post('/products/add',products.add);
+app.get('/products/edit/:id',products.get);
+app.post('/products/update/:id',products.update);
+app.get('/products/delete/:id',products.delete);
+app.get('/products/search/:search_val',products.search);
 
-app.get('/categories', db_categories.show);
-app.get('/categories/add', db_categories.showAdd);
-app.post('/categories/add', db_categories.add);
-app.get('/categories/edit/:id', db_categories.get);
-app.post('/categories/update/:id', db_categories.update);
-app.get('/categories/delete/:id', db_categories.delete);
+app.get('/categories',categories.show);
+app.get('/categories/add',categories.showAdd);
+app.post('/categories/add',categories.add);
+app.get('/categories/edit/:id',categories.get);
+app.post('/categories/update/:id',categories.update);
+app.get('/categories/delete/:id',categories.delete);
 
-app.get('/purchases', db_purchases.show);
-app.get('/purchases/add', db_purchases.showAdd);
-app.post('/purchases/add', db_purchases.add);
-app.get('/purchases/edit/:id', db_purchases.get);
-app.post('/purchases/update/:id', db_purchases.update);
-app.get('/purchases/delete/:id', db_purchases.delete);
-app.get('/purchases/search/:search_val', db_purchases.search);
+app.get('/purchases',purchases.show);
+app.get('/purchases/add',purchases.showAdd);
+app.post('/purchases/add',purchases.add);
+app.get('/purchases/edit/:id',purchases.get);
+app.post('/purchases/update/:id',purchases.update);
+app.get('/purchases/delete/:id',purchases.delete);
+app.get('/purchases/search/:search_val',purchases.search);
 
-app.get('/sales', db_sales.show);
-app.get('/sales/add', db_sales.showAdd);
-app.post('/sales/add', db_sales.add);
-app.get('/sales/edit/:id', db_sales.get);
-app.post('/sales/update/:id', db_sales.update);
-app.get('/sales/delete/:id', db_sales.delete);
-app.get('/sales/search/:search_val', db_sales.search);
+app.get('/sales',sales.show);
+app.get('/sales/add',sales.showAdd);
+app.post('/sales/add',sales.add);
+app.get('/sales/edit/:id',sales.get);
+app.post('/sales/update/:id',sales.update);
+app.get('/sales/delete/:id',sales.delete);
+app.get('/sales/search/:search_val',sales.search);
 
-app.get('/users', users.show);
-app.get('/users/add', users.showAdd);
-app.post('/users/add', users.add);
-app.get('/users/edit/:id', users.get);
-app.post('/users/update/:id', users.update);
-app.get('/users/delete/:id', users.delete);
+app.get('/users',users.show);
+app.get('/users/add',users.showAdd);
+app.post('/users/add',users.add);
+app.get('/users/edit/:id',users.get);
+app.post('/users/update/:id',users.update);
+app.get('/users/delete/:id',users.delete);
 
 app.get('/getsummary', function(req, res) {
     res.render('getsummary', req.session.admintab);

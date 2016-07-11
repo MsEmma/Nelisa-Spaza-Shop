@@ -24,6 +24,7 @@
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.0",
+    "co": "^4.6.0",
     "connection-provider": "avermeulen/connection-provider",
     "express": "^4.13.4",
     "express-flash": "0.0.2",
