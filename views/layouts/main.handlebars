@@ -13,26 +13,46 @@
 
 <body>
 
-    <nav class="white" class="top-nav">
-        <div class="container">
-            <div class="nav-wrapper">
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/login" class="black-text"><b>Login</b></a></li>
-                    <li>
-                        <a class='dropdown-button' href='#' data-activates='dropdown1'>
-                            <i class="material-icons icon-black">person_pin</i>
-                        </a>
-                    </li>
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li>{{user}}</li>
-                        <li><a href="/logout"><b>Logout</b></a></li>
-                    </ul>
-                </ul>
-            </div>
+    <ul id="dropdown1" class="dropdown-content">
+        <li>{{user}}</li>
+        <li class="divider"></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+    <nav class="white">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo black-text"><b>Nelisa Spaza Shop</b></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="black-text" href="/login"><b>Login</b></a></li>
+                <li>
+                    <a class="dropdown-button" data-activates="dropdown1">
+                        <i class="material-icons icon-black">person_pin</i>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container">
+    <nav class="teal lighten-1">
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="/aboutus" class="waves-effect waves"><b>About Us</b></a></li>
+
+                {{#if admin}}
+                    <li><a href="/products" class="waves-effect waves"><b>Products</b></a></li>
+                    <li><a href="/purchases" class="waves-effect waves"><b>Purchases</b></a></li>
+                    <li><a href="/sales" class="waves-effect waves"><b>Sales</b></a></li>
+                    <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
+                    <li><a href="/users" class="waves-effect waves"><b>Users</b></a></li>
+
+                {{else}}
+                    <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
+                {{/if}}
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- <div class="container">
         <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
             <i class="material-icons">menu</i>
         </a>
@@ -57,7 +77,7 @@
 
     </ul>
     </div>
-    </nav>
+    </nav> -->
 
     <div class="container">
 
@@ -67,11 +87,12 @@
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="/js/materialize.min.js"></script>
 <script>
     $(document).ready(function() {
         $('select').material_select();
+        $('.dropdown-button').dropdown();
     });
 </script>
 <script>
