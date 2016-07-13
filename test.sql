@@ -1,27 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jul 04, 2016 at 12:17 PM
--- Server version: 5.5.49-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.17
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `spaza`
---
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `categories`
 --
@@ -31,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category` char(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category` (`category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+);
 
 --
 -- Dumping data for table `categories`
@@ -57,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `product` (`product`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+);
 
 --
 -- Dumping data for table `products`
@@ -90,25 +66,23 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   `product_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=120 ;
+);
 
 --
 -- Dumping data for table `purchases`
 --
 
 INSERT INTO `purchases` (`id`, `shop`, `date`, `quantity`, `cost`, `product_id`) VALUES
-(1, 'Joe Spaza Shop', '2016-02-01', 4, 11.00, 3),
-(2, 'Joe Spaza Shop', '2016-02-01', 4, 24.00, 2),
-(3, 'Makro', '2016-02-06', 30, 9.00, 3),
-(4, 'Makro', '2016-02-06', 15, 7.00, 4),
-(5, 'Makro', '2016-02-06', 36, 3.50, 7),
-(6, 'Makro', '2016-02-06', 18, 4.50, 8),
-(7, 'Makro', '2016-02-06', 24, 4.50, 6),
-(8, 'Makro', '2016-02-06', 15, 5.00, 5),
-(9, 'Makro', '2016-02-06', 25, 17.00, 2),
-(10, 'Makro', '2016-02-06', 5, 20.00, 9),
-(11, 'Makro', '2016-02-06', 10, 7.00, 1),
-(12, 'Makro', '2016-02-06', 10, 8.00, 10),
+(1, 'Makro', '2016-02-06', 30, 9.00, 3),
+(2, 'Makro', '2016-02-06', 15, 7.00, 4),
+(3, 'Makro', '2016-02-06', 36, 3.50, 7),
+(4, 'Makro', '2016-02-06', 18, 4.50, 8),
+(5, 'Makro', '2016-02-06', 24, 4.50, 6),
+(6, 'Makro', '2016-02-06', 15, 5.00, 5),
+(7, 'Makro', '2016-02-06', 25, 17.00, 2),
+(8, 'Makro', '2016-02-06', 5, 20.00, 9),
+(9, 'Makro', '2016-02-06', 10, 7.00, 1),
+(10, 'Makro', '2016-02-06', 10, 8.00, 10);
 
 -- --------------------------------------------------------
 
@@ -124,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `price` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=433 ;
+);
 
 --
 -- Dumping data for table `sales`
@@ -156,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `locked` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+);
 
 --
 -- Dumping data for table `users`
@@ -188,7 +162,3 @@ ALTER TABLE `purchases`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
