@@ -1,4 +1,4 @@
-var UsersDataServices = require('./db_services/users-data-services'),
+var UsersDataServices = require('../db_services/users-data-services'),
     co = require('co');
 
 exports.show = function(req, res, next) {

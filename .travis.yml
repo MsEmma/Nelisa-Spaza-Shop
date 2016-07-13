@@ -2,7 +2,10 @@
 
 before_script:
   - npm install
-  - mysql -u root -e 'create database spaza;'
-  - mysql -u root spaza < spaza.sql;
+  - mysql -u root -e 'create database test;'
+  - mysql -u root test < test.sql;
+
+env:
+  - MYSQL_URL='mysql://127.0.0.1'
 
 script: mocha ./travis/test/products-data-services_test.js

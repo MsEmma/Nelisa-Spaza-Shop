@@ -1,4 +1,4 @@
-var PurchasesDataServices = require('./db_services/purchases-data-services'),
+var PurchasesDataServices = require('../db_services/purchases-data-services'),
     co = require('co');
 
 exports.show = function(req, res, next) {

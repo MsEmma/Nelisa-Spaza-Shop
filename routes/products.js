@@ -1,4 +1,4 @@
-var ProductsDataServices = require('./db_services/products-data-services'),
+var ProductsDataServices = require('../db_services/products-data-services'),
     co = require('co');
 
 exports.show = function(req, res, next) {

@@ -1,4 +1,4 @@
-var CategoriesDataServices = require('./db_services/categories-data-services'),
+var CategoriesDataServices = require('../db_services/categories-data-services'),
     co = require('co');
 
 exports.show = function(req, res, next) {

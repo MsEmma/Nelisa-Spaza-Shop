@@ -1,6 +1,6 @@
 var assert = require('assert'),
     mysql = require('mysql'),
-    ProductsDataServices = require('../products-data-services');
+    ProductsDataServices = require('.../db_services/products-data-services');
 
 describe('test the ProductsDataServices', function() {
 
@@ -9,14 +9,25 @@ describe('test the ProductsDataServices', function() {
         user: 'root',
         password: 'nelisa',
         port: 3306,
-        database: 'spaza'
+        database: 'test'
     });
 
-    it('should return product list length', function() {
+    before(function() {
+      // runs before all tests in this block
+      DROP DATABASE test;
+      CREATE DATABASE test;
+      USE DATABASE test;
+
+    source test.sql
+  });
+
+
+    it('should return product list length', function(done) {
         var productsDataServices = new ProductsDataServices(connection);
         return productsDataServices.show()
             .then(function(products) {
                 assert.equal(22, products.length);
+                done();
             });
     });
 

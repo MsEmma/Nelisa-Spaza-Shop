@@ -22,11 +22,11 @@ var products = require('./routes/products'),
     signup = require('./routes/signup'),
     login = require('./routes/login'),
     users = require('./routes/users'),
-    ProductsDataServices = require('./routes/db_services/products-data-services'),
-    CategoriesDataServices = require('./routes/db_services/categories-data-services'),
-    PurchasesDataServices = require('./routes/db_services/purchases-data-services'),
-    SalesDataServices = require('./routes/db_services/sales-data-services'),
-    UsersDataServices = require('./routes/db_services/users-data-services');
+    ProductsDataServices = require('./db_services/products-data-services'),
+    CategoriesDataServices = require('./db_services/categories-data-services'),
+    PurchasesDataServices = require('./db_services/purchases-data-services'),
+    SalesDataServices = require('./db_services/sales-data-services'),
+    UsersDataServices = require('./db_services/users-data-services');
 
 var dbOptions = {
     host: 'localhost',

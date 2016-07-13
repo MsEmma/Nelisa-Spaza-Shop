@@ -4,15 +4,9 @@ var assert = require('assert'),
 
 describe('test the ProductsDataService', function() {
 
-    const password = process.env.MYSQL_PWD !== null ? process.env.MYSQL_PWD : 'nelisa';
+    const url = process.env.MYSQL_URL !== null ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/test';
 
-    var connection = mysql.createConnection({
-        host: '127.0.0.1',
-        user: process.env.MYSQL_USER || 'root',
-        password: password,
-        port: 3306,
-        database: 'spaza'
-    });
+    var connection = mysql.createConnection(url);  
 
     it("should should count the number of products in the products table", function(done) {
 
