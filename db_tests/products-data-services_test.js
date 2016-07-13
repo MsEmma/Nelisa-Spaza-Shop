@@ -1,26 +1,19 @@
 var assert = require('assert'),
     mysql = require('mysql'),
-    ProductsDataServices = require('.../db_services/products-data-services');
+    ProductsDataServices = require('../db_services/products-data-services');
 
 describe('test the ProductsDataServices', function() {
 
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'nelisa',
-        port: 3306,
-        database: 'test'
-    });
+    const url = process.env.MYSQL_URL !== undefined ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/spaza';
+    var connection = mysql.createConnection(url);
 
-    before(function() {
-      // runs before all tests in this block
-      DROP DATABASE test;
-      CREATE DATABASE test;
-      USE DATABASE test;
-
-    source test.sql
-  });
-
+    // before(function() {
+    //     // runs before all tests in this block
+    //     DROP DATABASE test;
+    //     CREATE DATABASE test;
+    //     USE DATABASE test;
+    //     source test.sql;
+    // });
 
     it('should return product list length', function(done) {
         var productsDataServices = new ProductsDataServices(connection);
