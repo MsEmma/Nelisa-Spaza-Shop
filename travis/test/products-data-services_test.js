@@ -4,7 +4,7 @@ var assert = require('assert'),
 
 describe('test the ProductsDataService', function() {
 
-    const url = process.env.MYSQL_URL !== null ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/test';
+    const url = process.env.MYSQL_URL !== null ? process.env.MYSQL_URL : 'mysql://root:@127.0.0.1/test';
 
     var connection = mysql.createConnection(url);
 
