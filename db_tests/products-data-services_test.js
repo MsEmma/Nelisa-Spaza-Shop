@@ -4,16 +4,8 @@ var assert = require('assert'),
 
 describe('test the ProductsDataServices', function() {
 
-    const url = process.env.MYSQL_URL !== undefined ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/spaza';
+    const url = process.env.MYSQL_URL !== undefined ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/test';
     var connection = mysql.createConnection(url);
-
-    // before(function() {
-    //     // runs before all tests in this block
-    //     DROP DATABASE test;
-    //     CREATE DATABASE test;
-    //     USE DATABASE test;
-    //     source test.sql;
-    // });
 
     it('should return product list length', function(done) {
         var productsDataServices = new ProductsDataServices(connection);
@@ -23,6 +15,20 @@ describe('test the ProductsDataServices', function() {
                 done();
             });
     });
+
+    // it('should return product list length', function(done) {
+    //     var productsDataServices = new ProductsDataServices(connection);
+    //     var data = {
+    //         product: 'Sprite',
+    //         category_id: 5
+    //     };
+    //
+    //     return productsDataServices.add(data)
+    //         .then(function(products) {
+    //             assert.equal(10, products.length);
+    //             done();
+    //         });
+    // });
 
     it("should should count the number of products in the products table", function(done) {
 
