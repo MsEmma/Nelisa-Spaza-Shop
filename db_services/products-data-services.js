@@ -27,11 +27,6 @@ module.exports = function(connection) {
     };
 
     this.search = function(search_val) {
-        return dbQueryService.executeQuery(`SELECT products.id, products.product, categories.category
-                          FROM products
-                          INNER JOIN categories ON products.category_id = categories.id
-                          WHERE products.product LIKE ?
-                          OR
-                          categories.category LIKE ?`, [search_val, search_val]);
+        return dbQueryService.executeQuery('SELECT products.id, products.product, categories.category FROM products INNER JOIN categories ON products.category_id = categories.id WHERE products.product LIKE ? OR categories.category LIKE ?', [search_val, search_val]);
     };
 };
