@@ -19,7 +19,7 @@ describe('test the ProductsDataServices', function() {
         var productsDataServices = new ProductsDataServices(connection);
         return productsDataServices.show()
             .then(function(products) {
-                assert.equal(22, products.length);
+                assert.equal(10, products.length);
                 done();
             });
     });
@@ -28,7 +28,7 @@ describe('test the ProductsDataServices', function() {
 
         connection.query('select count(*) as productCount from products', function(err, products) {
             console.log(err);
-            assert.equal(22, products[0].productCount);
+            assert.equal(10, products[0].productCount);
             done();
         });
     });
