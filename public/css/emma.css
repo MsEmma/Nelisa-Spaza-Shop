@@ -1,4 +1,4 @@
-h4 {
+h5 {
   text-align: center;
   padding: 2%;
 }
@@ -12,7 +12,7 @@ h4 {
     color: green !important;
 }
 #signup {
-    margin-left: 50px;
+    /*margin-left: 50px;*/
 }
 
 #about_us {
@@ -25,5 +25,22 @@ i.icon-black {
 
 .card-content {
   text-align: center;
-  
+
+}
+
+input[type="submit"]{
+  background-color: #616161;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.container {
+  padding-top: 40px;
+}
+
+i {
+  font-weight: bold;
 }

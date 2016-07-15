@@ -35,14 +35,14 @@
     <nav class="teal lighten-1">
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="/aboutus" class="waves-effect waves"><b>About Us</b></a></li>
+                <li><a href="/aboutus" class="waves-effect waves"><b>About</b></a></li>
 
                 {{#if admin}}
                     <li><a href="/products" class="waves-effect waves"><b>Products</b></a></li>
                     <li><a href="/purchases" class="waves-effect waves"><b>Purchases</b></a></li>
                     <li><a href="/sales" class="waves-effect waves"><b>Sales</b></a></li>
-                    <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
                     <li><a href="/users" class="waves-effect waves"><b>Users</b></a></li>
+                    <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
 
                 {{else}}
                     <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
@@ -52,34 +52,7 @@
         </div>
     </nav>
 
-    <!-- <div class="container">
-        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
-            <i class="material-icons">menu</i>
-        </a>
-    </div>
-
-    <ul id="nav-mobile" class="side-nav fixed teal lighten-1" style="transform: translateX(0%);">
-        <li class="logo">
-            <a href="/" class="brand-logo"><h5><b>Nelisa Spaza Shop</b></h5></a>
-        </li>
-        <li><a href="/aboutus" class="waves-effect waves"><b>About Us</b></a></li>
-
-        {{#if admin}}
-            <li><a href="/products" class="waves-effect waves"><b>Products</b></a></li>
-            <li><a href="/purchases" class="waves-effect waves"><b>Purchases</b></a></li>
-            <li><a href="/sales" class="waves-effect waves"><b>Sales</b></a></li>
-            <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
-            <li><a href="/users" class="waves-effect waves"><b>Users</b></a></li>
-
-        {{else}}
-            <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
-        {{/if}}
-
-    </ul>
-    </div>
-    </nav> -->
-
-    <div class="container">
+    <div>
 
         {{{body}}}
 

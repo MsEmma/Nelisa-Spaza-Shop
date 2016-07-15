@@ -1,18 +1,25 @@
 <div>
+    <nav class="white">
+        <div class="nav-wrapper">
+            <ul>
+                <li class="left">
+                    <h5 class="black-text"><b>PURCHASES</b></h5>
+                </li>
+                <li class="right black-text">
+                    <form action="/purchases/search/">
+                        <div class="input-field">
+                            <i class="material-icons prefix">search</i>
+                            <input id="purchases_search_bar" type="text" placeholder="search" class="validate" name="search_val">
+                            <!-- <label for="search_bar">Search</label> -->
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
-    <div class="row">
-        <form action="/purchases/search/">
-            <div class="input-field">
-                <i class="material-icons prefix">search</i>
-                <input id="purchases_search_bar" type="text" class="validate" name="search_val">
-                <label for="purchases_search_bar">Search</label>
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <h4>PURCHASES</h4>
-    </div>
+<div class="container">
 
     <table id="purchases_search" class="bordered" class="responsive-table">
         <thead>

@@ -1,18 +1,25 @@
 <div>
+    <nav class="white">
+        <div class="nav-wrapper">
+            <ul>
+                <li class="left">
+                    <h5 class="black-text"><b>SALES</b></h5>
+                </li>
+                <li class="right black-text">
+                    <form action="/sales/search/">
+                        <div class="input-field">
+                            <i class="material-icons prefix">search</i>
+                            <input id="sales_search_bar" type="text" placeholder="search" class="validate" name="search_val">
+                            <!-- <label for="search_bar">Search</label> -->
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
-    <div class="row">
-        <form action="/sales/search/">
-            <div class="input-field">
-                <i class="material-icons prefix">search</i>
-                <input id="sales_search_bar" type="text" class="validate" name="search_val">
-                <label for="sales_search_bar">Search</label>
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <h4>SALES</h4>
-    </div>
+<div class="container">
 
     <table id="sales_search">
         <thead>
@@ -24,8 +31,8 @@
                 <th>Selling Price (R)</th>
                 <th></th>
                 <th>
-                    <a href="/sales/add" role="button">
-                        <b>ADD SALE</b>
+                    <a class="btn btn-default" href="/sales/add" role="button">
+                        <i class="material-icons"><b>add</b></i>
                     </a>
                 </th>
             </tr>
