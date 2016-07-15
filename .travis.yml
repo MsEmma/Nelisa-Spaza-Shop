@@ -8,4 +8,4 @@ before_script:
 env:
   - MYSQL_URL='mysql://root:@127.0.0.1/test'
 
-script: mocha ./db_tests/products-data-services_test.js
+script: mocha ./db_tests

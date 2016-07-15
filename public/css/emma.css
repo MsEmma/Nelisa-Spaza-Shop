@@ -7,12 +7,15 @@ h5 {
     margin-left: 95px;
     color: #FF0000 !important;
 }
+
 #success {
     margin-left: 50px;
     color: green !important;
 }
-#signup {
-    /*margin-left: 50px;*/
+
+#main-nav {
+    /*background-color: #008f95;*/
+    background-color: #4ec5c1;
 }
 
 #about_us {
@@ -29,12 +32,10 @@ i.icon-black {
 }
 
 input[type="submit"]{
-  background-color: #616161;
-  border-radius: 10px;
-  padding: 5px 15px;
+  color: white;
   font-weight: bold;
   text-align: center;
-  color: white;
+  background-color: #000000;
 }
 
 .container {
@@ -43,4 +44,17 @@ input[type="submit"]{
 
 i {
   font-weight: bold;
+}
+
+.btn {
+  /*background-color: #eb6e80 !important;*/
+  background-color: #ec576B !important;
+
+}
+
+#add {
+  /*background-color: #e24e42 !important;*/
+  /*background-color: #e5e338 !important;*/
+  background-color: #000000 !important;
+
 }
