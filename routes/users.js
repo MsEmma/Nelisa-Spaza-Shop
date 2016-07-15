@@ -47,7 +47,7 @@ exports.add = function(req, res, next) {
         var password = req.body.password;
         var data = {
             username: req.body.username,
-            admin: true,
+            admin: false,
             locked: 0
         };
 

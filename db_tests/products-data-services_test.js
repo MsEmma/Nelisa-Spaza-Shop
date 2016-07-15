@@ -6,9 +6,16 @@ describe('test the ProductsDataServices', function() {
 
     const url = process.env.MYSQL_URL !== undefined ? process.env.MYSQL_URL : 'mysql://root:nelisa@localhost/test';
     var connection = mysql.createConnection(url);
+    var productsDataServices = new ProductsDataServices(connection);
+
+    after(function(done) {
+
+        connection.query('ALTER TABLE `products` AUTO_INCREMENT = 11', function() {
+              done();
+        });
+    });
 
     it('should return product list length', function(done) {
-        var productsDataServices = new ProductsDataServices(connection);
         return productsDataServices.show()
             .then(function(products) {
                 assert.equal(10, products.length);
@@ -16,8 +23,7 @@ describe('test the ProductsDataServices', function() {
             });
     });
 
-    it('should return the new product list length after adding product', function(done) {
-        var productsDataServices = new ProductsDataServices(connection);
+    it('should return the new product list length after adding a product', function(done) {
         var data = {
             product: 'Sprite',
             category_id: 5
@@ -32,8 +38,7 @@ describe('test the ProductsDataServices', function() {
             });
     });
 
-    it('should return the new product list length after deleting product', function(done) {
-        var productsDataServices = new ProductsDataServices(connection);
+    it('should return the new product list length after deleting a product', function(done) {
         var id = 11;
         return productsDataServices.delete(id)
             .then(function() {
@@ -45,5 +50,3 @@ describe('test the ProductsDataServices', function() {
             });
     });
 });
-
-// ALTER TABLE `products` AUTO_INCREMENT = 11;
