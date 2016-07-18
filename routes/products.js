@@ -10,7 +10,9 @@ exports.show = function(req, res, next) {
         try {
             var displayData = {
                 products: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab,
+                user: req.session.admintab
             };
             if (results && results.length <= 0) {
                 displayData.err = 'Products not found.';
@@ -31,7 +33,7 @@ exports.showOurProducts = function(req, res, next) {
         try {
             var displayData = {
                 products: results,
-                admin: req.session.admintab
+                user: req.session.admintab
             };
             if (results && results.length <= 0) {
                 displayData.err = 'Products not found.';
@@ -52,7 +54,8 @@ exports.showAdd = function(req, res, next) {
         try {
             res.render('add', {
                 categories: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
           } catch (err) {
               next(err);
@@ -97,7 +100,8 @@ exports.get = function(req, res, next) {
             res.render('edit', {
                 categories: categories,
                 data: product,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);
@@ -150,6 +154,7 @@ exports.search = function(req, res, next) {
             res.render('product_search', {
                 products: results,
                 admin: req.session.admintab,
+                user: req.session.admintab,
                 layout: false
             });
         } catch (err) {

@@ -51,7 +51,8 @@ exports.showPopular = function(req, res, next) {
                             least_popular,
                             most_popular_cat,
                             least_popular_cat,
-                            admin: req.session.admintab
+                            admin: req.session.admintab,
+                            user: req.session.admintab
                         });
                     });
                 });

@@ -10,7 +10,8 @@ exports.show = function(req, res, next) {
         try {
             var displayData = {
                 purchases: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             };
 
             if (results && results.length <= 0) {
@@ -33,7 +34,8 @@ exports.showAdd = function(req, res, next) {
         try {
             res.render('add_purchases', {
                 products: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);
@@ -82,7 +84,8 @@ exports.get = function(req, res, next) {
             res.render('edit_purchases', {
                 products: products,
                 data: purchase,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);
@@ -139,6 +142,7 @@ exports.search = function(req, res, next) {
             res.render('purchases_search', {
                 purchases: results,
                 admin: req.session.admintab,
+                user: req.session.admintab,
                 layout: false
             });
         } catch (err) {

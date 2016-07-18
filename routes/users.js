@@ -25,7 +25,8 @@ exports.show = function(req, res, next) {
 
             res.render('users', {
                 users: formattedResults,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);
@@ -35,7 +36,10 @@ exports.show = function(req, res, next) {
 
 
 exports.showAdd = function(req, res) {
-    res.render('add_user', req.session.admintab);
+    res.render('add_user', {
+      admin: req.session.admintab,
+      user: req.session.admintab
+    });
 }
 
 var bcrypt = require('bcrypt');
@@ -89,7 +93,8 @@ exports.get = function(req, res, next) {
 
             res.render('edit_user', {
                 data: user,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);

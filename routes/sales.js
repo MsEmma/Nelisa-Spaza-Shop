@@ -10,7 +10,8 @@ exports.show = function(req, res, next) {
         try {
             var displayData = {
                 sales: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             };
 
             if (results && results.length <= 0) {
@@ -33,7 +34,8 @@ exports.showAdd = function(req, res) {
         try {
             res.render('add_sales', {
                 products: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
 
         } catch (err) {
@@ -83,7 +85,8 @@ exports.get = function(req, res, next) {
             res.render('edit_sales', {
                 products: products,
                 data: sale,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);
@@ -142,6 +145,7 @@ exports.search = function(req, res, next) {
             res.render('sales_search', {
                 sales: results,
                 admin: req.session.admintab,
+                user: req.session.admintab,
                 layout: false
             });
         } catch (err) {

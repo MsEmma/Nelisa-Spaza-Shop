@@ -78,7 +78,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
 
-    var nonSecurePaths = ['/','/login', '/signup'];
+    var nonSecurePaths = ['/', '/login', '/signup'];
     //check if the user don't need to be logged in
     if (_.contains(nonSecurePaths, req.path)) return next();
     //check if the user is logged in
@@ -93,7 +93,7 @@ app.use(function(req, res, next) {
     //
     if (!req.session.user) return next();
 
-    var adminPaths = ['products','categories','purchases','sales','users'];
+    var adminPaths = ['products', 'categories', 'purchases', 'sales', 'users'];
 
     if (!req.session.admintab.admin) {
         if (_.contains(adminPaths, req.path.split("/")[1])) {
@@ -132,48 +132,50 @@ app.get('/', function(req, res) {
     res.render('home', req.session.admintab);
 });
 
-app.get('/aboutus', function(req, res) {
-    res.render('aboutus', req.session.admintab);
+app.get('/about', function(req, res) {
+    res.render('about', {
+        user: req.session.admintab
+    });
 });
 
-app.get('/products',products.show);
-app.get('/ourproducts',products.showOurProducts);
-app.get('/products/add',products.showAdd);
-app.post('/products/add',products.add);
-app.get('/products/edit/:id',products.get);
-app.post('/products/update/:id',products.update);
-app.get('/products/delete/:id',products.delete);
-app.get('/products/search/:search_val',products.search);
+app.get('/products', products.show);
+app.get('/ourproducts', products.showOurProducts);
+app.get('/products/add', products.showAdd);
+app.post('/products/add', products.add);
+app.get('/products/edit/:id', products.get);
+app.post('/products/update/:id', products.update);
+app.get('/products/delete/:id', products.delete);
+app.get('/products/search/:search_val', products.search);
 
-app.get('/categories',categories.show);
-app.get('/categories/add',categories.showAdd);
-app.post('/categories/add',categories.add);
-app.get('/categories/edit/:id',categories.get);
-app.post('/categories/update/:id',categories.update);
-app.get('/categories/delete/:id',categories.delete);
+app.get('/categories', categories.show);
+app.get('/categories/add', categories.showAdd);
+app.post('/categories/add', categories.add);
+app.get('/categories/edit/:id', categories.get);
+app.post('/categories/update/:id', categories.update);
+app.get('/categories/delete/:id', categories.delete);
 
-app.get('/purchases',purchases.show);
-app.get('/purchases/add',purchases.showAdd);
-app.post('/purchases/add',purchases.add);
-app.get('/purchases/edit/:id',purchases.get);
-app.post('/purchases/update/:id',purchases.update);
-app.get('/purchases/delete/:id',purchases.delete);
-app.get('/purchases/search/:search_val',purchases.search);
+app.get('/purchases', purchases.show);
+app.get('/purchases/add', purchases.showAdd);
+app.post('/purchases/add', purchases.add);
+app.get('/purchases/edit/:id', purchases.get);
+app.post('/purchases/update/:id', purchases.update);
+app.get('/purchases/delete/:id', purchases.delete);
+app.get('/purchases/search/:search_val', purchases.search);
 
-app.get('/sales',sales.show);
-app.get('/sales/add',sales.showAdd);
-app.post('/sales/add',sales.add);
-app.get('/sales/edit/:id',sales.get);
-app.post('/sales/update/:id',sales.update);
-app.get('/sales/delete/:id',sales.delete);
-app.get('/sales/search/:search_val',sales.search);
+app.get('/sales', sales.show);
+app.get('/sales/add', sales.showAdd);
+app.post('/sales/add', sales.add);
+app.get('/sales/edit/:id', sales.get);
+app.post('/sales/update/:id', sales.update);
+app.get('/sales/delete/:id', sales.delete);
+app.get('/sales/search/:search_val', sales.search);
 
-app.get('/users',users.show);
-app.get('/users/add',users.showAdd);
-app.post('/users/add',users.add);
-app.get('/users/edit/:id',users.get);
-app.post('/users/update/:id',users.update);
-app.get('/users/delete/:id',users.delete);
+app.get('/users', users.show);
+app.get('/users/add', users.showAdd);
+app.post('/users/add', users.add);
+app.get('/users/edit/:id', users.get);
+app.post('/users/update/:id', users.update);
+app.get('/users/delete/:id', users.delete);
 
 app.get('/getsummary', function(req, res) {
     res.render('getsummary', req.session.admintab);

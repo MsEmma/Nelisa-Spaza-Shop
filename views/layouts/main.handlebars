@@ -13,59 +13,54 @@
 
 <body>
 
-    <ul id="dropdown1" class="dropdown-content">
-        <li>{{user}}</li>
-        <li class="divider"></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
-
     <div class="row">
         <div class="col s12 m12 l12">
-            <nav class = "white">
+            <nav class="white">
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo"><img id="logo" src='/images/nelisalogo.png'></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class="black-text" href="/login"><b>Login</b></a></li>
-                        <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
+                        {{#if user}}
+                            <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
+                        {{else}}
+                            <li><a class="black-text" href="/login"><b>Login</b></a></li>
+                        {{/if}}
                     </ul>
                 </div>
             </nav>
 
-            <nav id = "main-nav">
+            <nav id="main-nav">
                 <div class="nav-wrapper">
                     <a href="/" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="left hide-on-med-and-down">
-                        <li><a href="/aboutus" class="waves-effect waves"><b>About</b></a></li>
-
                         {{#if admin}}
                             <li><a href="/products" class="waves-effect waves"><b>Products</b></a></li>
                             <li><a href="/purchases" class="waves-effect waves"><b>Purchases</b></a></li>
                             <li><a href="/sales" class="waves-effect waves"><b>Sales</b></a></li>
                             <li><a href="/users" class="waves-effect waves"><b>Users</b></a></li>
                             <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
-
                         {{else}}
+                            <li><a href="/about" class="waves-effect waves"><b>About</b></a></li>
                             <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
                         {{/if}}
-
                     </ul>
 
                     <ul class="side-nav" id="nav-mobile">
-                        <li><a href="/aboutus" class="waves-effect waves"><b>About</b></a></li>
-
                         {{#if admin}}
                             <li><a href="/products" class="waves-effect waves"><b>Products</b></a></li>
                             <li><a href="/purchases" class="waves-effect waves"><b>Purchases</b></a></li>
                             <li><a href="/sales" class="waves-effect waves"><b>Sales</b></a></li>
                             <li><a href="/users" class="waves-effect waves"><b>Users</b></a></li>
                             <li><a href="/getsummary" class="waves-effect waves"><b>Summary</b></a></li>
-
                         {{else}}
+                            <li><a href="/about" class="waves-effect waves"><b>About</b></a></li>
                             <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
                         {{/if}}
 
-                        <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
-
+                        {{#if user}}
+                            <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
+                        {{else}}
+                            <li><a class="black-text" href="/login"><b>Login</b></a></li>
+                        {{/if}}
                     </ul>
                 </div>
             </nav>

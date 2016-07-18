@@ -10,7 +10,8 @@ exports.show = function(req, res, next) {
         try {
             var displayData = {
                 categories: results,
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             };
             if (results && results.length <= 0) {
                 displayData.err = 'Categories not found.';
@@ -53,7 +54,8 @@ exports.get = function(req, res, next) {
         try {
             res.render('edit_category', {
                 data: results[0],
-                admin: req.session.admintab
+                admin: req.session.admintab,
+                user: req.session.admintab
             });
         } catch (err) {
             next(err);

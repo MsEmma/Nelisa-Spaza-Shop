@@ -5,45 +5,56 @@ h5 {
 #warning {
     color: #FF0000 !important;
 }
+
 #success {
     color: green !important;
 }
+
 #main-nav {
     background-color: #4ec5c1;
 }
+
 #about_us {
     padding: 5%;
 }
+
 i.icon-black {
     color: black;
 }
+
 .card-content {
     text-align: center;
 }
+
 input[type="submit"] {
     color: white;
     font-weight: bold;
     text-align: center;
     background-color: #000000;
 }
+
 .container {
     padding-top: 40px;
 }
+
 i {
-    font-weight: bold;
+    font-weight: bold;        
 }
+
 .btn {
     background-color: #ec576B !important;
 }
+
 #add {
     background-color: #4ec5c1 !important;
 }
+
 .home-logo {
-  text-align: center;
+    text-align: center;
 }
 
 #logo {
-  height: 55px;
-  width: 120px;
-  padding-left: 10px;
+    height: 55px;
+    width: 120px;
+    padding-left: 10px;
 }
