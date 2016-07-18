@@ -23,14 +23,10 @@
         <div class="col s12 m12 l12">
             <nav class = "white">
                 <div class="nav-wrapper">
-                    <a href="/" class="brand-logo black-text"><b>Nelisa Spaza Shop</b></a>
+                    <a href="/" class="brand-logo"><img id="logo" src='/images/nelisalogo.png'></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="black-text" href="/login"><b>Login</b></a></li>
-                        <li>
-                            <a class="dropdown-button" data-activates="dropdown1">
-                                <i class="material-icons icon-black">person_pin</i>
-                            </a>
-                        </li>
+                        <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
                     </ul>
                 </div>
             </nav>
@@ -67,6 +63,8 @@
                         {{else}}
                             <li><a href="/ourproducts" class="waves-effect waves"><b>Our Products</b></a></li>
                         {{/if}}
+
+                        <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
 
                     </ul>
                 </div>
