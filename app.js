@@ -125,7 +125,7 @@ app.post("/signup", signup);
 app.get('/logout', function(req, res) {
     delete req.session.user;
     delete req.session.admintab;
-    res.redirect('/login');
+    res.redirect('/');
 });
 
 app.get('/', function(req, res) {
