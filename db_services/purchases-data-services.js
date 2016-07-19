@@ -3,7 +3,7 @@ const DbQueryService = require('./dbQueryService');
 module.exports = function(connection) {
     const dbQueryService = new DbQueryService(connection);
     this.show = function() {
-        return dbQueryService.executeQuery("SELECT purchases.id, DATE_FORMAT(purchases.date,'%a %d %b %Y') AS DATE, purchases.shop, products.product, categories.category, purchases.quantity, purchases.cost FROM purchases INNER JOIN products ON purchases.product_id = products.id INNER JOIN categories ON products.category_id = categories.id ORDER BY DATE ASC");
+        return dbQueryService.executeQuery("SELECT purchases.id, DATE_FORMAT(purchases.date,'%a %d %b %Y') AS date, purchases.shop, products.product, categories.category, purchases.quantity, purchases.cost FROM purchases INNER JOIN products ON purchases.product_id = products.id INNER JOIN categories ON products.category_id = categories.id ORDER BY purchases.date DESC");
     };
 
     this.getProducts = function() {
