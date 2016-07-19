@@ -20,7 +20,15 @@
                     <a href="/" class="brand-logo"><img id="logo" src='/images/nelisalogo.png'></a>
                     <ul class="right hide-on-med-and-down">
                         {{#if user}}
-                            <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
+                            <li>
+                                <a class='dropdown-button black-text' data-activates='dropdown1'>
+                                  <i class="material-icons">supervisor_account</i>
+                                </a>
+                            </li>
+                            <ul id='dropdown1' class='dropdown-content'>
+                                <li> User: {{user}}</li>
+                                <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
+                            </ul>
                         {{else}}
                             <li><a class="black-text" href="/login"><b>Login</b></a></li>
                         {{/if}}

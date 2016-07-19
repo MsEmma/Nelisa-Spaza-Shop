@@ -11,7 +11,7 @@ module.exports = function(req, res, next) {
     var user = req.body.username;
 
     if (user.length < 4 || password.length < 4) {
-        req.flash('warning', 'Username/Password too short, minimum length should 4 letters');
+        req.flash('warning', 'Username/Password too short, minimum length should be 4 letters long');
         return res.redirect("/signup");
     } else {
       req.getConnection(function(err, connection) {

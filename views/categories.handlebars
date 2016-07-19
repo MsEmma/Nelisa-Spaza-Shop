@@ -11,38 +11,38 @@
 </div>
 
 <div class="container">
-    <table class="bordered" class="bordered" class="responsive-table">
+	<table class="bordered" class="bordered" class="responsive-table">
 
-        <thead>
-            <tr>
-                <th>Category
-                    <a class="btn btn-default" href="/categories/add" role="button">
-                        <i class="material-icons left">add</i>Add</a>
-                    </a>
-                </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
+		<thead>
+			<tr>
+				<th>Category
+					<a class="btn btn-default" href="/categories/add" role="button" id="add">
+						<i class="material-icons left">add</i>Add</a>
+					</a>
+				</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
 
-        {{#categories}}
+		{{#categories}}
 
-            <tbody>
-                <tr>
-                    <td>{{category}}</td>
-                    <td>
-                        <a class="btn btn-default" href="/categories/edit/{{id}}" role="button">
-                            <i class="material-icons left">mode_edit</i>Edit</a>
-                        </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-default" href="/categories/delete/{{id}}">
-                            <i class="material-icons left">delete</i>Delete</a>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        {{/categories}}
+			<tbody>
+				<tr>
+					<td>{{category}}</td>
+					<td>
+						<a class="btn btn-default" href="/categories/edit/{{id}}" role="button">
+							<i class="material-icons left">mode_edit</i>Edit</a>
+						</a>
+					</td>
+					<td>
+						<a class="btn btn-default" href="/categories/delete/{{id}}">
+							<i class="material-icons left">delete</i>Delete</a>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		{{/categories}}
 
-    </table>
+	</table>
 </div>
