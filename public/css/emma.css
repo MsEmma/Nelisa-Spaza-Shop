@@ -1,13 +1,13 @@
 h5 {
     text-align: center;
-    padding: 2%;
+    /*padding: 2%;*/
 }
 #warning {
-    color: #FF0000 !important;
+    color: #FF0000;
 }
 
 #success {
-    color: green !important;
+    color: green;
 }
 
 #main-nav {
@@ -38,7 +38,7 @@ input[type="submit"] {
 }
 
 i {
-    font-weight: bold;        
+    font-weight: bold;
 }
 
 .btn {
@@ -57,4 +57,23 @@ i {
     height: 55px;
     width: 120px;
     padding-left: 10px;
+}
+
+.page-footer {
+  /*border-top: 2px solid #4ec5c1;*/
+  font-size: 80%;
+  box-shadow:0 8px 6px -6px #4ec5c1;
+}
+
+.main {
+  min-height: 40em;
+}
+
+.nav-text {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+body {
+  padding-bottom: 5px;
 }

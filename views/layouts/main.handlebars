@@ -5,15 +5,16 @@
     <meta charset="utf-8">
     <title>Nelisa Spaza Shop</title>
 
-    <link rel="stylesheet" href="/css/emma.css">
     <link rel="stylesheet" href="/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tiny-date-picker.min.css">
+    <link rel="stylesheet" href="/css/emma.css">
 
 </head>
 
 <body>
 
-    <div class="row">
+    <div class="row main">
         <div class="col s12 m12 l12">
             <nav class="white">
                 <div class="nav-wrapper">
@@ -22,11 +23,11 @@
                         {{#if user}}
                             <li>
                                 <a class='dropdown-button black-text' data-activates='dropdown1'>
-                                  <i class="material-icons">supervisor_account</i>
+                                    <i class="material-icons">account_circle</i>
                                 </a>
                             </li>
                             <ul id='dropdown1' class='dropdown-content'>
-                                <li> User: {{user}}</li>
+                                <li> User:{{user}}</li>
                                 <li><a class="black-text" href="/logout"><b>Logout</b></a></li>
                             </ul>
                         {{else}}
@@ -76,6 +77,11 @@
             {{{body}}}
 
         </div>
+    </div>
+    <div>
+        <footer class="page-footer white">
+            <span class="grey-text">© 2016 Emma Phiri All rights reserved.</span>
+        </footer>
     </div>
 
 </body>

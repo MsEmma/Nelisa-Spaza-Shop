@@ -3,7 +3,7 @@
 		<div class="nav-wrapper">
 			<ul>
 				<li>
-					<h5 class="black-text"><b>GET STATS</b></h5>
+					<h5 class="nav-text black-text">Get Stats</h5>
 				</li>
 			</ul>
 		</div>
@@ -12,19 +12,36 @@
 
 <div class="container">
 
-    <form class="navbar-form navbar-left" action="/summary" method="POST">
+	<form class="navbar-form navbar-left" action="/summary" method="POST">
 
-        <div class="form-group">
-            <label for="">FROM &nbsp;:</label>
-            <input type="date" name="from" value="{{data.date}}">
-        </div>
+		<div class="form-group">
+			<label for="">FROM &nbsp;:</label>
+			<input class="date-picker-from" type="text" name="from" value="{{data.date}}">
+		</div>
 
-        <div class="form-group">
-            <label for="">TO &nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="date" name="to" value="{{data.date}}">
-        </div>
+		<div class="form-group">
+			<label for="">TO &nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<input class="date-picker-to" type="text" name="to" value="{{data.date}}" />
+		</div>
 
-        <input class="btn btn-default" type="submit">
+		<input class="btn btn-default" type="submit">
 
-    </form>
+	</form>
 </div>
+
+<script src="/js/tiny-date-picker.min.js"></script>
+<script>
+	TinyDatePicker(document.querySelector('.date-picker-from'));
+	if (window.console && window.console.log) {
+		document.addEventListener('change', function(e) {
+			console.log('Changed to: ' + e.target.value);
+		});
+	}
+
+	TinyDatePicker(document.querySelector('.date-picker-to'));
+	if (window.console && window.console.log) {
+		document.addEventListener('change', function(e) {
+			console.log('Changed to: ' + e.target.value);
+		});
+	}
+</script>
