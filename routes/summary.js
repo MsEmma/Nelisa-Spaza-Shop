@@ -1,7 +1,7 @@
 exports.showPopular = function(req, res, next) {
 
-    var start_date = (req.body.from).toString();
-    var end_date = (req.body.to).toString();
+    var start_date = req.body.from;
+    var end_date = req.body.to;
 
     req.getConnection(function(err, connection) {
         if (err) return next(err);

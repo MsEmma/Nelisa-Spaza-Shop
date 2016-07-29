@@ -24,6 +24,7 @@ i.icon-black {
 
 .card-content {
     text-align: center;
+    font-size: 14px;
 }
 
 input[type="submit"] {

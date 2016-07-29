@@ -31,17 +31,15 @@
 
 <script src="/js/tiny-date-picker.min.js"></script>
 <script>
-	TinyDatePicker(document.querySelector('.date-picker-from'));
-	if (window.console && window.console.log) {
-		document.addEventListener('change', function(e) {
-			console.log('Changed to: ' + e.target.value);
-		});
-	}
-
-	TinyDatePicker(document.querySelector('.date-picker-to'));
-	if (window.console && window.console.log) {
-		document.addEventListener('change', function(e) {
-			console.log('Changed to: ' + e.target.value);
-		});
-	}
+	var options = {year: "numeric",month: "2-digit",day: "2-digit"};
+	TinyDatePicker(document.querySelector('.date-picker-from'), {
+		format: function(date) {
+			return date.toLocaleDateString('en-CA', options);
+		}
+	});
+	TinyDatePicker(document.querySelector('.date-picker-to'), {
+		format: function(date) {
+			return date.toLocaleDateString('en-CA', options);
+		}
+	});
 </script>
