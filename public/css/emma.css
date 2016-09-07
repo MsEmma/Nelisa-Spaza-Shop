@@ -2,6 +2,7 @@ h5 {
     text-align: center;
     /*padding: 2%;*/
 }
+
 #warning {
     color: #FF0000;
 }
@@ -54,6 +55,10 @@ i {
     text-align: center;
 }
 
+#home-logo {
+  width: 18em;
+}
+
 #logo {
     height: 55px;
     width: 120px;
@@ -61,20 +66,20 @@ i {
 }
 
 .page-footer {
-  /*border-top: 2px solid #4ec5c1;*/
-  font-size: 80%;
-  box-shadow:0 8px 6px -6px #4ec5c1;
+    /*border-top: 2px solid #4ec5c1;*/
+    font-size: 80%;
+    box-shadow: 0 8px 6px -6px #4ec5c1;
 }
 
 .main {
-  min-height: 40em;
+    min-height: 25em;
 }
 
 .nav-text {
-  text-transform: uppercase;
-  font-weight: bold;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 body {
-  padding-bottom: 5px;
+    padding-bottom: 1%;
 }
